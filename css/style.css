@@ -1294,6 +1294,7 @@ input, textarea, select {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    z-index: 5;
 }
 
 .badge {
@@ -1419,23 +1420,46 @@ input, textarea, select {
 
 /* Product Icon Boxes */
 .product-icon-box {
-    background: var(--white);
+    position: relative;
+    background: var(--gradient-secondary);
     border-radius: var(--radius-xl);
-    padding: 30px;
+    padding: 40px 30px;
     text-align: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border: 1px solid var(--border-color);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.product-icon-box:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+.product-icon-box .product-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-showcase-card:hover .product-icon-box .product-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .product-icon-inverter,
 .product-icon-battery {
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .product-icon-visual {
@@ -1444,18 +1468,27 @@ input, textarea, select {
     background: var(--gradient-primary);
     border-radius: 50%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    font-size: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.product-icon-visual i {
+    font-size: 2rem;
     color: var(--white);
 }
 
 .icon-watt-label {
-    margin-top: 10px;
-    font-size: 1.1rem;
+    display: block;
+    margin-top: 15px;
+    font-size: 1.2rem;
     font-weight: 700;
-    color: var(--dark-color);
+    color: var(--white);
+    position: relative;
+    z-index: 1;
 }
 
 /* Accessories */
