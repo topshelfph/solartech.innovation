@@ -444,56 +444,44 @@
                 <p>Visual representation of energy movement in your solar system</p>
             </div>
             <div class="energy-flow-modern">
-                <div class="flow-node source-node">
-                    <div class="node-icon sun-node">
+                <div class="flow-node sun-node">
+                    <div class="node-icon">
                         <i class="fas fa-sun"></i>
                     </div>
                     <span>Sunlight</span>
                     <small>Clean Energy Source</small>
                 </div>
-                <div class="flow-connector animated">
-                    <div class="energy-particles"></div>
-                </div>
-                <div class="flow-node">
-                    <div class="node-icon panel-node">
+                <div class="flow-connector animated"></div>
+                <div class="flow-node panel-node">
+                    <div class="node-icon">
                         <i class="fas fa-solar-panel"></i>
                     </div>
                     <span>Solar Panels</span>
                     <small>DC Output: 12-48V</small>
                 </div>
-                <div class="flow-connector animated">
-                    <div class="energy-particles"></div>
-                </div>
-                <div class="flow-node">
-                    <div class="node-icon inverter-node">
-                        <i class="fas fa-exchange-alt"></i>
+                <div class="flow-connector animated"></div>
+                <div class="flow-node inverter-node">
+                    <div class="node-icon">
+                        <i class="fas fa-random"></i>
                     </div>
                     <span>Inverter</span>
                     <small>DC → AC 220V</small>
                 </div>
-                <div class="flow-split-modern">
-                    <div class="flow-branch-top">
-                        <div class="flow-connector-vertical animated"></div>
-                        <div class="flow-node small-node">
-                            <div class="node-icon battery-node">
-                                <i class="fas fa-battery-full"></i>
-                            </div>
-                            <span>Battery</span>
-                            <small>Storage</small>
-                        </div>
+                <div class="flow-connector animated"></div>
+                <div class="flow-node battery-node">
+                    <div class="node-icon">
+                        <i class="fas fa-car-battery"></i>
                     </div>
-                    <div class="flow-branch-main">
-                        <div class="flow-connector animated">
-                            <div class="energy-particles"></div>
-                        </div>
-                        <div class="flow-node destination-node">
-                            <div class="node-icon home-node">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <span>Your Home</span>
-                            <small>220V AC Power</small>
-                        </div>
+                    <span>Battery</span>
+                    <small>Energy Storage</small>
+                </div>
+                <div class="flow-connector animated"></div>
+                <div class="flow-node home-node">
+                    <div class="node-icon">
+                        <i class="fas fa-home"></i>
                     </div>
+                    <span>Your Home</span>
+                    <small>220V AC Power</small>
                 </div>
             </div>
         </div>

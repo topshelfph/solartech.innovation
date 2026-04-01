@@ -900,39 +900,42 @@
     .energy-flow-modern {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+        padding: 30px 15px;
     }
 
     .flow-connector {
         width: 4px;
         height: 40px;
-        background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+        background: var(--border-color);
     }
 
-    .flow-connector::after {
-        right: auto;
-        bottom: -8px;
-        left: 50%;
-        top: auto;
-        transform: translateX(-50%);
-        border-left-color: transparent;
-        border-top-color: var(--accent-color);
+    .flow-connector.animated::after {
+        width: 100%;
+        height: 15px;
+        animation: flowVertical 1.5s linear infinite;
     }
 
     .flow-split-modern {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
     }
 
     .flow-branch-top {
-        margin-right: 0;
+        flex-direction: column;
+        align-items: center;
     }
 
     .flow-branch-main {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+    }
+
+    .flow-connector-vertical {
+        width: 40px;
+        height: 4px;
     }
 }
 
