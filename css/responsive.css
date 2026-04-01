@@ -129,11 +129,20 @@
     }
 
     .hero-stats {
-        gap: 30px;
+        gap: 0;
+        padding: 14px 20px;
+    }
+
+    .stat {
+        padding: 0 18px;
     }
 
     .stat-number {
         font-size: 2rem;
+    }
+
+    .stat-suffix {
+        font-size: 1.2rem;
     }
 
     /* About */
@@ -287,11 +296,26 @@
 
     .hero-stats {
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 0;
+        padding: 12px 16px;
+        width: 100%;
     }
 
     .stat {
-        flex: 1 1 calc(50% - 10px);
+        flex: 1 1 calc(50% - 1px);
+        padding: 10px 15px;
+    }
+
+    .stat-divider {
+        display: none;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-suffix {
+        font-size: 1.1rem;
     }
 
     .slider-controls {
@@ -662,9 +686,8 @@
         text-align: center;
     }
 }
-        background: linear-gradient(transparent 0%, rgba(0,0,0,0.8) 60%);
-    }
 
+@media (max-width: 430px) {
     .btn:hover {
         transform: none;
     }
@@ -800,3 +823,191 @@
         padding-bottom: max(25px, env(safe-area-inset-bottom));
     }
 }
+
+/* ===== Showroom Responsive Styles ===== */
+@media (max-width: 992px) {
+    .video-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .system-comparison-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .solar-process-diagram {
+        padding: 40px 20px;
+        gap: 10px;
+    }
+
+    .process-step {
+        min-width: 110px;
+        padding: 15px 15px;
+    }
+
+    .process-arrow {
+        width: 35px;
+    }
+
+    .process-arrow svg {
+        width: 35px;
+    }
+
+    .energy-flow-modern {
+        gap: 5px;
+    }
+
+    .flow-connector {
+        width: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-info {
+        padding: 20px;
+    }
+
+    .solar-process-diagram {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+    }
+
+    .process-arrow {
+        transform: rotate(90deg);
+        width: 40px;
+        height: 30px;
+    }
+
+    .process-arrow svg {
+        width: 40px;
+        height: 30px;
+    }
+
+    .process-step {
+        max-width: 200px;
+        width: 100%;
+    }
+
+    .energy-flow-modern {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .flow-connector {
+        width: 4px;
+        height: 40px;
+        background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+    }
+
+    .flow-connector::after {
+        right: auto;
+        bottom: -8px;
+        left: 50%;
+        top: auto;
+        transform: translateX(-50%);
+        border-left-color: transparent;
+        border-top-color: var(--accent-color);
+    }
+
+    .flow-split-modern {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .flow-branch-top {
+        margin-right: 0;
+    }
+
+    .flow-branch-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+/* ===== Fullscreen Video Stage Responsive ===== */
+@media (max-width: 992px) {
+    .video-fullscreen-stage {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        height: auto;
+    }
+
+    .video-panel-landscape {
+        aspect-ratio: 16 / 9;
+        height: auto;
+    }
+
+    .video-panel-portrait {
+        aspect-ratio: 9 / 16;
+        max-height: 70vh;
+        border-left: none;
+        border-top: 4px solid var(--primary-color);
+    }
+
+    .video-panel video {
+        height: 100%;
+        width: 100%;
+    }
+
+    .video-panel-overlay {
+        transform: translateY(0);
+    }
+
+    .video-section-header h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-section-header {
+        padding: 50px 20px 36px;
+    }
+
+    .video-section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .video-panel-label h3 {
+        font-size: 1rem;
+    }
+
+    .video-panel-features {
+        display: none;
+    }
+}
+
+/* ===== Products Showcase Grid Responsive ===== */
+@media (max-width: 992px) {
+    .products-showcase-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .category-title-bar h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .products-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .product-filter-tabs {
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.82rem;
+    }
+}
+

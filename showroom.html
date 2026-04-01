@@ -73,58 +73,152 @@
         </div>
     </section>
 
-    <!-- How Solar Works -->
-    <section class="how-solar-works">
-        <div class="container">
-            <div class="showroom-card full-width">
-                <h3><i class="fas fa-solar-panel"></i> How Solar Power Works</h3>
-                <div class="solar-diagram">
-                    <div class="diagram-container">
-                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Solar System Diagram" class="diagram-bg">
-                        <div class="diagram-overlay">
-                            <div class="diagram-steps">
-                                <div class="step">
-                                    <div class="step-icon">
-                                        <i class="fas fa-sun"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h4>1. Sun Energy</h4>
-                                        <p>Sunlight hits the solar panels</p>
-                                    </div>
-                                </div>
-                                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
-                                <div class="step">
-                                    <div class="step-icon">
-                                        <i class="fas fa-solar-panel"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h4>2. DC Power</h4>
-                                        <p>Panels convert light to DC electricity</p>
-                                    </div>
-                                </div>
-                                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
-                                <div class="step">
-                                    <div class="step-icon">
-                                        <i class="fas fa-exchange-alt"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h4>3. Inverter</h4>
-                                        <p>Converts DC to AC power</p>
-                                    </div>
-                                </div>
-                                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
-                                <div class="step">
-                                    <div class="step-icon">
-                                        <i class="fas fa-home"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h4>4. Power Home</h4>
-                                        <p>Electricity powers your appliances</p>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Video Showcase Section -->
+    <section class="video-showcase-section">
+        <div class="video-section-header">
+            <span class="section-tag">Watch &amp; Learn</span>
+            <h2>Solar System <span class="highlight">Demonstrations</span></h2>
+            <p>See our solar systems in action — real installations, real results</p>
+        </div>
+        <div class="video-fullscreen-stage">
+            <!-- Landscape Video: Hybrid System -->
+            <div class="video-panel video-panel-landscape">
+                <video controls poster="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80">
+                    <source src="Hybrid.mp4" type="video/mp4">
+                </video>
+                <div class="video-panel-overlay">
+                    <div class="video-panel-label">
+                        <span class="video-orient-tag"><i class="fas fa-expand-alt"></i> Landscape</span>
+                        <h3><i class="fas fa-bolt"></i> Hybrid Solar System</h3>
+                        <p>Grid + Solar + Battery — 24/7 power supply with automatic switching</p>
+                        <div class="video-panel-features">
+                            <span><i class="fas fa-check"></i> Grid-Tied</span>
+                            <span><i class="fas fa-check"></i> Battery Backup</span>
+                            <span><i class="fas fa-check"></i> Smart Switch</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Portrait Video: Off-Grid Solar -->
+            <div class="video-panel video-panel-portrait">
+                <video controls poster="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80">
+                    <source src="Solar.mp4" type="video/mp4">
+                </video>
+                <div class="video-panel-overlay">
+                    <div class="video-panel-label">
+                        <span class="video-orient-tag"><i class="fas fa-compress-alt"></i> Portrait</span>
+                        <h3><i class="fas fa-sun"></i> Off-Grid Solar</h3>
+                        <p>Complete independence from the utility grid</p>
+                        <div class="video-panel-features">
+                            <span><i class="fas fa-check"></i> Off-Grid</span>
+                            <span><i class="fas fa-check"></i> Battery Only</span>
+                            <span><i class="fas fa-check"></i> Remote Areas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Solar Works - Enhanced Diagram -->
+    <section class="how-solar-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">How It Works</span>
+                <h2>Solar Power <span class="highlight">Process</span></h2>
+                <p>Understanding the journey from sunlight to electricity</p>
+            </div>
+            <div class="solar-process-diagram">
+                <div class="process-step">
+                    <div class="process-icon sun-glow">
+                        <svg viewBox="0 0 100 100" class="sun-svg">
+                            <circle cx="50" cy="50" r="20" fill="#FFD700"/>
+                            <g class="sun-rays">
+                                <line x1="50" y1="10" x2="50" y2="25" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="50" y1="75" x2="50" y2="90" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="10" y1="50" x2="25" y2="50" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="75" y1="50" x2="90" y2="50" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="21" y1="21" x2="32" y2="32" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="68" y1="68" x2="79" y2="79" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="21" y1="79" x2="32" y2="68" stroke="#FFD700" stroke-width="3"/>
+                                <line x1="68" y1="32" x2="79" y2="21" stroke="#FFD700" stroke-width="3"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="process-number">1</div>
+                    <h4>Sunlight</h4>
+                    <p>Photons from the sun reach your solar panels</p>
+                </div>
+                <div class="process-arrow">
+                    <svg viewBox="0 0 50 20">
+                        <defs>
+                            <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#f7931e"/>
+                                <stop offset="100%" stop-color="#00a651"/>
+                            </linearGradient>
+                        </defs>
+                        <line x1="0" y1="10" x2="35" y2="10" stroke="url(#arrowGrad)" stroke-width="3"/>
+                        <polygon points="35,5 45,10 35,15" fill="#00a651"/>
+                    </svg>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon panel-icon-large">
+                        <svg viewBox="0 0 100 100" class="panel-svg">
+                            <rect x="10" y="20" width="80" height="60" rx="3" fill="#1a5276" stroke="#2980b9" stroke-width="2"/>
+                            <line x1="10" y1="40" x2="90" y2="40" stroke="#2980b9" stroke-width="1"/>
+                            <line x1="10" y1="60" x2="90" y2="60" stroke="#2980b9" stroke-width="1"/>
+                            <line x1="30" y1="20" x2="30" y2="80" stroke="#2980b9" stroke-width="1"/>
+                            <line x1="50" y1="20" x2="50" y2="80" stroke="#2980b9" stroke-width="1"/>
+                            <line x1="70" y1="20" x2="70" y2="80" stroke="#2980b9" stroke-width="1"/>
+                            <rect x="45" y="80" width="10" height="10" fill="#333"/>
+                        </svg>
+                    </div>
+                    <div class="process-number">2</div>
+                    <h4>Solar Panels</h4>
+                    <p>Panels convert sunlight to DC electricity</p>
+                </div>
+                <div class="process-arrow">
+                    <svg viewBox="0 0 50 20">
+                        <line x1="0" y1="10" x2="35" y2="10" stroke="url(#arrowGrad)" stroke-width="3"/>
+                        <polygon points="35,5 45,10 35,15" fill="#00a651"/>
+                    </svg>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon inverter-icon-large">
+                        <svg viewBox="0 0 100 100" class="inverter-svg">
+                            <rect x="15" y="15" width="70" height="70" rx="5" fill="#8e44ad" stroke="#9b59b6" stroke-width="2"/>
+                            <text x="50" y="35" text-anchor="middle" fill="white" font-size="10" font-weight="bold">DC</text>
+                            <path d="M30 50 L70 50" stroke="white" stroke-width="2"/>
+                            <polygon points="60,45 70,50 60,55" fill="white"/>
+                            <text x="50" y="70" text-anchor="middle" fill="white" font-size="10" font-weight="bold">AC</text>
+                            <circle cx="25" cy="85" r="3" fill="#00a651"/>
+                            <circle cx="35" cy="85" r="3" fill="#f7931e"/>
+                        </svg>
+                    </div>
+                    <div class="process-number">3</div>
+                    <h4>Inverter</h4>
+                    <p>Converts DC power to usable AC power</p>
+                </div>
+                <div class="process-arrow">
+                    <svg viewBox="0 0 50 20">
+                        <line x1="0" y1="10" x2="35" y2="10" stroke="url(#arrowGrad)" stroke-width="3"/>
+                        <polygon points="35,5 45,10 35,15" fill="#00a651"/>
+                    </svg>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon home-icon-large">
+                        <svg viewBox="0 0 100 100" class="home-svg">
+                            <polygon points="50,15 10,45 20,45 20,85 80,85 80,45 90,45" fill="#f7931e" stroke="#e67e22" stroke-width="2"/>
+                            <rect x="40" y="55" width="20" height="30" fill="#8b4513"/>
+                            <circle cx="55" cy="70" r="2" fill="#FFD700"/>
+                            <rect x="25" y="50" width="12" height="12" fill="#87CEEB" stroke="#5dade2" stroke-width="1"/>
+                            <rect x="63" y="50" width="12" height="12" fill="#87CEEB" stroke="#5dade2" stroke-width="1"/>
+                            <rect x="30" y="10" width="40" height="8" fill="#1a5276"/>
+                        </svg>
+                    </div>
+                    <div class="process-number">4</div>
+                    <h4>Your Home</h4>
+                    <p>Clean energy powers all your appliances</p>
                 </div>
             </div>
         </div>
@@ -133,6 +227,11 @@
     <!-- Power Generation Display -->
     <section class="power-generation-section">
         <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Live Data</span>
+                <h2>Power Generation <span class="highlight">Monitor</span></h2>
+                <p>Real-time solar energy production statistics</p>
+            </div>
             <div class="showroom-grid">
                 <div class="showroom-card">
                     <h3><i class="fas fa-tachometer-alt"></i> Power Generation Display</h3>
@@ -175,23 +274,47 @@
 
                 <div class="showroom-card">
                     <h3><i class="fas fa-cogs"></i> System Components</h3>
-                    <div class="components-display">
+                    <div class="components-display enhanced">
                         <div class="component">
-                            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Solar Panel">
+                            <div class="component-icon">
+                                <svg viewBox="0 0 80 80">
+                                    <rect x="5" y="15" width="70" height="50" rx="3" fill="#1a5276" stroke="#2980b9" stroke-width="2"/>
+                                    <line x1="5" y1="32" x2="75" y2="32" stroke="#2980b9" stroke-width="1"/>
+                                    <line x1="5" y1="48" x2="75" y2="48" stroke="#2980b9" stroke-width="1"/>
+                                    <line x1="28" y1="15" x2="28" y2="65" stroke="#2980b9" stroke-width="1"/>
+                                    <line x1="52" y1="15" x2="52" y2="65" stroke="#2980b9" stroke-width="1"/>
+                                </svg>
+                            </div>
                             <div class="component-info">
                                 <h4>Solar Panel</h4>
                                 <p>Converts sunlight to DC power</p>
                             </div>
                         </div>
                         <div class="component">
-                            <img src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Inverter">
+                            <div class="component-icon">
+                                <svg viewBox="0 0 80 80">
+                                    <rect x="10" y="10" width="60" height="60" rx="5" fill="#8e44ad" stroke="#9b59b6" stroke-width="2"/>
+                                    <text x="40" y="30" text-anchor="middle" fill="white" font-size="12" font-weight="bold">DC</text>
+                                    <path d="M20 40 L60 40" stroke="white" stroke-width="2"/>
+                                    <polygon points="52,36 62,40 52,44" fill="white"/>
+                                    <text x="40" y="58" text-anchor="middle" fill="white" font-size="12" font-weight="bold">AC</text>
+                                </svg>
+                            </div>
                             <div class="component-info">
                                 <h4>Inverter</h4>
                                 <p>DC to AC conversion</p>
                             </div>
                         </div>
                         <div class="component">
-                            <img src="https://images.unsplash.com/photo-1620677308059-2c9c4f38a14e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Battery">
+                            <div class="component-icon">
+                                <svg viewBox="0 0 80 80">
+                                    <rect x="10" y="20" width="60" height="40" rx="5" fill="#27ae60" stroke="#2ecc71" stroke-width="2"/>
+                                    <rect x="65" y="30" width="8" height="20" rx="2" fill="#2ecc71"/>
+                                    <rect x="18" y="30" width="15" height="20" fill="#fff" opacity="0.3"/>
+                                    <line x1="40" y1="28" x2="40" y2="52" stroke="#2ecc71" stroke-width="1"/>
+                                    <text x="55" y="45" text-anchor="middle" fill="white" font-size="14" font-weight="bold">+</text>
+                                </svg>
+                            </div>
                             <div class="component-info">
                                 <h4>Battery</h4>
                                 <p>Energy storage system</p>
@@ -203,54 +326,172 @@
         </div>
     </section>
 
-    <!-- Energy Flow Diagram -->
+    <!-- System Types Comparison -->
+    <section class="system-types-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">System Types</span>
+                <h2>Choose Your <span class="highlight">Solar System</span></h2>
+                <p>Compare different solar system configurations to find what's right for you</p>
+            </div>
+            <div class="system-comparison-grid">
+                <div class="system-type-card">
+                    <div class="system-diagram">
+                        <svg viewBox="0 0 200 150" class="system-svg">
+                            <!-- Sun -->
+                            <circle cx="30" cy="30" r="15" fill="#FFD700"/>
+                            <line x1="30" y1="5" x2="30" y2="15" stroke="#FFD700" stroke-width="2"/>
+                            <line x1="30" y1="45" x2="30" y2="55" stroke="#FFD700" stroke-width="2"/>
+                            <line x1="5" y1="30" x2="15" y2="30" stroke="#FFD700" stroke-width="2"/>
+                            <line x1="45" y1="30" x2="55" y2="30" stroke="#FFD700" stroke-width="2"/>
+                            <!-- Panel -->
+                            <rect x="70" y="20" width="40" height="30" rx="2" fill="#1a5276" stroke="#2980b9"/>
+                            <!-- Arrow to Battery -->
+                            <line x1="110" y1="35" x2="130" y2="35" stroke="#f7931e" stroke-width="2"/>
+                            <polygon points="125,32 132,35 125,38" fill="#f7931e"/>
+                            <!-- Battery -->
+                            <rect x="135" y="25" width="25" height="20" rx="3" fill="#27ae60"/>
+                            <rect x="157" y="30" width="5" height="10" rx="1" fill="#2ecc71"/>
+                            <!-- Arrow to Home -->
+                            <line x1="147" y1="55" x2="147" y2="80" stroke="#f7931e" stroke-width="2"/>
+                            <polygon points="144,75 147,82 150,75" fill="#f7931e"/>
+                            <!-- Home -->
+                            <polygon points="147,90 125,110 130,110 130,135 165,135 165,110 170,110" fill="#f7931e" stroke="#e67e22"/>
+                        </svg>
+                    </div>
+                    <h3>Off-Grid System</h3>
+                    <p>Complete energy independence with battery storage. Perfect for remote areas without grid access.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> No electricity bills</li>
+                        <li><i class="fas fa-check"></i> Works anywhere</li>
+                        <li><i class="fas fa-check"></i> Battery backup included</li>
+                        <li><i class="fas fa-times"></i> Higher initial cost</li>
+                    </ul>
+                </div>
+                <div class="system-type-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="system-diagram">
+                        <svg viewBox="0 0 200 150" class="system-svg">
+                            <!-- Sun -->
+                            <circle cx="30" cy="25" r="12" fill="#FFD700"/>
+                            <!-- Panel -->
+                            <rect x="60" y="15" width="35" height="25" rx="2" fill="#1a5276" stroke="#2980b9"/>
+                            <!-- Inverter -->
+                            <rect x="110" y="18" width="25" height="20" rx="2" fill="#8e44ad"/>
+                            <text x="122" y="32" text-anchor="middle" fill="white" font-size="8">INV</text>
+                            <!-- Battery -->
+                            <rect x="60" y="70" width="30" height="20" rx="3" fill="#27ae60"/>
+                            <!-- Grid symbol -->
+                            <circle cx="170" cy="28" r="15" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="170" y="32" text-anchor="middle" fill="#e74c3c" font-size="10">GRID</text>
+                            <!-- Arrows -->
+                            <line x1="95" y1="28" x2="108" y2="28" stroke="#f7931e" stroke-width="2"/>
+                            <line x1="135" y1="28" x2="152" y2="28" stroke="#f7931e" stroke-width="2"/>
+                            <line x1="77" y1="42" x2="77" y2="68" stroke="#27ae60" stroke-width="2"/>
+                            <!-- Home -->
+                            <polygon points="122,90 105,105 110,105 110,130 135,130 135,105 140,105" fill="#f7931e" stroke="#e67e22"/>
+                            <line x1="122" y1="55" x2="122" y2="88" stroke="#f7931e" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Hybrid System</h3>
+                    <p>Best of both worlds - use solar, battery backup, and grid power for maximum reliability.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Reduced electricity bills</li>
+                        <li><i class="fas fa-check"></i> Grid backup available</li>
+                        <li><i class="fas fa-check"></i> Battery for outages</li>
+                        <li><i class="fas fa-check"></i> Flexible operation</li>
+                    </ul>
+                </div>
+                <div class="system-type-card">
+                    <div class="system-diagram">
+                        <svg viewBox="0 0 200 150" class="system-svg">
+                            <!-- Sun -->
+                            <circle cx="30" cy="30" r="15" fill="#FFD700"/>
+                            <!-- Panel -->
+                            <rect x="65" y="20" width="40" height="30" rx="2" fill="#1a5276" stroke="#2980b9"/>
+                            <!-- Inverter -->
+                            <rect x="120" y="23" width="25" height="24" rx="2" fill="#8e44ad"/>
+                            <!-- Grid -->
+                            <circle cx="170" cy="35" r="15" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="170" y="39" text-anchor="middle" fill="#e74c3c" font-size="10">GRID</text>
+                            <!-- Arrows -->
+                            <line x1="105" y1="35" x2="118" y2="35" stroke="#f7931e" stroke-width="2"/>
+                            <line x1="145" y1="35" x2="153" y2="35" stroke="#f7931e" stroke-width="2"/>
+                            <!-- Home -->
+                            <polygon points="132,80 115,95 120,95 120,120 145,120 145,95 150,95" fill="#f7931e" stroke="#e67e22"/>
+                            <line x1="132" y1="50" x2="132" y2="78" stroke="#f7931e" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Grid-Tied System</h3>
+                    <p>Connected to the utility grid. Sell excess power back and use grid when needed.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Lowest initial cost</li>
+                        <li><i class="fas fa-check"></i> Net metering benefits</li>
+                        <li><i class="fas fa-times"></i> No power during outages</li>
+                        <li><i class="fas fa-times"></i> Grid dependent</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Energy Flow Diagram - Enhanced -->
     <section class="energy-flow-section">
         <div class="container">
-            <div class="showroom-card full-width">
-                <h3><i class="fas fa-project-diagram"></i> Energy Flow Diagram</h3>
-                <div class="energy-flow">
-                    <div class="flow-item source">
-                        <div class="flow-icon sun-icon">
-                            <i class="fas fa-sun"></i>
-                        </div>
-                        <span>Sunlight</span>
+            <div class="section-header">
+                <span class="section-tag">Energy Flow</span>
+                <h2>How Energy <span class="highlight">Flows</span></h2>
+                <p>Visual representation of energy movement in your solar system</p>
+            </div>
+            <div class="energy-flow-modern">
+                <div class="flow-node source-node">
+                    <div class="node-icon sun-node">
+                        <i class="fas fa-sun"></i>
                     </div>
-                    <div class="flow-line"></div>
-                    <div class="flow-item">
-                        <div class="flow-icon panel-icon">
-                            <i class="fas fa-solar-panel"></i>
-                        </div>
-                        <span>Solar Panels</span>
-                        <small>DC Output</small>
+                    <span>Sunlight</span>
+                    <small>Clean Energy Source</small>
+                </div>
+                <div class="flow-connector animated">
+                    <div class="energy-particles"></div>
+                </div>
+                <div class="flow-node">
+                    <div class="node-icon panel-node">
+                        <i class="fas fa-solar-panel"></i>
                     </div>
-                    <div class="flow-line"></div>
-                    <div class="flow-item">
-                        <div class="flow-icon inverter-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </div>
-                        <span>Inverter</span>
-                        <small>DC → AC</small>
+                    <span>Solar Panels</span>
+                    <small>DC Output: 12-48V</small>
+                </div>
+                <div class="flow-connector animated">
+                    <div class="energy-particles"></div>
+                </div>
+                <div class="flow-node">
+                    <div class="node-icon inverter-node">
+                        <i class="fas fa-exchange-alt"></i>
                     </div>
-                    <div class="flow-split">
-                        <div class="flow-branch">
-                            <div class="flow-line vertical"></div>
-                            <div class="flow-item">
-                                <div class="flow-icon battery-icon">
-                                    <i class="fas fa-battery-full"></i>
-                                </div>
-                                <span>Battery Storage</span>
-                                <small>Backup Power</small>
+                    <span>Inverter</span>
+                    <small>DC → AC 220V</small>
+                </div>
+                <div class="flow-split-modern">
+                    <div class="flow-branch-top">
+                        <div class="flow-connector-vertical animated"></div>
+                        <div class="flow-node small-node">
+                            <div class="node-icon battery-node">
+                                <i class="fas fa-battery-full"></i>
                             </div>
+                            <span>Battery</span>
+                            <small>Storage</small>
                         </div>
-                        <div class="flow-branch main">
-                            <div class="flow-line"></div>
-                            <div class="flow-item destination">
-                                <div class="flow-icon home-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <span>Your Home</span>
-                                <small>AC Power</small>
+                    </div>
+                    <div class="flow-branch-main">
+                        <div class="flow-connector animated">
+                            <div class="energy-particles"></div>
+                        </div>
+                        <div class="flow-node destination-node">
+                            <div class="node-icon home-node">
+                                <i class="fas fa-home"></i>
                             </div>
+                            <span>Your Home</span>
+                            <small>220V AC Power</small>
                         </div>
                     </div>
                 </div>
@@ -382,7 +623,7 @@
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to See Solar in Action?</h2>
-                <p>Visit our showroom in Tuguegarao City or Gattaran for a live demonstration!</p>
+                    <p>Visit our showroom in Tuguegarao City, Gattaran, or Aparri for a live demonstration!</p>
                 <div class="cta-buttons">
                     <a href="contact.html" class="btn btn-light"><i class="fas fa-map-marker-alt"></i> Visit Us</a>
                     <a href="packages.html" class="btn btn-outline-light"><i class="fas fa-box"></i> View Packages</a>
@@ -443,6 +684,10 @@
                                 <span>Gattaran, Cagayan</span>
                             </li>
                             <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Aparri, Cagayan</span>
+                            </li>
+                            <li>
                                 <i class="fas fa-phone"></i>
                                 <a href="tel:09560233864">0956-023-3864</a>
                             </li>
@@ -462,7 +707,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <p>&copy; 2022 Topshelf Solar Tech & Innovations. All Rights Reserved.</p>
-                <p>Serving Tuguegarao City and Gattaran, Cagayan | Premium US-Made Solar Products</p>
+                <p>Serving Tuguegarao City, Gattaran & Aparri, Cagayan | Premium US-Made Solar Products</p>
             </div>
         </div>
     </footer>
