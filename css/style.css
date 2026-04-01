@@ -3098,16 +3098,16 @@ section {
    SHOWROOM PAGE - VIDEO & DIAGRAM SECTIONS
    ================================================ */
 
-/* Video Showcase — Fullscreen Stage */
+/* Video Showcase — Portrait Dual Layout */
 .video-showcase-section {
-    background: #0a0e1a;
-    padding: 0;
-    overflow: hidden;
+    background: linear-gradient(180deg, #0a0e1a 0%, #0d1424 100%);
+    padding: 0 0 80px;
+    overflow: visible;
 }
 
 .video-section-header {
     text-align: center;
-    padding: 70px 20px 50px;
+    padding: 80px 20px 60px;
 }
 
 .video-section-header .section-tag {
@@ -3118,16 +3118,17 @@ section {
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 6px 20px;
+    padding: 8px 22px;
     border-radius: 50px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .video-section-header h2 {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 800;
     color: var(--white);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    line-height: 1.2;
 }
 
 .video-section-header h2 .highlight {
@@ -3135,11 +3136,115 @@ section {
 }
 
 .video-section-header p {
-    color: rgba(255,255,255,0.65);
-    font-size: 1.05rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-/* Full-screen video stage */
+/* Portrait videos side-by-side */
+.video-portrait-stage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.video-portrait-card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.video-portrait-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.video-portrait-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    overflow: hidden;
+}
+
+.video-portrait-wrapper video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    background: #000;
+}
+
+.video-portrait-info {
+    padding: 24px 24px 28px;
+    background: var(--white);
+}
+
+.video-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--primary-dark);
+    background: rgba(247,147,30,0.12);
+    border: 1px solid rgba(247,147,30,0.3);
+    padding: 5px 14px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+}
+
+.video-type-badge i {
+    font-size: 0.7rem;
+}
+
+.video-portrait-info h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.video-portrait-info p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.video-feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.video-feature-tags span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    background: rgba(39,174,96,0.1);
+    border: 1px solid rgba(39,174,96,0.25);
+    padding: 5px 12px;
+    border-radius: 50px;
+}
+
+.video-feature-tags span i {
+    font-size: 0.68rem;
+}
+
+/* Legacy video panel styles (kept for compatibility) */
 .video-fullscreen-stage {
     display: grid;
     grid-template-columns: 16fr 9fr;
@@ -4221,4 +4326,272 @@ section + section {
 .breadcrumb a:hover {
     color: var(--primary-light);
 }
+
+/* ================================================
+   GLOBAL TEXT & TYPOGRAPHY FIXES
+   ================================================ */
+
+/* Ensure proper word-wrap everywhere */
+h1, h2, h3, h4, h5, h6, p, li, span, a {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Section headers readability */
+.section-header h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+}
+
+.section-header p {
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    line-height: 1.7;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Section tag improved visibility */
+.section-tag {
+    display: inline-block;
+    background: rgba(247, 147, 30, 0.15);
+    color: var(--primary-dark);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(247, 147, 30, 0.25);
+}
+
+/* Hero content text fixes */
+.hero-content h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -1px;
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* Stats text improvements */
+.stat-number {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.stat-suffix {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+}
+
+.stat-label {
+    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+    line-height: 1.3;
+    max-width: 100px;
+}
+
+/* Feature cards text */
+.feature-item h4 {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 4px;
+}
+
+.feature-item p {
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+/* About section text */
+.about-content h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    line-height: 1.25;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.about-content p.lead {
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* Package card text improvements */
+.package-title {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 700;
+}
+
+.package-price .amount {
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    font-weight: 800;
+}
+
+.package-feature {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    line-height: 1.5;
+}
+
+/* Contact info readability */
+.info-card h4 {
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.info-card p {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    line-height: 1.5;
+}
+
+/* Footer text fixes */
+.footer-links a,
+.footer-contact li {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    line-height: 1.6;
+}
+
+.footer-about p {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.7;
+}
+
+/* CTA Section text */
+.cta-content h2 {
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.cta-content p {
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.7;
+}
+
+/* Testimonial text */
+.testimonial-text {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.7;
+    font-style: italic;
+}
+
+/* Product card text */
+.product-info-box h4 {
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
+    line-height: 1.3;
+}
+
+.product-desc-short {
+    font-size: clamp(0.82rem, 1.8vw, 0.88rem);
+    line-height: 1.6;
+}
+
+/* Category bar text */
+.category-title-bar h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    line-height: 1.3;
+}
+
+.category-title-bar p {
+    font-size: clamp(0.85rem, 2vw, 0.92rem);
+    line-height: 1.5;
+}
+
+/* Banner text responsive */
+.banner-content h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    line-height: 1.15;
+}
+
+/* Button text consistency */
+.btn {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    padding: 12px 28px;
+}
+
+.btn-sm {
+    font-size: clamp(0.78rem, 1.8vw, 0.85rem);
+    padding: 8px 18px;
+}
+
+/* Form labels and inputs */
+.form-group label {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    padding: 14px 18px;
+}
+
+/* Ensure proper contrast */
+.text-light {
+    color: var(--text-light) !important;
+}
+
+/* Fix overflow in constrained areas */
+.product-info-box,
+.video-portrait-info,
+.package-body,
+.testimonial-card,
+.info-card {
+    overflow: hidden;
+}
+
+/* Long text ellipsis where needed */
+.product-brand,
+.badge,
+.video-type-badge {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Improve link visibility */
+a:not(.btn):not(.nav-links a):not(.logo) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Better focus states for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Smooth scroll for anchors */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+/* Improve readability on dark backgrounds */
+.video-section-header p,
+.cta-content p,
+.energy-flow-section p,
+.footer-about p {
+    opacity: 0.9;
+}
+
 

@@ -931,7 +931,66 @@
     }
 }
 
-/* ===== Fullscreen Video Stage Responsive ===== */
+/* ===== Portrait Video Responsive ===== */
+@media (max-width: 992px) {
+    .video-portrait-stage {
+        gap: 30px;
+        padding: 0 30px;
+    }
+
+    .video-section-header h2 {
+        font-size: 2rem;
+    }
+
+    .video-portrait-info h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-portrait-stage {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .video-section-header {
+        padding: 60px 20px 40px;
+    }
+
+    .video-section-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .video-section-header p {
+        font-size: 0.95rem;
+    }
+
+    .video-portrait-wrapper {
+        aspect-ratio: 9 / 14;
+    }
+
+    .video-portrait-info {
+        padding: 20px 20px 24px;
+    }
+
+    .video-portrait-info h3 {
+        font-size: 1.05rem;
+    }
+
+    .video-portrait-info p {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+
+    .video-feature-tags span {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+}
+
+/* Legacy video panel responsive (kept for compatibility) */
 @media (max-width: 992px) {
     .video-fullscreen-stage {
         grid-template-columns: 1fr;
@@ -959,21 +1018,9 @@
     .video-panel-overlay {
         transform: translateY(0);
     }
-
-    .video-section-header h2 {
-        font-size: 1.8rem;
-    }
 }
 
 @media (max-width: 768px) {
-    .video-section-header {
-        padding: 50px 20px 36px;
-    }
-
-    .video-section-header h2 {
-        font-size: 1.5rem;
-    }
-
     .video-panel-label h3 {
         font-size: 1rem;
     }
