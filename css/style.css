@@ -165,6 +165,25 @@ input, textarea, select {
     box-shadow: var(--shadow);
 }
 
+/* Inner Pages Header - Solid background with dark text from start */
+#header.header-inner {
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+
+#header.header-inner .logo span {
+    color: var(--dark-color);
+}
+
+#header.header-inner .nav-links a {
+    color: var(--text-color);
+}
+
+#header.header-inner .nav-links a:hover,
+#header.header-inner .nav-links a.active {
+    color: var(--primary-color);
+}
+
 .navbar {
     padding: 15px 0;
 }
@@ -283,6 +302,10 @@ input, textarea, select {
 }
 
 #header.scrolled .menu-toggle span {
+    background: var(--dark-color);
+}
+
+#header.header-inner .menu-toggle span {
     background: var(--dark-color);
 }
 
