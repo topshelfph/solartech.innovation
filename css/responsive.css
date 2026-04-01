@@ -85,6 +85,10 @@
         gap: 0;
     }
 
+    .nav-links li {
+        width: 100%;
+    }
+
     .nav-links a {
         display: block;
         padding: 15px 0;
@@ -92,6 +96,7 @@
         color: var(--white) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         width: 100%;
+        white-space: normal;
     }
 
     .menu-toggle {
