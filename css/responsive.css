@@ -47,6 +47,11 @@
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .chat-screenshots-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
 }
 
 /* Tablet (992px and below) */
@@ -230,6 +235,16 @@
         grid-template-columns: 1fr;
         max-width: 500px;
         margin: 0 auto;
+    }
+
+    .chat-screenshots-grid {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .chat-body {
+        min-height: 320px;
     }
 
     /* Contact */
@@ -588,7 +603,7 @@
     }
 
     .hero {
-        min-height: auto;
+        min-height: 0;
         height: auto;
         padding: 50px 0;
     }

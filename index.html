@@ -45,7 +45,7 @@
                         <i class="fas fa-phone"></i>
                         <span>Call Now</span>
                     </a>
-                    <button class="menu-toggle" id="menuToggle">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" title="Menu">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -58,7 +58,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-slider">
-            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide active hero-slide-1">
                 <div class="slide-overlay"></div>
                 <div class="container">
                     <div class="hero-content">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide hero-slide-2">
                 <div class="slide-overlay"></div>
                 <div class="container">
                     <div class="hero-content">
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide hero-slide-3">
                 <div class="slide-overlay"></div>
                 <div class="container">
                     <div class="hero-content">
@@ -116,9 +116,9 @@
             </div>
         </div>
         <div class="slider-controls">
-            <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn prev" aria-label="Previous slide" title="Previous"><i class="fas fa-chevron-left"></i></button>
             <div class="slider-dots"></div>
-            <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+            <button class="slider-btn next" aria-label="Next slide" title="Next"><i class="fas fa-chevron-right"></i></button>
         </div>
         <div class="scroll-indicator">
             <a href="#about">
@@ -248,7 +248,7 @@
                         <i class="fas fa-microchip"></i>
                     </div>
                     <h3>Future Innovation</h3>
-                    <p>We aim to establish renewable energy semiconductor manufacturing capabilities, following industry leaders like <a href="https://www.vse.com/" target="_blank" rel="noopener">VSE Corporation</a>, to bring cutting-edge solar technology to the Philippines.</p>
+                    <p>Our long-term vision includes developing local renewable energy semiconductor manufacturing capabilities, positioning the Philippines as a hub for advanced solar technology production and innovation in Southeast Asia.</p>
                 </div>
             </div>
         </div>
@@ -755,62 +755,145 @@
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials - Chat Screenshots -->
     <section class="testimonials-section">
         <div class="container">
             <div class="section-header light">
                 <span class="section-tag">Testimonials</span>
-                <h2>What Our <span class="highlight">Customers Say</span></h2>
+                <h2><span class="highlight">Customer Feedbacks</span></h2>
             </div>
-            <div class="testimonials-slider">
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"Topshelf Solar transformed our home! Our electricity bill dropped from ₱8,000 to just ₱500. The installation was quick and professional."</p>
-                    <div class="customer">
-                        <div class="customer-avatar">JD</div>
-                        <div class="customer-info">
-                            <strong>Juan Dela Cruz</strong>
-                            <span>Homeowner, Tuguegarao City</span>
+            <div class="chat-screenshots-grid">
+                <!-- Chat Screenshot 1 -->
+                <div class="chat-screenshot">
+                    <div class="chat-phone-frame">
+                        <div class="chat-header">
+                            <div class="chat-header-left">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
+                            <div class="chat-contact">
+                                <div class="chat-avatar">JD</div>
+                                <div class="chat-contact-info">
+                                    <span class="chat-name">J--n D--a C--z</span>
+                                    <span class="chat-status">Homeowner, Tuguegarao City</span>
+                                </div>
+                            </div>
+                            <div class="chat-header-right">
+                                <i class="fas fa-phone"></i>
+                                <i class="fas fa-video"></i>
+                            </div>
+                        </div>
+                        <div class="chat-body">
+                            <div class="chat-date">Kahapon</div>
+                            <div class="chat-bubble received">
+                                <p>Good day po! Kumusta na po yung solar installation niyo?</p>
+                                <span class="chat-time">2:30 PM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Sobrang satisfied po kami! 😊</p>
+                                <span class="chat-time">2:32 PM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Bumaba po ang bill namin mula ₱8,000 hanggang ₱500 na lang! Grabe po ang tipid! 💚</p>
+                                <span class="chat-time">2:32 PM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Mabilis at professional din po ang installation. Highly recommend po kayo! ⭐⭐⭐⭐⭐</p>
+                                <span class="chat-time">2:33 PM</span>
+                            </div>
+                            <div class="chat-bubble received">
+                                <p>Maraming salamat po sa feedback! 🙏☀️</p>
+                                <span class="chat-time">2:35 PM</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"Best investment for our business! The commercial installation paid for itself in just 2 years. Highly recommend Topshelf Solar!"</p>
-                    <div class="customer">
-                        <div class="customer-avatar">MR</div>
-                        <div class="customer-info">
-                            <strong>Maria Reyes</strong>
-                            <span>Business Owner, Gattaran</span>
+
+                <!-- Chat Screenshot 2 -->
+                <div class="chat-screenshot">
+                    <div class="chat-phone-frame">
+                        <div class="chat-header">
+                            <div class="chat-header-left">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
+                            <div class="chat-contact">
+                                <div class="chat-avatar">MR</div>
+                                <div class="chat-contact-info">
+                                    <span class="chat-name">M---a R---s</span>
+                                    <span class="chat-status">Business Owner, Gattaran</span>
+                                </div>
+                            </div>
+                            <div class="chat-header-right">
+                                <i class="fas fa-phone"></i>
+                                <i class="fas fa-video"></i>
+                            </div>
+                        </div>
+                        <div class="chat-body">
+                            <div class="chat-date">Linggo</div>
+                            <div class="chat-bubble received">
+                                <p>Hi po! Kamusta na po ang commercial solar system niyo?</p>
+                                <span class="chat-time">10:15 AM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Best investment po talaga para sa negosyo namin! 🏪</p>
+                                <span class="chat-time">10:20 AM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>2 years pa lang, naka-recover na po ang gastos namin. Libre na kuryente ngayon! 💰</p>
+                                <span class="chat-time">10:21 AM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Pag may nagtatanong, Topshelf Solar agad ang i-recommend ko! ⭐⭐⭐⭐⭐</p>
+                                <span class="chat-time">10:22 AM</span>
+                            </div>
+                            <div class="chat-bubble received">
+                                <p>Salamat po sa tiwala! Glad na nakatulong kami! ☀️</p>
+                                <span class="chat-time">10:25 AM</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>"Affordable packages and US-made quality products. The team was very helpful in explaining everything. Now we have power even during outages!"</p>
-                    <div class="customer">
-                        <div class="customer-avatar">PS</div>
-                        <div class="customer-info">
-                            <strong>Pedro Santos</strong>
-                            <span>Homeowner, Cagayan</span>
+
+                <!-- Chat Screenshot 3 -->
+                <div class="chat-screenshot">
+                    <div class="chat-phone-frame">
+                        <div class="chat-header">
+                            <div class="chat-header-left">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
+                            <div class="chat-contact">
+                                <div class="chat-avatar">PS</div>
+                                <div class="chat-contact-info">
+                                    <span class="chat-name">P---o S----s</span>
+                                    <span class="chat-status">Homeowner, Cagayan</span>
+                                </div>
+                            </div>
+                            <div class="chat-header-right">
+                                <i class="fas fa-phone"></i>
+                                <i class="fas fa-video"></i>
+                            </div>
+                        </div>
+                        <div class="chat-body">
+                            <div class="chat-date">Noong Martes</div>
+                            <div class="chat-bubble received">
+                                <p>Good afternoon po! Feedback naman po sa solar installation?</p>
+                                <span class="chat-time">3:00 PM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Sobrang sulit po ng package niyo! Affordable tapos US-made quality pa! 🇺🇸</p>
+                                <span class="chat-time">3:05 PM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Super helpful din po ng team niyo. Inexplain lahat ng maayos.</p>
+                                <span class="chat-time">3:06 PM</span>
+                            </div>
+                            <div class="chat-bubble sent">
+                                <p>Ngayon may kuryente na kami kahit may brownout! 💡 Salamat po talaga! ⭐⭐⭐⭐⭐</p>
+                                <span class="chat-time">3:07 PM</span>
+                            </div>
+                            <div class="chat-bubble received">
+                                <p>Thank you po! Enjoy your solar power! ☀️🔋</p>
+                                <span class="chat-time">3:10 PM</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -935,7 +1018,7 @@
             <div class="map-container">
                 <h3><i class="fas fa-map"></i> Find Us</h3>
                 <div class="map-wrapper">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60686.51844566085!2d121.7002!3d17.6132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338597d44c5ac1c7%3A0x1bea85a699d1c1df!2sTuguegarao%2C%20Cagayan%2C%20Philippines!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60686.51844566085!2d121.7002!3d17.6132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338597d44c5ac1c7%3A0x1bea85a699d1c1df!2sTuguegarao%2C%20Cagayan%2C%20Philippines!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus" width="100%" height="400" class="map-iframe" allowfullscreen="" loading="lazy" title="Topshelf Solar Tech Location - Tuguegarao City, Cagayan"></iframe>
                 </div>
             </div>
         </div>
@@ -1018,12 +1101,12 @@
     </footer>
 
     <!-- Back to Top -->
-    <button id="backToTop" class="back-to-top">
+    <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to Top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/639560233864" class="whatsapp-float" target="_blank" rel="noopener">
+    <a href="https://wa.me/639560233864" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 

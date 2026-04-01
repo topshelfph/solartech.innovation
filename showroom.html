@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visit our solar showroom to see how solar power systems work. Interactive diagrams and power generation displays by Topshelf Solar Tech.">
+    <meta name="keywords" content="solar showroom, how solar works, solar power diagram, energy flow, Topshelf Solar">
+    <title>Solar Showroom | Topshelf Solar Tech & Innovations</title>
+    <link rel="icon" type="image/png" href="topshelf.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="header-inner">
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <img src="topshelf.png" alt="Topshelf Solar Tech Logo" class="logo-round">
+                    <span>Topshelf Solar Tech</span>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="packages.html">Packages</a></li>
+                        <li><a href="showroom.html" class="active">Showroom</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="nav-actions">
+                    <a href="tel:09560233864" class="call-btn">
+                        <i class="fas fa-phone"></i>
+                        <span>Call Now</span>
+                    </a>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" title="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner page-banner-showroom">
+        <div class="banner-overlay"></div>
+        <div class="container">
+            <div class="banner-content">
+                <h1>Solar Showroom</h1>
+                <nav class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>Showroom</span>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showroom Intro -->
+    <section class="showroom-intro">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Learn & Explore</span>
+                <h2>Understanding <span class="highlight">Solar Power</span></h2>
+                <p>Explore how solar energy systems work and discover the components that power your home with clean, renewable energy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Solar Works -->
+    <section class="how-solar-works">
+        <div class="container">
+            <div class="showroom-card full-width">
+                <h3><i class="fas fa-solar-panel"></i> How Solar Power Works</h3>
+                <div class="solar-diagram">
+                    <div class="diagram-container">
+                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Solar System Diagram" class="diagram-bg">
+                        <div class="diagram-overlay">
+                            <div class="diagram-steps">
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-sun"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>1. Sun Energy</h4>
+                                        <p>Sunlight hits the solar panels</p>
+                                    </div>
+                                </div>
+                                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-solar-panel"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>2. DC Power</h4>
+                                        <p>Panels convert light to DC electricity</p>
+                                    </div>
+                                </div>
+                                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>3. Inverter</h4>
+                                        <p>Converts DC to AC power</p>
+                                    </div>
+                                </div>
+                                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                    <div class="step-content">
+                                        <h4>4. Power Home</h4>
+                                        <p>Electricity powers your appliances</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Power Generation Display -->
+    <section class="power-generation-section">
+        <div class="container">
+            <div class="showroom-grid">
+                <div class="showroom-card">
+                    <h3><i class="fas fa-tachometer-alt"></i> Power Generation Display</h3>
+                    <div class="power-display">
+                        <div class="power-gauge">
+                            <div class="gauge-circle">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="gauge-bg" cx="50" cy="50" r="45"></circle>
+                                    <circle class="gauge-fill" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="70"></circle>
+                                </svg>
+                                <div class="gauge-value">
+                                    <span class="value">75</span>
+                                    <span class="unit">%</span>
+                                </div>
+                            </div>
+                            <p>Current Efficiency</p>
+                        </div>
+                        <div class="power-stats">
+                            <div class="power-stat">
+                                <i class="fas fa-bolt"></i>
+                                <span class="stat-value">5.2</span>
+                                <span class="stat-unit">kWh</span>
+                                <span class="stat-label">Today's Generation</span>
+                            </div>
+                            <div class="power-stat">
+                                <i class="fas fa-sun"></i>
+                                <span class="stat-value">156</span>
+                                <span class="stat-unit">kWh</span>
+                                <span class="stat-label">Monthly Average</span>
+                            </div>
+                            <div class="power-stat">
+                                <i class="fas fa-leaf"></i>
+                                <span class="stat-value">2.1</span>
+                                <span class="stat-unit">tons</span>
+                                <span class="stat-label">CO₂ Saved/Year</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showroom-card">
+                    <h3><i class="fas fa-cogs"></i> System Components</h3>
+                    <div class="components-display">
+                        <div class="component">
+                            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Solar Panel">
+                            <div class="component-info">
+                                <h4>Solar Panel</h4>
+                                <p>Converts sunlight to DC power</p>
+                            </div>
+                        </div>
+                        <div class="component">
+                            <img src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Inverter">
+                            <div class="component-info">
+                                <h4>Inverter</h4>
+                                <p>DC to AC conversion</p>
+                            </div>
+                        </div>
+                        <div class="component">
+                            <img src="https://images.unsplash.com/photo-1620677308059-2c9c4f38a14e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Battery">
+                            <div class="component-info">
+                                <h4>Battery</h4>
+                                <p>Energy storage system</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Energy Flow Diagram -->
+    <section class="energy-flow-section">
+        <div class="container">
+            <div class="showroom-card full-width">
+                <h3><i class="fas fa-project-diagram"></i> Energy Flow Diagram</h3>
+                <div class="energy-flow">
+                    <div class="flow-item source">
+                        <div class="flow-icon sun-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <span>Sunlight</span>
+                    </div>
+                    <div class="flow-line"></div>
+                    <div class="flow-item">
+                        <div class="flow-icon panel-icon">
+                            <i class="fas fa-solar-panel"></i>
+                        </div>
+                        <span>Solar Panels</span>
+                        <small>DC Output</small>
+                    </div>
+                    <div class="flow-line"></div>
+                    <div class="flow-item">
+                        <div class="flow-icon inverter-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <span>Inverter</span>
+                        <small>DC → AC</small>
+                    </div>
+                    <div class="flow-split">
+                        <div class="flow-branch">
+                            <div class="flow-line vertical"></div>
+                            <div class="flow-item">
+                                <div class="flow-icon battery-icon">
+                                    <i class="fas fa-battery-full"></i>
+                                </div>
+                                <span>Battery Storage</span>
+                                <small>Backup Power</small>
+                            </div>
+                        </div>
+                        <div class="flow-branch main">
+                            <div class="flow-line"></div>
+                            <div class="flow-item destination">
+                                <div class="flow-icon home-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <span>Your Home</span>
+                                <small>AC Power</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solar Benefits -->
+    <section class="solar-benefits-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Why Solar?</span>
+                <h2>Benefits of <span class="highlight">Solar Energy</span></h2>
+                <p>Discover why thousands of Filipino families are switching to solar power</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h4>Save Money</h4>
+                    <p>Reduce your electricity bills by up to 90%. Solar pays for itself within 3-5 years.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Eco-Friendly</h4>
+                    <p>Reduce your carbon footprint and contribute to a cleaner environment.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Energy Independence</h4>
+                    <p>Generate your own power and reduce dependence on the grid.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-power-off"></i>
+                    </div>
+                    <h4>Blackout Protection</h4>
+                    <p>With battery storage, have power even during outages.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4>Increase Property Value</h4>
+                    <p>Solar installations add value to your property.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h4>Low Maintenance</h4>
+                    <p>Solar systems require minimal maintenance and last 25+ years.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Package Power Capabilities -->
+    <section class="power-capabilities">
+        <div class="container">
+            <div class="section-header light">
+                <span class="section-tag">Power Guide</span>
+                <h2>What Each Package <span class="highlight">Can Power</span></h2>
+                <p>Visual guide to help you choose the right package for your needs</p>
+            </div>
+
+            <div class="capability-cards">
+                <div class="capability-card">
+                    <div class="capability-header">
+                        <h4>60W System</h4>
+                        <span class="price">₱10,000</span>
+                    </div>
+                    <div class="capability-items">
+                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5x LED Bulbs</div>
+                        <div class="cap-item"><i class="fas fa-fan"></i> 1x Fan</div>
+                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
+                    </div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-header">
+                        <h4>120W System</h4>
+                        <span class="price">₱20,000</span>
+                    </div>
+                    <div class="capability-items">
+                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5x LED Bulbs</div>
+                        <div class="cap-item"><i class="fas fa-fan"></i> 2x Fans</div>
+                        <div class="cap-item"><i class="fas fa-tv"></i> 1x TV*</div>
+                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
+                    </div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-header">
+                        <h4>240W System</h4>
+                        <span class="price">₱40,000</span>
+                    </div>
+                    <div class="capability-items">
+                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5x LED Bulbs</div>
+                        <div class="cap-item"><i class="fas fa-fan"></i> 2x Fans</div>
+                        <div class="cap-item"><i class="fas fa-tv"></i> 1x TV</div>
+                        <div class="cap-item"><i class="fas fa-snowflake"></i> 1x Refrigerator</div>
+                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
+                    </div>
+                </div>
+                <div class="capability-card featured">
+                    <div class="capability-header">
+                        <h4>500W System</h4>
+                        <span class="price">₱80,000</span>
+                    </div>
+                    <div class="capability-items">
+                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5+ LED Bulbs</div>
+                        <div class="cap-item"><i class="fas fa-fan"></i> 3x Fans</div>
+                        <div class="cap-item"><i class="fas fa-tv"></i> 1x TV</div>
+                        <div class="cap-item"><i class="fas fa-snowflake"></i> 1x Refrigerator</div>
+                        <div class="cap-item"><i class="fas fa-wind"></i> 1x Aircon/Washer</div>
+                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to See Solar in Action?</h2>
+                <p>Visit our showroom in Tuguegarao City or Gattaran for a live demonstration!</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-light"><i class="fas fa-map-marker-alt"></i> Visit Us</a>
+                    <a href="packages.html" class="btn btn-outline-light"><i class="fas fa-box"></i> View Packages</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-about">
+                        <a href="index.html" class="footer-logo">
+                            <img src="topshelf.png" alt="Topshelf Solar Tech" class="logo-round">
+                            <span>Topshelf Solar Tech</span>
+                        </a>
+                        <p>Your trusted partner for premium US-made solar solutions in Cagayan Valley. Powering homes and businesses since 2022.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="mailto:topshelfphil@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="products.html">Products</a></li>
+                            <li><a href="packages.html">Packages</a></li>
+                            <li><a href="showroom.html">Showroom</a></li>
+                            <li><a href="projects.html">Projects</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Our Products</h4>
+                        <ul>
+                            <li><a href="products.html">Solar Panels</a></li>
+                            <li><a href="products.html">Inverters</a></li>
+                            <li><a href="products.html">Batteries</a></li>
+                            <li><a href="products.html">Power Storage</a></li>
+                            <li><a href="packages.html">Installation Packages</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>Contact Info</h4>
+                        <ul>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Tuguegarao City, Cagayan</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Gattaran, Cagayan</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:09560233864">0956-023-3864</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:09525289238">0952-528-9238</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:topshelfphil@gmail.com">topshelfphil@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2022 Topshelf Solar Tech & Innovations. All Rights Reserved.</p>
+                <p>Serving Tuguegarao City and Gattaran, Cagayan | Premium US-Made Solar Products</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/639560233864" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
