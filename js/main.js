@@ -262,17 +262,22 @@ function initScrollAnimations() {
 function initCounterAnimation() {
     const counters = document.querySelectorAll('[data-count]');
     
+    if (counters.length === 0) return;
+    
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.5
+        threshold: 0.2
     };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const counter = entry.target;
+                if (counter.dataset.animated) return;
+                counter.dataset.animated = 'true';
                 const target = parseInt(counter.getAttribute('data-count'));
+                counter.textContent = '0';
                 animateCounter(counter, target);
                 observer.unobserve(counter);
             }
@@ -283,9 +288,8 @@ function initCounterAnimation() {
     
     function animateCounter(element, target) {
         let current = 0;
-        const increment = target / 50;
-        const duration = 2000;
-        const stepTime = duration / 50;
+        const increment = target / 40;
+        const stepTime = 40;
         
         const timer = setInterval(() => {
             current += increment;
