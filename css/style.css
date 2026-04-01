@@ -262,6 +262,13 @@ input, textarea, select {
     justify-content: space-between;
 }
 
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -588,7 +595,7 @@ input, textarea, select {
 .hero-stats {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
@@ -3835,6 +3842,12 @@ input, textarea, select {
 .footer-bottom p {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
+}
+
+.footer-bottom p + p {
+    margin-top: 6px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.82rem;
 }
 
 /* ==========================================
