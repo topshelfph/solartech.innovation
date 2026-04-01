@@ -2891,6 +2891,14 @@ input, textarea, select {
     margin-bottom: 50px;
 }
 
+.projects-stats .stat-box .stat-number {
+    color: var(--dark-color);
+}
+
+.projects-stats .stat-box .stat-label {
+    color: var(--dark-color);
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
