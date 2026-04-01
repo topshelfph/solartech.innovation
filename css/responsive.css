@@ -1454,7 +1454,6 @@
 @media (max-width: 992px) {
     .comparison-table-wrapper {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
     }
     
     .comparison-table {
@@ -1641,7 +1640,6 @@
 @media (max-width: 768px) {
     .table-responsive {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
     }
 }
 
