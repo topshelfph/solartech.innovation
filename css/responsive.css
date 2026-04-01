@@ -579,6 +579,89 @@
     .project-overlay {
         transform: none;
         opacity: 1;
+    }
+}
+
+/* ===== Responsive Styles for New Sections ===== */
+
+/* Tablet and below */
+@media (max-width: 992px) {
+    .locations-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .products-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-info-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .showroom-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile and below */
+@media (max-width: 768px) {
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .products-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .showroom-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .location-card-large {
+        padding: 30px 20px;
+    }
+
+    .advantage-card {
+        padding: 30px 20px;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 576px) {
+    .products-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-btn {
+        text-align: center;
+    }
+}
         background: linear-gradient(transparent 0%, rgba(0,0,0,0.8) 60%);
     }
 
