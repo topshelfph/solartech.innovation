@@ -1320,6 +1320,7 @@ input, textarea, select {
     background: linear-gradient(transparent, rgba(0,0,0,0.85));
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 10;
     display: flex;
@@ -1330,6 +1331,7 @@ input, textarea, select {
 .product-showcase-card:hover .product-overlay {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .overlay-btn {
@@ -1341,13 +1343,15 @@ input, textarea, select {
     font-weight: 600;
     font-size: 0.9rem;
     text-decoration: none;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .overlay-btn:hover {
     background: var(--primary-dark);
     transform: scale(1.05);
+    color: var(--white);
 }
 
 .product-info-box {
