@@ -1312,3 +1312,379 @@
     }
 }
 
+/* ===== Additional Mobile Optimizations ===== */
+
+/* Stats Grid Responsive */
+@media (max-width: 992px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .stat-box {
+        padding: 25px 20px;
+    }
+}
+
+/* Benefits Grid Responsive */
+@media (max-width: 992px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    
+    .benefit-card {
+        padding: 25px 20px;
+    }
+    
+    .benefit-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .benefit-icon i {
+        font-size: 1.5rem;
+    }
+}
+
+/* Capability Cards Responsive */
+@media (max-width: 992px) {
+    .capability-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .capability-cards {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    
+    .capability-header {
+        padding: 20px;
+    }
+    
+    .capability-header h4 {
+        font-size: 1.1rem;
+    }
+    
+    .capability-header .price {
+        font-size: 1.3rem;
+    }
+    
+    .capability-items {
+        padding: 20px;
+    }
+    
+    .cap-item {
+        font-size: 0.85rem;
+        padding: 8px 0;
+    }
+}
+
+/* System Type Cards Responsive */
+@media (max-width: 992px) {
+    .system-comparison-grid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+    
+    .system-type-card.featured {
+        transform: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .system-type-card {
+        padding: 25px 20px;
+    }
+    
+    .system-diagram {
+        margin-bottom: 15px;
+    }
+    
+    .system-type-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .system-features li {
+        font-size: 0.85rem;
+    }
+}
+
+/* Product Icon Boxes Responsive */
+@media (max-width: 576px) {
+    .product-icon-box {
+        padding: 30px 20px;
+        min-height: 160px;
+    }
+    
+    .product-icon-visual {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .product-icon-visual i {
+        font-size: 1.5rem;
+    }
+    
+    .icon-watt-label {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+}
+
+/* Comparison Table Responsive */
+@media (max-width: 992px) {
+    .comparison-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .comparison-table {
+        min-width: 700px;
+    }
+}
+
+@media (max-width: 576px) {
+    .comparison-table th,
+    .comparison-table td {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .comparison-table .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Node Icons Responsive */
+@media (max-width: 576px) {
+    .node-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .node-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .flow-node span {
+        font-size: 0.85rem;
+    }
+    
+    .flow-node small {
+        font-size: 0.7rem;
+    }
+}
+
+/* Component Display Responsive */
+@media (max-width: 576px) {
+    .components-display {
+        grid-template-columns: 1fr;
+    }
+    
+    .component {
+        padding: 15px;
+    }
+    
+    .component-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .component-info h4 {
+        font-size: 0.9rem;
+    }
+    
+    .component-info p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Power Display Responsive */
+@media (max-width: 576px) {
+    .power-display {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .power-gauge {
+        margin-bottom: 0;
+    }
+    
+    .power-stats {
+        width: 100%;
+    }
+    
+    .power-stat {
+        padding: 15px;
+    }
+}
+
+/* Showroom Cards Responsive */
+@media (max-width: 576px) {
+    .showroom-card {
+        padding: 20px 15px;
+    }
+    
+    .showroom-card h3 {
+        font-size: 1rem;
+    }
+    
+    .showroom-card h3 i {
+        font-size: 1.1rem;
+    }
+}
+
+/* Process Diagram Responsive */
+@media (max-width: 576px) {
+    .process-step {
+        min-width: auto;
+        padding: 12px;
+    }
+    
+    .process-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .process-number {
+        width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
+    }
+    
+    .process-step h4 {
+        font-size: 0.9rem;
+    }
+    
+    .process-step p {
+        font-size: 0.75rem;
+    }
+}
+
+/* Accessories Grid Responsive */
+@media (max-width: 992px) {
+    .accessories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .accessories-grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .accessory-card {
+        padding: 20px;
+    }
+    
+    .accessory-card i {
+        font-size: 2rem;
+    }
+}
+
+/* Page Banner Responsive */
+@media (max-width: 576px) {
+    .page-banner {
+        min-height: 200px;
+        padding: 80px 0 40px;
+    }
+    
+    .banner-content h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    
+    .breadcrumb {
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+}
+
+/* CTA Section Responsive */
+@media (max-width: 576px) {
+    .cta-section {
+        padding: 50px 0;
+    }
+    
+    .cta-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .cta-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Table Responsive */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Fix navbar for very small screens */
+@media (max-width: 360px) {
+    .logo img {
+        height: 35px;
+    }
+    
+    .logo span {
+        font-size: 0.85rem;
+    }
+    
+    .call-btn {
+        padding: 10px;
+    }
+    
+    .nav-menu {
+        padding: 90px 25px 30px;
+    }
+    
+    .nav-links a {
+        padding: 12px 0;
+        font-size: 1rem;
+    }
+}
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 768px) {
+    a, button, .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-links a {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+}
