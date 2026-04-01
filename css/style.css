@@ -5625,3 +5625,743 @@ html {
     color: var(--primary-light) !important;
 }
 
+/* ================================================
+   PACKAGE COMPARISON TABLE — REDESIGNED
+   ================================================ */
+.comparison-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    min-width: 650px;
+}
+
+.comparison-table thead {
+    background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-color) 100%);
+}
+
+.comparison-table thead th {
+    padding: 24px 20px;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    border: none;
+    position: relative;
+}
+
+.comparison-table thead th:first-child {
+    text-align: left;
+    border-radius: var(--border-radius-xl) 0 0 0;
+}
+
+.comparison-table thead th:last-child {
+    border-radius: 0 var(--border-radius-xl) 0 0;
+}
+
+.comparison-table thead th small {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-top: 4px;
+    color: var(--primary-light);
+}
+
+.comparison-table thead th.highlight-col {
+    background: var(--primary-color);
+    box-shadow: 0 -4px 0 var(--primary-color);
+}
+
+.comparison-table tbody td {
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--light-gray);
+    transition: background-color 0.2s ease;
+}
+
+.comparison-table tbody td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--dark-color);
+    background: rgba(248, 250, 252, 0.5);
+}
+
+.comparison-table tbody tr:hover td {
+    background: rgba(255, 140, 0, 0.04);
+}
+
+.comparison-table tbody tr:hover td:first-child {
+    background: rgba(255, 140, 0, 0.08);
+}
+
+.comparison-table tbody td.highlight-col {
+    background: rgba(255, 140, 0, 0.06);
+    font-weight: 600;
+}
+
+.comparison-table tbody tr:hover td.highlight-col {
+    background: rgba(255, 140, 0, 0.12);
+}
+
+.comparison-table tbody tr:last-child td {
+    border-bottom: none;
+    padding: 24px 20px;
+}
+
+.comparison-table .text-success {
+    color: var(--accent-color);
+}
+
+.comparison-table .text-danger {
+    color: #ef4444;
+}
+
+.comparison-table .fa-check {
+    font-size: 1.1rem;
+}
+
+.comparison-table .fa-times {
+    font-size: 1.1rem;
+}
+
+.comparison-table .btn-sm {
+    padding: 10px 24px;
+    font-size: 0.85rem;
+    border-radius: 50px;
+}
+
+.table-note {
+    text-align: center;
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.table-note i {
+    color: var(--primary-color);
+    margin-right: 4px;
+}
+
+/* ================================================
+   SOLAR BENEFITS SECTION — SHOWROOM
+   ================================================ */
+.solar-benefits-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+    position: relative;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.benefit-card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--light-gray);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover::before {
+    transform: scaleX(1);
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(255, 140, 0, 0.2);
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(255, 140, 0, 0.2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    transition: var(--transition);
+}
+
+.benefit-card:hover .benefit-icon {
+    background: var(--gradient-primary);
+}
+
+.benefit-icon i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.benefit-card:hover .benefit-icon i {
+    color: var(--white);
+}
+
+.benefit-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 12px;
+}
+
+.benefit-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* ================================================
+   POWER CAPABILITIES SECTION — SHOWROOM
+   ================================================ */
+.power-capabilities {
+    padding: 100px 0;
+    background: var(--gradient-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.power-capabilities::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255, 140, 0, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.capability-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.capability-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.capability-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 140, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.capability-card.featured {
+    border-color: var(--primary-color);
+    background: rgba(255, 140, 0, 0.08);
+    transform: scale(1.03);
+}
+
+.capability-card.featured:hover {
+    transform: scale(1.03) translateY(-8px);
+}
+
+.capability-header {
+    background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+    padding: 24px;
+    text-align: center;
+}
+
+.capability-card.featured .capability-header {
+    background: var(--gradient-primary);
+}
+
+.capability-header h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+}
+
+.capability-header .price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-light);
+}
+
+.capability-card.featured .capability-header .price {
+    color: var(--white);
+}
+
+.capability-items {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cap-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.cap-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.cap-item i {
+    color: var(--primary-color);
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* ================================================
+   PACKAGES PAGE — ADDITIONAL IMPROVEMENTS
+   ================================================ */
+.packages-intro {
+    padding: 80px 0 20px;
+    background: var(--white);
+}
+
+.package-benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.06), rgba(255, 140, 0, 0.02));
+    border: 1px solid rgba(255, 140, 0, 0.15);
+    border-radius: var(--border-radius-lg);
+    transition: var(--transition);
+}
+
+.benefit-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary-color);
+}
+
+.benefit-item i {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.benefit-item span {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--dark-color);
+}
+
+/* Packages section - residential/commercial refined */
+.packages-section.residential {
+    background: var(--white);
+    padding: 80px 0;
+}
+
+.packages-section.commercial {
+    background: var(--gradient-dark);
+    padding: 80px 0;
+}
+
+.commercial-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.commercial-feature {
+    text-align: center;
+    padding: 24px 16px;
+    background: var(--off-white);
+    border-radius: var(--border-radius-lg);
+    transition: var(--transition);
+}
+
+.commercial-feature:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.commercial-feature i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.commercial-feature h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 6px;
+}
+
+.commercial-feature p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+/* Package card description */
+.package-description {
+    margin-bottom: 16px;
+}
+
+.package-description p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Package card feature spans */
+.package-features li span {
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+/* Wire notice on packages page */
+.packages-section.residential .wire-notice {
+    background: rgba(255, 140, 0, 0.06);
+    border: 1px solid rgba(255, 140, 0, 0.15);
+    color: var(--text-color);
+}
+
+.packages-section.residential .wire-notice i {
+    color: var(--primary-color);
+}
+
+/* ================================================
+   PROJECTS PAGE — STATS SECTION
+   ================================================ */
+.projects-stats {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    color: var(--white);
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 140, 0, 0.3);
+}
+
+.stat-box .stat-number {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    display: block;
+}
+
+.stat-box .stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8px;
+    display: block;
+}
+
+/* ================================================
+   PROJECT TAG STYLES
+   ================================================ */
+.project-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+}
+
+.project-tag.residential {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-light);
+}
+
+.project-tag.commercial {
+    background: rgba(255, 140, 0, 0.2);
+    color: var(--primary-light);
+}
+
+/* ================================================
+   CONTACT PAGE IMPROVEMENTS
+   ================================================ */
+.contact-info-section {
+    padding: 80px 0 40px;
+    background: var(--white);
+}
+
+.contact-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.contact-info-card {
+    background: var(--off-white);
+    border-radius: var(--border-radius-lg);
+    padding: 28px 20px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.contact-info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 140, 0, 0.2);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.form-header {
+    margin-bottom: 28px;
+}
+
+.form-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.form-group.checkbox {
+    margin-bottom: 24px;
+}
+
+.form-group.checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.form-group.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.why-contact {
+    margin-top: 30px;
+}
+
+.why-contact h4 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+}
+
+.why-contact ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.why-contact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.why-contact li i {
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+/* ================================================
+   LOCATIONS SECTION — GRID FIX FOR 3 CARDS
+   ================================================ */
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ================================================
+   RESPONSIVE ADDITIONS
+   ================================================ */
+@media (max-width: 1200px) {
+    .capability-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .capability-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .capability-card.featured {
+        transform: none;
+    }
+
+    .comparison-table {
+        font-size: 0.85rem;
+    }
+
+    .comparison-table thead th {
+        padding: 18px 14px;
+        font-size: 0.9rem;
+    }
+
+    .comparison-table tbody td {
+        padding: 14px;
+    }
+
+    .package-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .commercial-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .locations-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .capability-cards {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .package-benefits {
+        grid-template-columns: 1fr;
+    }
+    
+    .commercial-features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .commercial-card {
+        padding: 35px 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
