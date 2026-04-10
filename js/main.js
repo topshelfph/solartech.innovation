@@ -864,16 +864,15 @@ function initSolarConfigurator() {
     };
 
     const PACKAGES = [
-        { watts: 60,    price: 10000,  panels: '1× 60W panel',     inverter: '300W inverter',   battery: '50Ah 12V'   },
-        { watts: 120,   price: 20000,  panels: '1× 120W panel',    inverter: '300W inverter',   battery: '100Ah 12V'  },
-        { watts: 240,   price: 40000,  panels: '2× 120W panels',   inverter: '500W inverter',   battery: '200Ah 12V'  },
-        { watts: 380,   price: 60000,  panels: '2× 190W panels',   inverter: '1000W inverter',  battery: '200Ah 12V'  },
-        { watts: 500,   price: 80000,  panels: '2× 250W panels',   inverter: '1500W inverter',  battery: '100Ah 24V'  },
-        { watts: 1000,  price: 120000, panels: '4× 250W panels',   inverter: '2000W inverter',  battery: '200Ah 24V'  },
-        { watts: 2000,  price: 200000, panels: '8× 250W panels',   inverter: '3000W inverter',  battery: '200Ah 48V'  },
-        { watts: 3000,  price: 300000, panels: '12× 250W panels',  inverter: '5000W inverter',  battery: '400Ah 48V'  },
-        { watts: 5000,  price: 450000, panels: '20× 250W panels',  inverter: '8000W inverter',  battery: '600Ah 48V'  },
-        { watts: 10000, price: 850000, panels: '40× 250W panels',  inverter: '15kW inverter',   battery: '1200Ah 48V' },
+        { watts: 60,    price: 10000,  label: 'Starter Package',    panels: '1× 100W panel',      inverter: '300W Pure Sine Inverter',   battery: '50Ah 12V AGM'     },
+        { watts: 120,   price: 20000,  label: 'Family Package',     panels: '1× 200W panel',      inverter: '500W Pure Sine Inverter',   battery: '100Ah 12V AGM'    },
+        { watts: 240,   price: 40000,  label: 'Premium Package',    panels: '2× 150W panels',     inverter: '1000W Pure Sine Inverter',  battery: '100Ah 24V AGM'    },
+        { watts: 500,   price: 80000,  label: 'Ultimate Package',   panels: '2× 300W panels',     inverter: '1500W Pure Sine Inverter',  battery: '200Ah 24V AGM'    },
+        { watts: 1000,  price: 150000, label: 'Commercial 1kW',     panels: '4× 250W panels',     inverter: '2000W Hybrid Inverter',     battery: '200Ah 24V Lithium' },
+        { watts: 2000,  price: 260000, label: 'Commercial 2kW',     panels: '8× 250W panels',     inverter: '3000W Hybrid Inverter',     battery: '400Ah 48V Lithium' },
+        { watts: 3000,  price: 370000, label: 'Commercial 3kW',     panels: '12× 250W panels',    inverter: '5000W Hybrid Inverter',     battery: '500Ah 48V Lithium' },
+        { watts: 5000,  price: 560000, label: 'Industrial 5kW',     panels: '20× 250W panels',    inverter: '8000W Hybrid Inverter',     battery: '800Ah 48V Lithium' },
+        { watts: 10000, price: 960000, label: 'Industrial 10kW',    panels: '40× 250W panels',    inverter: '15kW Hybrid Inverter',      battery: '1500Ah 48V Lithium'},
     ];
 
     let activeType   = 'hybrid';
@@ -997,9 +996,7 @@ function initSolarConfigurator() {
         document.getElementById('recBattery').textContent   = totalW > 0
             ? (activeType === 'gridtied' ? 'None (Grid-Tied)' : battAh + ' Ah @ 48V')
             : '—';
-        document.getElementById('recLabel').textContent     = totalW > 0
-            ? (pkg.watts >= 1000 ? (pkg.watts / 1000) + 'kW System' : pkg.watts + 'W System')
-            : '—';
+        document.getElementById('recLabel').textContent     = totalW > 0 ? pkg.label : '—';
         document.getElementById('priceEstimate').textContent = totalW > 0
             ? '₱' + pkg.price.toLocaleString() + '+'
             : '₱0';
@@ -1212,72 +1209,361 @@ function initSolarConfigurator() {
 }
 
 /* ==========================================
-   ROI CALCULATOR
+   ROI CALCULATOR  (Residential + Commercial/Industrial)
    ========================================== */
 function initROICalculator() {
+
+    /* ── Package info displayed when user selects a package ── */
+    const PKG_INFO = {
+        '10000,0,0.09': {
+            name: 'Starter Package',
+            powers: ['5 pcs LED bulbs (5W each)', '1 electric fan (50–60W)', 'Unlimited phone charging']
+        },
+        '20000,0,0.18': {
+            name: 'Family Package',
+            powers: ['5 pcs LED bulbs', '2 electric fans', '1 TV (with fan off)', 'Unlimited phone charging']
+        },
+        '40000,0,0.36': {
+            name: 'Premium Package',
+            powers: ['5 pcs LED bulbs', '2 electric fans', '1 Television', '1 Refrigerator', 'Unlimited phone charging']
+        },
+        '80000,0,0.70': {
+            name: 'Ultimate Package',
+            powers: ['5+ LED bulbs', '3 electric fans', '1 Television', '1 Refrigerator', '1 HP Aircon or Washing Machine', 'Unlimited phone charging']
+        }
+    };
+
+    /* ── Residential calculator ── */
     const btn = document.getElementById('calc-run-btn');
-    if (!btn) return;
+    const pkgSelect = document.getElementById('calc-package');
 
-    btn.addEventListener('click', function() {
-        const monthlyBill = parseFloat(document.getElementById('calc-monthly-bill').value) || 0;
-        const packageVal  = document.getElementById('calc-package').value;
-        const rate        = parseFloat(document.getElementById('calc-rate').value) || 12.15;
-        const sunHours    = parseFloat(document.getElementById('calc-sunhours').value) || 5;
+    // Show package powers when package is selected
+    if (pkgSelect) {
+        pkgSelect.addEventListener('change', function() {
+            const info = PKG_INFO[this.value];
+            const powersPanel = document.getElementById('pkg-what-it-powers');
+            const powersList  = document.getElementById('pkg-powers-list');
+            if (info && powersPanel && powersList) {
+                powersList.innerHTML = info.powers.map(p => `<li><i class="fas fa-check"></i> ${p}</li>`).join('');
+                powersPanel.style.display = 'block';
+            } else if (powersPanel) {
+                powersPanel.style.display = 'none';
+            }
+        });
+    }
 
-        if (!packageVal || monthlyBill <= 0) {
-            alert('Please enter your monthly bill and select a package.');
-            return;
-        }
+    if (btn) {
+        btn.addEventListener('click', function() {
+            const monthlyBill = parseFloat(document.getElementById('calc-monthly-bill').value) || 0;
+            const packageVal  = (pkgSelect && pkgSelect.value) ? pkgSelect.value : '';
+            const rate        = parseFloat(document.getElementById('calc-rate').value) || 12.15;
+            const sunHours    = parseFloat(document.getElementById('calc-sunhours').value) || 5;
 
-        const [costStr, , panelkWStr] = packageVal.split(',');
-        const packageCost = parseFloat(costStr);
-        const panelkW     = parseFloat(panelkWStr);
+            if (!packageVal || monthlyBill <= 0) {
+                alert('Please enter your monthly bill and select a package.');
+                return;
+            }
 
-        // Daily generation (kWh) = Panel kW × sun hours
-        const dailyGen    = panelkW * sunHours;
-        // Monthly generation (kWh)
-        const monthlyGen  = dailyGen * 30;
-        // Monthly savings in PHP
-        const monthlySavings = monthlyGen * rate;
-        // Clamp: can't save more than the bill
-        const actualMonthlySavings = Math.min(monthlySavings, monthlyBill);
-        const annualSavings = actualMonthlySavings * 12;
-        const billReduction = ((actualMonthlySavings / monthlyBill) * 100).toFixed(1);
-        const savings25yr   = annualSavings * 25;
-        const paybackYears  = packageCost / annualSavings;
+            const parts       = packageVal.split(',');
+            const packageCost = parseFloat(parts[0]);
+            const panelkW     = parseFloat(parts[2]);
 
-        // Update display
-        document.getElementById('res-monthly').textContent  = '₱' + actualMonthlySavings.toLocaleString('en-PH', {maximumFractionDigits: 0});
-        document.getElementById('res-annual').textContent   = '₱' + annualSavings.toLocaleString('en-PH', {maximumFractionDigits: 0});
-        document.getElementById('res-reduction').textContent = billReduction + '%';
-        document.getElementById('res-25yr').textContent    = '₱' + savings25yr.toLocaleString('en-PH', {maximumFractionDigits: 0});
+            // Daily generation (kWh) = panel kW × peak sun hours × 0.80 system efficiency
+            const dailyGen       = panelkW * sunHours * 0.80;
+            const monthlyGen     = dailyGen * 30;
+            const monthlySavings = monthlyGen * rate;
+            // Can't save more than the bill
+            const actualMonthly  = Math.min(monthlySavings, monthlyBill);
+            const annualSavings  = actualMonthly * 12;
+            const billReduction  = monthlyBill > 0 ? ((actualMonthly / monthlyBill) * 100).toFixed(1) : 0;
+            const savings25yr    = annualSavings * 25;
+            const paybackYears   = annualSavings > 0 ? packageCost / annualSavings : Infinity;
 
-        const pbText = paybackYears <= 0.5 ? 'Under 6 months'
-                     : paybackYears < 1    ? Math.round(paybackYears * 12) + ' months'
-                     : paybackYears.toFixed(1) + ' years';
-        document.getElementById('res-payback').textContent = pbText;
+            document.getElementById('res-monthly').textContent  = '₱' + actualMonthly.toLocaleString('en-PH', { maximumFractionDigits: 0 });
+            document.getElementById('res-annual').textContent   = '₱' + annualSavings.toLocaleString('en-PH', { maximumFractionDigits: 0 });
+            document.getElementById('res-reduction').textContent = billReduction + '%';
+            document.getElementById('res-25yr').textContent     = '₱' + savings25yr.toLocaleString('en-PH', { maximumFractionDigits: 0 });
 
-        // Year-by-year bars (5 years)
-        const barsContainer = document.getElementById('roi-year-bars');
-        const maxSavings    = annualSavings * 5;
-        let barsHTML = '<h4>Cumulative Savings Progress</h4>';
-        for (let y = 1; y <= 5; y++) {
-            const cumSavings = annualSavings * y;
-            const pct = Math.min((cumSavings / packageCost) * 100, 100);
-            const recovered = pct >= 100;
-            barsHTML += `
-                <div class="year-bar-row">
-                    <span class="year-label">Yr ${y}</span>
-                    <div class="year-bar-track">
-                        <div class="year-bar-fill" style="width:${Math.min(pct, 100)}%"></div>
+            const pbText = paybackYears === Infinity ? 'N/A'
+                         : paybackYears <= 0.5       ? 'Under 6 months'
+                         : paybackYears < 1          ? Math.round(paybackYears * 12) + ' months'
+                         : paybackYears.toFixed(1)    + ' years';
+            document.getElementById('res-payback').textContent = pbText;
+
+            // Year-by-year bars (5 years)
+            const barsContainer = document.getElementById('roi-year-bars');
+            let barsHTML = '<h4>Cumulative Savings Progress (5 Years)</h4>';
+            for (let y = 1; y <= 5; y++) {
+                const cumSavings = annualSavings * y;
+                const pct        = packageCost > 0 ? Math.min((cumSavings / packageCost) * 100, 100) : 0;
+                const recovered  = pct >= 100;
+                barsHTML += `
+                    <div class="year-bar-row">
+                        <span class="year-label">Yr ${y}</span>
+                        <div class="year-bar-track">
+                            <div class="year-bar-fill" style="width:${pct.toFixed(1)}%"></div>
+                        </div>
+                        <span class="year-amount">${recovered ? '✅ ' : ''}₱${cumSavings.toLocaleString('en-PH', { maximumFractionDigits: 0 })}</span>
+                    </div>`;
+            }
+            barsContainer.innerHTML = barsHTML;
+
+            document.getElementById('roi-empty-state').classList.add('roi-hidden');
+            document.getElementById('roi-result-content').classList.remove('roi-hidden');
+        });
+    }
+
+    /* ── Commercial / Industrial calculator ── */
+    const COMM_APPLIANCES = [
+        // Commercial
+        { id: 'ca_led',      sector: 'commercial', name: 'LED Tube Light 24W',     watts: 24,   icon: 'fa-lightbulb',      defQty: 10, defHrs: 10 },
+        { id: 'ca_panel',    sector: 'commercial', name: 'LED Panel Light 18W',    watts: 18,   icon: 'fa-th-large',       defQty: 0,  defHrs: 10 },
+        { id: 'ca_flood',    sector: 'commercial', name: 'LED Floodlight 50W',     watts: 50,   icon: 'fa-lightbulb',      defQty: 0,  defHrs: 12 },
+        { id: 'ca_ac15',     sector: 'commercial', name: 'Split AC 1.5HP',         watts: 1100, icon: 'fa-wind',           defQty: 0,  defHrs: 8  },
+        { id: 'ca_ac2',      sector: 'commercial', name: 'Split AC 2HP',           watts: 1500, icon: 'fa-wind',           defQty: 0,  defHrs: 8  },
+        { id: 'ca_pc',       sector: 'commercial', name: 'Desktop Computer',       watts: 200,  icon: 'fa-desktop',        defQty: 0,  defHrs: 8  },
+        { id: 'ca_laptop',   sector: 'commercial', name: 'Laptop',                 watts: 65,   icon: 'fa-laptop',         defQty: 0,  defHrs: 8  },
+        { id: 'ca_printer',  sector: 'commercial', name: 'Printer / Copier',       watts: 300,  icon: 'fa-print',          defQty: 0,  defHrs: 2  },
+        { id: 'ca_pos',      sector: 'commercial', name: 'POS Terminal',           watts: 35,   icon: 'fa-cash-register',  defQty: 0,  defHrs: 10 },
+        { id: 'ca_cctv',     sector: 'commercial', name: 'CCTV System (4 cams)',   watts: 30,   icon: 'fa-video',          defQty: 0,  defHrs: 24 },
+        { id: 'ca_wifi',     sector: 'commercial', name: 'WiFi Router / AP',       watts: 15,   icon: 'fa-wifi',           defQty: 1,  defHrs: 24 },
+        { id: 'ca_dfridge',  sector: 'commercial', name: 'Display Refrigerator',   watts: 400,  icon: 'fa-snowflake',      defQty: 0,  defHrs: 24 },
+        { id: 'ca_exhaust',  sector: 'commercial', name: 'Exhaust Fan',             watts: 50,   icon: 'fa-fan',            defQty: 0,  defHrs: 8  },
+        { id: 'ca_kettle',   sector: 'commercial', name: 'Electric Kettle',        watts: 1500, icon: 'fa-mug-hot',        defQty: 0,  defHrs: 1  },
+        { id: 'ca_micro',    sector: 'commercial', name: 'Microwave Oven',         watts: 800,  icon: 'fa-fire-alt',       defQty: 0,  defHrs: 1  },
+        { id: 'ca_dispenser',sector: 'commercial', name: 'Water Dispenser',        watts: 500,  icon: 'fa-tint',           defQty: 0,  defHrs: 8  },
+        { id: 'ca_tv40',     sector: 'commercial', name: 'TV / Monitor 40"',       watts: 80,   icon: 'fa-tv',             defQty: 0,  defHrs: 8  },
+        { id: 'ca_sfan',     sector: 'commercial', name: 'Stand / Ceiling Fan',    watts: 60,   icon: 'fa-fan',            defQty: 0,  defHrs: 8  },
+        // Industrial
+        { id: 'ia_higbay',   sector: 'industrial', name: 'High Bay LED 150W',      watts: 150,  icon: 'fa-lightbulb',      defQty: 6,  defHrs: 10 },
+        { id: 'ia_ifan',     sector: 'industrial', name: 'Industrial Fan 200W',    watts: 200,  icon: 'fa-fan',            defQty: 0,  defHrs: 8  },
+        { id: 'ia_motor1',   sector: 'industrial', name: 'Motor 1HP (750W)',        watts: 750,  icon: 'fa-cog',            defQty: 0,  defHrs: 8  },
+        { id: 'ia_motor3',   sector: 'industrial', name: 'Motor 3HP (2.2kW)',       watts: 2200, icon: 'fa-cog',            defQty: 0,  defHrs: 8  },
+        { id: 'ia_motor5',   sector: 'industrial', name: 'Motor 5HP (3.7kW)',       watts: 3700, icon: 'fa-cog',            defQty: 0,  defHrs: 8  },
+        { id: 'ia_comp',     sector: 'industrial', name: 'Air Compressor 2HP',     watts: 1500, icon: 'fa-tachometer-alt', defQty: 0,  defHrs: 4  },
+        { id: 'ia_welder',   sector: 'industrial', name: 'Welding Machine 2kW',    watts: 2000, icon: 'fa-fire-alt',       defQty: 0,  defHrs: 4  },
+        { id: 'ia_ac5',      sector: 'industrial', name: 'Industrial AC 5HP',      watts: 3730, icon: 'fa-wind',           defQty: 0,  defHrs: 8  },
+        { id: 'ia_pump',     sector: 'industrial', name: 'Water Pump 1.5HP',       watts: 1100, icon: 'fa-tint',           defQty: 0,  defHrs: 4  },
+        { id: 'ia_sec',      sector: 'industrial', name: 'Security Lighting 100W', watts: 100,  icon: 'fa-shield-alt',     defQty: 0,  defHrs: 12 },
+        { id: 'ia_cctv',     sector: 'industrial', name: 'CCTV / Security Sys',   watts: 50,   icon: 'fa-video',          defQty: 0,  defHrs: 24 },
+        { id: 'ia_offpc',    sector: 'industrial', name: 'Office Computer',        watts: 200,  icon: 'fa-desktop',        defQty: 0,  defHrs: 8  },
+    ];
+
+    let commActiveSector = 'all';
+
+    function renderCommAppliances() {
+        const grid = document.getElementById('commApplianceGrid');
+        if (!grid) return;
+        const list = commActiveSector === 'all'
+            ? COMM_APPLIANCES
+            : COMM_APPLIANCES.filter(a => a.sector === commActiveSector);
+
+        grid.innerHTML = list.map(a => `
+            <div class="comm-ap-item${a.defQty > 0 ? ' active' : ''}" data-id="${a.id}">
+                <label class="comm-ap-check">
+                    <input type="checkbox" data-id="${a.id}" ${a.defQty > 0 ? 'checked' : ''}>
+                </label>
+                <div class="comm-ap-icon"><i class="fas ${a.icon}"></i></div>
+                <div class="comm-ap-info">
+                    <div class="comm-ap-name">${a.name}</div>
+                    <div class="comm-ap-watts">${a.watts}W</div>
+                </div>
+                <div class="comm-ap-controls">
+                    <div class="comm-ctrl-row">
+                        <span class="comm-ctrl-lbl">Qty</span>
+                        <div class="comm-qty-wrap">
+                            <button class="comm-qty-btn" onclick="commAdj(this,-1,'qty')">−</button>
+                            <input type="number" class="comm-qty-field" value="${a.defQty}" min="0" max="100">
+                            <button class="comm-qty-btn" onclick="commAdj(this,1,'qty')">+</button>
+                        </div>
                     </div>
-                    <span class="year-amount">${recovered ? '✅ ' : ''}₱${cumSavings.toLocaleString('en-PH', {maximumFractionDigits: 0})}</span>
-                </div>`;
-        }
-        barsContainer.innerHTML = barsHTML;
+                    <div class="comm-ctrl-row">
+                        <span class="comm-ctrl-lbl">Hrs</span>
+                        <div class="comm-qty-wrap">
+                            <button class="comm-qty-btn" onclick="commAdj(this,-1,'hrs')">−</button>
+                            <input type="number" class="comm-hrs-field" value="${a.defHrs}" min="1" max="24">
+                            <button class="comm-qty-btn" onclick="commAdj(this,1,'hrs')">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
 
-        document.getElementById('roi-empty-state').classList.add('roi-hidden');
-        document.getElementById('roi-result-content').classList.remove('roi-hidden');
+        grid.querySelectorAll('input[type="checkbox"]').forEach(chk => {
+            chk.addEventListener('change', function() {
+                const item = this.closest('.comm-ap-item');
+                const qtyF = item.querySelector('.comm-qty-field');
+                if (this.checked) {
+                    item.classList.add('active');
+                    if (parseInt(qtyF.value) === 0) qtyF.value = 1;
+                } else {
+                    item.classList.remove('active');
+                    qtyF.value = 0;
+                }
+                updateCommTotals();
+            });
+        });
+
+        grid.querySelectorAll('.comm-qty-field, .comm-hrs-field').forEach(inp => {
+            inp.addEventListener('input', updateCommTotals);
+        });
+
+        updateCommTotals();
+    }
+
+    // Global helper for comm +/- buttons
+    window.commAdj = function(btn, delta, type) {
+        const row   = btn.closest('.comm-ctrl-row');
+        const field = row.querySelector('.' + (type === 'qty' ? 'comm-qty-field' : 'comm-hrs-field'));
+        const min   = parseInt(field.min) || 0;
+        const max   = parseInt(field.max) || 100;
+        const val   = Math.min(max, Math.max(min, (parseInt(field.value) || 0) + delta));
+        field.value = val;
+        if (type === 'qty') {
+            const item = btn.closest('.comm-ap-item');
+            const chk  = item ? item.querySelector('input[type="checkbox"]') : null;
+            if (item && chk) {
+                if (val > 0) { item.classList.add('active');    chk.checked = true;  }
+                else         { item.classList.remove('active'); chk.checked = false; }
+            }
+        }
+        updateCommTotals();
+    };
+
+    function updateCommTotals() {
+        let totalW = 0, dailyWh = 0;
+        const selected = [];
+
+        COMM_APPLIANCES.forEach(a => {
+            const item = document.querySelector(`.comm-ap-item[data-id="${a.id}"]`);
+            if (!item) return;
+            const qty = Math.max(0, parseInt(item.querySelector('.comm-qty-field').value) || 0);
+            const hrs = Math.max(1, parseInt(item.querySelector('.comm-hrs-field').value) || 1);
+            if (qty > 0) {
+                const w = a.watts * qty;
+                totalW  += w;
+                dailyWh += w * hrs;
+                selected.push({ ...a, qty, hrs, totalW: w, totalWh: w * hrs });
+            }
+        });
+
+        const twEl  = document.getElementById('comm-total-watts');
+        const dhEl  = document.getElementById('comm-daily-kwh');
+        if (twEl) twEl.textContent = totalW.toLocaleString() + ' W';
+        if (dhEl) dhEl.textContent = (dailyWh / 1000).toFixed(2) + ' kWh/day';
+
+        // Update selected list
+        const listEl = document.getElementById('comm-selected-list');
+        if (listEl) {
+            if (selected.length === 0) {
+                listEl.innerHTML = '<div class="comm-no-selection">No appliances selected yet.</div>';
+            } else {
+                listEl.innerHTML = selected.map(s => `
+                    <div class="comm-sel-row">
+                        <i class="fas ${s.icon}"></i>
+                        <span class="comm-sel-name">${s.name}</span>
+                        <span class="comm-sel-detail">${s.qty}× ${s.hrs}h/day</span>
+                        <span class="comm-sel-watts">${(s.totalWh / 1000).toFixed(2)} kWh</span>
+                    </div>
+                `).join('');
+            }
+        }
+    }
+
+    // Sector filter buttons
+    document.querySelectorAll('.comm-filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.comm-filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            commActiveSector = this.dataset.commSector;
+            renderCommAppliances();
+        });
+    });
+
+    // Commercial Calculate button
+    const commBtn = document.getElementById('comm-calc-btn');
+    if (commBtn) {
+        commBtn.addEventListener('click', function() {
+            let totalW = 0, dailyWh = 0;
+            COMM_APPLIANCES.forEach(a => {
+                const item = document.querySelector(`.comm-ap-item[data-id="${a.id}"]`);
+                if (!item) return;
+                const qty = Math.max(0, parseInt(item.querySelector('.comm-qty-field').value) || 0);
+                const hrs = Math.max(1, parseInt(item.querySelector('.comm-hrs-field').value) || 1);
+                if (qty > 0) { totalW += a.watts * qty; dailyWh += a.watts * qty * hrs; }
+            });
+
+            if (totalW === 0) {
+                alert('Please select at least one appliance.');
+                return;
+            }
+
+            const rate       = parseFloat(document.getElementById('comm-rate').value) || 12.15;
+            const sunHours   = parseFloat(document.getElementById('comm-sunhours').value) || 5;
+            const backupDays = parseFloat(document.getElementById('comm-backup-days').value) || 1.5;
+
+            // Solar panel sizing: (dailyWh × 1.25 safety) / (sunHours × 0.80 efficiency) → kW
+            const panelKW   = (dailyWh * 1.25) / (sunHours * 0.80 * 1000);
+            // Inverter: 1.25× peak load, rounded up to standard size
+            const inverterW = totalW * 1.25;
+            // Battery at 48V, 80% DoD
+            const battKWh   = (dailyWh / 1000) * backupDays / 0.80;
+            const battAh48  = (battKWh * 1000) / 48;
+
+            // Monthly savings
+            const monthlySavings = (dailyWh / 1000) * 30 * rate;
+
+            // Cost estimation: tiered per kW
+            let costPerKW;
+            if      (panelKW < 3)  costPerKW = 52000;
+            else if (panelKW < 10) costPerKW = 47000;
+            else                   costPerKW = 42000;
+            const estimatedCost = panelKW * costPerKW;
+            const paybackYears  = estimatedCost / (monthlySavings * 12);
+
+            // Format helpers
+            const fmt = n => n.toLocaleString('en-PH', { maximumFractionDigits: 0 });
+            const fmtKW = n => n >= 1 ? n.toFixed(1) + ' kW' : (n * 1000).toFixed(0) + ' W';
+
+            // Inverter label
+            let invLabel;
+            if      (inverterW <= 2000)  invLabel = '2kW Hybrid Inverter';
+            else if (inverterW <= 3000)  invLabel = '3kW Hybrid Inverter';
+            else if (inverterW <= 5000)  invLabel = '5kW Hybrid Inverter';
+            else if (inverterW <= 8000)  invLabel = '8kW Hybrid Inverter';
+            else if (inverterW <= 12000) invLabel = '12kW Hybrid Inverter';
+            else                         invLabel = '15kW+ Hybrid Inverter';
+
+            const panelCount = Math.ceil(panelKW * 1000 / 400); // assume 400W panels for commercial
+
+            document.getElementById('comm-res-load').textContent    = fmt(totalW) + ' W';
+            document.getElementById('comm-res-daily').textContent   = (dailyWh / 1000).toFixed(2) + ' kWh/day';
+            document.getElementById('comm-res-panels').textContent  = panelCount + '× 400W panels (' + fmtKW(panelKW) + ' total)';
+            document.getElementById('comm-res-inverter').textContent = invLabel;
+            document.getElementById('comm-res-battery').textContent = Math.ceil(battAh48) + ' Ah @ 48V (' + battKWh.toFixed(1) + ' kWh)';
+            document.getElementById('comm-res-savings').textContent = '₱' + fmt(monthlySavings) + '/month';
+            document.getElementById('comm-res-cost').textContent    = '₱' + fmt(estimatedCost) + ' – ₱' + fmt(estimatedCost * 1.15);
+            document.getElementById('comm-res-payback').textContent = paybackYears.toFixed(1) + ' years';
+
+            document.getElementById('comm-empty-state').classList.add('roi-hidden');
+            document.getElementById('comm-result-content').classList.remove('roi-hidden');
+        });
+    }
+
+    // Render commercial appliances on load
+    if (document.getElementById('commApplianceGrid')) {
+        renderCommAppliances();
+    }
+
+    /* ── Calculator mode tab switching ── */
+    document.querySelectorAll('.calc-mode-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.calc-mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.calc-mode-panel').forEach(p => p.classList.remove('active'));
+            this.classList.add('active');
+            const panel = document.getElementById('calc-mode-' + this.dataset.calcMode);
+            if (panel) panel.classList.add('active');
+        });
     });
 }
 

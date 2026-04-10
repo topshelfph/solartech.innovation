@@ -793,77 +793,206 @@
     <section class="roi-calculator-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">💰 Calculator</span>
+                <span class="section-tag">💰 Savings Calculator</span>
                 <h2>I-Calculate ang Iyong <span class="highlight">Solar Savings</span></h2>
-                <p>Ilagay ang iyong monthly bill at piliin ang package — makita agad kung magkano ang matitipid mo.</p>
+                <p>Para sa <strong>Residential</strong>: piliin ang package at ilagay ang monthly bill. Para sa <strong>Commercial/Industrial</strong>: pumili ng appliances para sa accurate na sistema at cost computation.</p>
             </div>
-            <div class="roi-calc-layout">
-                <div class="roi-calc-inputs">
-                    <h3><i class="fas fa-sliders-h"></i> Your Details</h3>
-                    <div class="form-group">
-                        <label for="calc-monthly-bill">Current Monthly Electric Bill <span>(₱)</span></label>
-                        <input type="number" id="calc-monthly-bill" placeholder="e.g. 3500" min="0" max="999999" title="Your current monthly electricity bill in Philippine Pesos">
+
+            <!-- Calculator Mode Tabs -->
+            <div class="calc-mode-tabs">
+                <button class="calc-mode-btn active" data-calc-mode="residential">
+                    <i class="fas fa-home"></i> Residential
+                </button>
+                <button class="calc-mode-btn" data-calc-mode="commercial">
+                    <i class="fas fa-industry"></i> Commercial / Industrial
+                </button>
+            </div>
+
+            <!-- ── RESIDENTIAL CALCULATOR ── -->
+            <div class="calc-mode-panel active" id="calc-mode-residential">
+                <div class="roi-calc-layout">
+                    <div class="roi-calc-inputs">
+                        <h3><i class="fas fa-sliders-h"></i> Your Details</h3>
+                        <div class="form-group">
+                            <label for="calc-monthly-bill">Current Monthly Electric Bill <span>(₱)</span></label>
+                            <input type="number" id="calc-monthly-bill" placeholder="e.g. 3500" min="0" max="999999" title="Your current monthly electricity bill">
+                        </div>
+                        <div class="form-group">
+                            <label for="calc-package">Select Package</label>
+                            <select id="calc-package" title="Select a Topshelf Solar package">
+                                <option value="">-- Choose a package --</option>
+                                <option value="10000,0,0.09">Starter — 60W System (₱10,000)</option>
+                                <option value="20000,0,0.18">Family — 120W System (₱20,000)</option>
+                                <option value="40000,0,0.36">Premium — 240W System (₱40,000)</option>
+                                <option value="80000,0,0.70">Ultimate — 500W System (₱80,000)</option>
+                            </select>
+                        </div>
+                        <div class="pkg-what-it-powers" id="pkg-what-it-powers" style="display:none;">
+                            <h4><i class="fas fa-bolt"></i> What This Package Can Power:</h4>
+                            <ul id="pkg-powers-list"></ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="calc-rate">CAGELCO Rate <span>(₱/kWh)</span></label>
+                            <input type="number" id="calc-rate" value="12.15" min="1" max="30" step="0.01" placeholder="12.15">
+                        </div>
+                        <div class="form-group">
+                            <label for="calc-sunhours">Peak Sun Hours / Day <span>(Cagayan avg: 5h)</span></label>
+                            <input type="number" id="calc-sunhours" value="5" min="1" max="12" step="0.5" placeholder="5">
+                        </div>
+                        <button class="calc-btn" id="calc-run-btn">
+                            <i class="fas fa-calculator"></i> Calculate My Savings
+                        </button>
+                        <p class="calc-disclaimer">* Based on typical system output in Cagayan Valley. CAGELCO rate ₱12.15/kWh.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="calc-package">Select Package</label>
-                        <select id="calc-package" title="Select a Topshelf Solar package">
-                            <option value="">-- Choose a package --</option>
-                            <option value="10000,110,0.3">Starter — 60W (₱10,000)</option>
-                            <option value="15000,220,0.6">Basic — 120W (₱15,000)</option>
-                            <option value="25000,440,1.2">Standard — 240W (₱25,000)</option>
-                            <option value="45000,910,2.5">Advanced — 500W (₱45,000)</option>
-                            <option value="80000,1823,5">Ultimate — 1kW (₱80,000)</option>
-                            <option value="350000,18225,50">Commercial 10kW (₱350,000)</option>
-                            <option value="650000,36450,100">Commercial 20kW (₱650,000)</option>
-                        </select>
+                    <div class="roi-calc-results" id="roi-results-panel">
+                        <h3><i class="fas fa-chart-bar"></i> Your Savings Estimate</h3>
+                        <div class="result-empty" id="roi-empty-state">
+                            <i class="fas fa-solar-panel"></i>
+                            <p>Fill in your details and click "Calculate My Savings" to see your projected returns.</p>
+                        </div>
+                        <div id="roi-result-content" class="roi-hidden">
+                            <div class="roi-result-grid">
+                                <div class="roi-result-item">
+                                    <div class="result-label">Monthly Savings</div>
+                                    <div class="result-value" id="res-monthly">—</div>
+                                </div>
+                                <div class="roi-result-item">
+                                    <div class="result-label">Annual Savings</div>
+                                    <div class="result-value" id="res-annual">—</div>
+                                </div>
+                                <div class="roi-result-item">
+                                    <div class="result-label">Bill Reduction</div>
+                                    <div class="result-value" id="res-reduction">—</div>
+                                </div>
+                                <div class="roi-result-item">
+                                    <div class="result-label">25-Year Total Savings</div>
+                                    <div class="result-value" id="res-25yr">—</div>
+                                </div>
+                                <div class="roi-result-item full-width">
+                                    <div class="result-label">Estimated Payback Period</div>
+                                    <div class="result-value" id="res-payback">—</div>
+                                </div>
+                            </div>
+                            <div class="roi-year-breakdown" id="roi-year-bars">
+                                <h4>Cumulative Savings Progress (5 Years)</h4>
+                            </div>
+                            <a href="packages.html" class="btn btn-primary roi-view-pkg-btn">
+                                <i class="fas fa-box"></i> View Full Package Details
+                            </a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="calc-rate">CAGELCO Rate <span>(₱/kWh — can adjust)</span></label>
-                        <input type="number" id="calc-rate" value="12.15" min="1" max="30" step="0.01" title="CAGELCO electricity rate per kWh" placeholder="12.15">
-                    </div>
-                    <div class="form-group">
-                        <label for="calc-sunhours">Average Sun Hours per Day <span>(Cagayan avg: 5)</span></label>
-                        <input type="number" id="calc-sunhours" value="5" min="1" max="12" step="0.5" title="Average peak sun hours per day" placeholder="5">
-                    </div>
-                    <button class="calc-btn" id="calc-run-btn">
-                        <i class="fas fa-calculator"></i> Calculate My Savings
-                    </button>
                 </div>
-                <div class="roi-calc-results" id="roi-results-panel">
-                    <h3><i class="fas fa-chart-bar"></i> Results</h3>
-                    <div class="result-empty" id="roi-empty-state">
-                        <i class="fas fa-solar-panel"></i>
-                        <p>Fill in your details and click "Calculate" to see your projected savings.</p>
-                    </div>
-                    <div id="roi-result-content" class="roi-hidden">
-                        <div class="roi-result-grid">
-                            <div class="roi-result-item">
-                                <div class="result-label">Monthly Savings</div>
-                                <div class="result-value" id="res-monthly">—</div>
+            </div>
+
+            <!-- ── COMMERCIAL / INDUSTRIAL CALCULATOR ── -->
+            <div class="calc-mode-panel" id="calc-mode-commercial">
+                <div class="comm-calc-layout">
+
+                    <!-- Left: Appliance Selection -->
+                    <div class="comm-appliance-section">
+                        <h3><i class="fas fa-plug"></i> Step 1: Select Appliances</h3>
+                        <p class="comm-intro">Piliin ang mga gamit sa inyong negosyo o industriya. I-adjust ang dami (Qty) at oras ng paggamit (Hrs/day) para sa tamang computation.</p>
+                        <div class="comm-sector-filter">
+                            <button class="comm-filter-btn active" data-comm-sector="all">All</button>
+                            <button class="comm-filter-btn" data-comm-sector="commercial">Commercial</button>
+                            <button class="comm-filter-btn" data-comm-sector="industrial">Industrial</button>
+                        </div>
+                        <div class="comm-appliance-grid" id="commApplianceGrid"></div>
+                        <div class="comm-total-bar">
+                            <div class="comm-total-item">
+                                <span class="comm-total-label"><i class="fas fa-bolt"></i> Total Simultaneous Load</span>
+                                <span class="comm-total-value accent" id="comm-total-watts">0 W</span>
                             </div>
-                            <div class="roi-result-item">
-                                <div class="result-label">Annual Savings</div>
-                                <div class="result-value" id="res-annual">—</div>
-                            </div>
-                            <div class="roi-result-item">
-                                <div class="result-label">Bill Reduction</div>
-                                <div class="result-value" id="res-reduction">—</div>
-                            </div>
-                            <div class="roi-result-item">
-                                <div class="result-label">25-Year Total Savings</div>
-                                <div class="result-value" id="res-25yr">—</div>
-                            </div>
-                            <div class="roi-result-item full-width">
-                                <div class="result-label">Estimated Payback Period</div>
-                                <div class="result-value" id="res-payback">—</div>
+                            <div class="comm-total-item">
+                                <span class="comm-total-label"><i class="fas fa-sun"></i> Daily Energy Needed</span>
+                                <span class="comm-total-value" id="comm-daily-kwh">0 kWh/day</span>
                             </div>
                         </div>
-                        <div class="roi-year-breakdown" id="roi-year-bars">
-                            <h4>Cumulative Savings Progress</h4>
+                        <div class="comm-selected-list-wrap">
+                            <h4><i class="fas fa-list"></i> Selected Appliances</h4>
+                            <div id="comm-selected-list" class="comm-selected-list">
+                                <div class="comm-no-selection">No appliances selected yet.</div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Right: Parameters & Results -->
+                    <div class="comm-params-results">
+                        <div class="comm-params-card">
+                            <h3><i class="fas fa-cog"></i> Step 2: Parameters</h3>
+                            <div class="form-group">
+                                <label for="comm-rate">Electricity Rate <span>(₱/kWh)</span></label>
+                                <input type="number" id="comm-rate" value="12.15" min="1" max="30" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="comm-sunhours">Peak Sun Hours / Day</label>
+                                <input type="number" id="comm-sunhours" value="5" min="1" max="12" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="comm-backup-days">Battery Backup Duration</label>
+                                <select id="comm-backup-days">
+                                    <option value="1">1 day (standard)</option>
+                                    <option value="1.5" selected>1.5 days (recommended)</option>
+                                    <option value="2">2 days (maximum)</option>
+                                </select>
+                            </div>
+                            <button class="calc-btn" id="comm-calc-btn">
+                                <i class="fas fa-calculator"></i> Calculate Requirements
+                            </button>
+                        </div>
+
+                        <div class="comm-results-card">
+                            <h3><i class="fas fa-chart-bar"></i> System Requirements</h3>
+                            <div class="comm-empty-state" id="comm-empty-state">
+                                <i class="fas fa-hard-hat"></i>
+                                <p>Select your appliances and click Calculate to see system requirements.</p>
+                            </div>
+                            <div id="comm-result-content" class="roi-hidden">
+                                <div class="comm-result-grid">
+                                    <div class="comm-result-item">
+                                        <div class="result-label">Total Load</div>
+                                        <div class="result-value" id="comm-res-load">—</div>
+                                    </div>
+                                    <div class="comm-result-item">
+                                        <div class="result-label">Daily Energy</div>
+                                        <div class="result-value" id="comm-res-daily">—</div>
+                                    </div>
+                                    <div class="comm-result-item">
+                                        <div class="result-label">Solar Array</div>
+                                        <div class="result-value" id="comm-res-panels">—</div>
+                                    </div>
+                                    <div class="comm-result-item">
+                                        <div class="result-label">Inverter Size</div>
+                                        <div class="result-value" id="comm-res-inverter">—</div>
+                                    </div>
+                                    <div class="comm-result-item">
+                                        <div class="result-label">Battery Bank</div>
+                                        <div class="result-value" id="comm-res-battery">—</div>
+                                    </div>
+                                    <div class="comm-result-item">
+                                        <div class="result-label">Monthly Savings</div>
+                                        <div class="result-value" id="comm-res-savings">—</div>
+                                    </div>
+                                    <div class="comm-result-item full-width">
+                                        <div class="result-label">Estimated System Cost</div>
+                                        <div class="result-value" id="comm-res-cost">—</div>
+                                    </div>
+                                    <div class="comm-result-item full-width">
+                                        <div class="result-label">Estimated Payback Period</div>
+                                        <div class="result-value" id="comm-res-payback">—</div>
+                                    </div>
+                                </div>
+                                <p class="comm-disclaimer"><i class="fas fa-info-circle"></i> These are estimates. Contact us for a precise quotation tailored to your specific requirements.</p>
+                                <a href="contact.html" class="btn btn-primary roi-view-pkg-btn">
+                                    <i class="fas fa-envelope"></i> Get a Custom Quotation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
         </div>
     </section>
 
