@@ -4564,6 +4564,48 @@ input, textarea, select {
     font-weight: 600;
 }
 
+.pkg-price-cell {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+#custom-wattage-wrap {
+    display: none;
+    background: rgba(247,147,30,0.06);
+    border: 1px dashed rgba(247,147,30,0.4);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-top: -10px;
+}
+
+.custom-watts-note {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-style: italic;
+}
+
+.site-visit-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 0.84rem;
+    color: #1e40af;
+}
+
+.site-visit-note i {
+    color: #2563eb;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
 .roi-years {
     display: inline-block;
     background: rgba(16, 185, 129, 0.12);
@@ -4726,6 +4768,7 @@ input, textarea, select {
 
 /* Package "What it powers" strip */
 .pkg-what-it-powers {
+    display: none;
     background: linear-gradient(135deg, rgba(247,147,30,0.08), rgba(0,166,81,0.08));
     border: 1px solid rgba(247,147,30,0.25);
     border-radius: var(--radius-lg);
@@ -4975,6 +5018,7 @@ input, textarea, select {
     font-family: var(--font-primary);
     color: var(--text-color);
     -moz-appearance: textfield;
+    appearance: textfield;
     background: var(--white);
     padding: 0;
 }

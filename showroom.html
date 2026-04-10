@@ -590,69 +590,50 @@
                     <thead>
                         <tr>
                             <th>Package</th>
+                            <th>Price</th>
                             <th>Solar Capacity</th>
                             <th>Daily Generation</th>
                             <th>Monthly Savings</th>
                             <th>Annual Savings</th>
-                            <th>ROI Period</th>
+                            <th>Payback Period</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><span class="package-badge">Starter</span></td>
-                            <td>60W Panel</td>
-                            <td>~0.3 kWh/day</td>
-                            <td class="savings-amount">₱110/mo</td>
-                            <td class="savings-amount">₱1,320/yr</td>
-                            <td><span class="roi-years">~8 yrs</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="package-badge">Basic</span></td>
-                            <td>120W Panel</td>
-                            <td>~0.6 kWh/day</td>
-                            <td class="savings-amount">₱220/mo</td>
-                            <td class="savings-amount">₱2,640/yr</td>
-                            <td><span class="roi-years">~6 yrs</span></td>
+                            <td class="pkg-price-cell">₱10,000</td>
+                            <td>60W (1× 100W Panel)</td>
+                            <td>~0.40 kWh/day</td>
+                            <td class="savings-amount">₱146/mo</td>
+                            <td class="savings-amount">₱1,750/yr</td>
+                            <td><span class="roi-years">~5.7 yrs</span></td>
                         </tr>
                         <tr class="highlight-row">
-                            <td><span class="package-badge">Standard</span></td>
-                            <td>240W Panel</td>
-                            <td>~1.2 kWh/day</td>
-                            <td class="savings-amount">₱440/mo</td>
-                            <td class="savings-amount">₱5,280/yr</td>
-                            <td><span class="roi-years">~5 yrs</span></td>
+                            <td><span class="package-badge">Family</span></td>
+                            <td class="pkg-price-cell">₱20,000</td>
+                            <td>120W (1× 200W Panel)</td>
+                            <td>~0.80 kWh/day</td>
+                            <td class="savings-amount">₱292/mo</td>
+                            <td class="savings-amount">₱3,499/yr</td>
+                            <td><span class="roi-years">~5.7 yrs</span></td>
                         </tr>
                         <tr>
-                            <td><span class="package-badge">Advanced</span></td>
-                            <td>500W Panel</td>
-                            <td>~2.5 kWh/day</td>
-                            <td class="savings-amount">₱910/mo</td>
-                            <td class="savings-amount">₱10,920/yr</td>
-                            <td><span class="roi-years">~4 yrs</span></td>
+                            <td><span class="package-badge">Premium</span></td>
+                            <td class="pkg-price-cell">₱40,000</td>
+                            <td>240W (2× 150W Panels)</td>
+                            <td>~1.20 kWh/day</td>
+                            <td class="savings-amount">₱437/mo</td>
+                            <td class="savings-amount">₱5,249/yr</td>
+                            <td><span class="roi-years">~7.6 yrs</span></td>
                         </tr>
                         <tr class="highlight-row">
                             <td><span class="package-badge">Ultimate</span></td>
-                            <td>1,000W (1kW)</td>
-                            <td>~5 kWh/day</td>
-                            <td class="savings-amount">₱1,823/mo</td>
-                            <td class="savings-amount">₱21,870/yr</td>
-                            <td><span class="roi-years">~3.5 yrs</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="package-badge">Commercial 10kW</span></td>
-                            <td>10kW System</td>
-                            <td>~50 kWh/day</td>
-                            <td class="savings-amount">₱18,225/mo</td>
-                            <td class="savings-amount">₱218,700/yr</td>
-                            <td><span class="roi-years">~2.5 yrs</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="package-badge">Commercial 20kW</span></td>
-                            <td>20kW System</td>
-                            <td>~100 kWh/day</td>
-                            <td class="savings-amount">₱36,450/mo</td>
-                            <td class="savings-amount">₱437,400/yr</td>
-                            <td><span class="roi-years">~2 yrs</span></td>
+                            <td class="pkg-price-cell">₱80,000</td>
+                            <td>500W (2× 300W Panels)</td>
+                            <td>~2.40 kWh/day</td>
+                            <td class="savings-amount">₱875/mo</td>
+                            <td class="savings-amount">₱10,498/yr</td>
+                            <td><span class="roi-years">~7.6 yrs</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -825,9 +806,15 @@
                                 <option value="20000,0,0.20">Family — 120W System (₱20,000)</option>
                                 <option value="40000,0,0.30">Premium — 240W System (₱40,000)</option>
                                 <option value="80000,0,0.60">Ultimate — 500W System (₱80,000)</option>
+                                <option value="custom">Custom — Enter my total wattage</option>
                             </select>
                         </div>
-                        <div class="pkg-what-it-powers" id="pkg-what-it-powers" style="display:none;">
+                        <div class="form-group" id="custom-wattage-wrap">
+                            <label for="calc-custom-watts">Total Solar Panel Wattage <span>(W)</span></label>
+                            <input type="number" id="calc-custom-watts" placeholder="e.g. 350" min="10" max="50000" step="10">
+                            <small class="custom-watts-note">Enter your desired total solar panel size. A site visit will be arranged to finalize your system.</small>
+                        </div>
+                        <div class="pkg-what-it-powers" id="pkg-what-it-powers">
                             <h4><i class="fas fa-bolt"></i> What This Package Can Power:</h4>
                             <ul id="pkg-powers-list"></ul>
                         </div>
@@ -843,6 +830,10 @@
                             <i class="fas fa-calculator"></i> Calculate My Savings
                         </button>
                         <p class="calc-disclaimer">* Based on typical system output in Cagayan Valley. CAGELCO rate ₱12.15/kWh.</p>
+                        <div class="site-visit-note">
+                            <i class="fas fa-info-circle"></i>
+                            <span><strong>Note:</strong> The computation will still be verified by the staff and still subject for site visit and assessment.</span>
+                        </div>
                     </div>
                     <div class="roi-calc-results" id="roi-results-panel">
                         <h3><i class="fas fa-chart-bar"></i> Your Savings Estimate</h3>

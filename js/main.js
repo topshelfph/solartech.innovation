@@ -1309,9 +1309,16 @@ function initROICalculator() {
     // Show package powers when package is selected
     if (pkgSelect) {
         pkgSelect.addEventListener('change', function() {
-            const info = PKG_INFO[this.value];
+            const info        = PKG_INFO[this.value];
             const powersPanel = document.getElementById('pkg-what-it-powers');
             const powersList  = document.getElementById('pkg-powers-list');
+            const customWrap  = document.getElementById('custom-wattage-wrap');
+
+            // Show/hide custom wattage input
+            if (customWrap) {
+                customWrap.style.display = (this.value === 'custom') ? 'block' : 'none';
+            }
+
             if (info && powersPanel && powersList) {
                 powersList.innerHTML = info.powers.map(p => `<li><i class="fas fa-check"></i> ${p}</li>`).join('');
                 powersPanel.style.display = 'block';
@@ -1333,9 +1340,21 @@ function initROICalculator() {
                 return;
             }
 
-            const parts       = packageVal.split(',');
-            const packageCost = parseFloat(parts[0]);
-            const panelkW     = parseFloat(parts[2]);
+            let packageCost, panelkW;
+            if (packageVal === 'custom') {
+                const customWatts = parseFloat(document.getElementById('calc-custom-watts').value) || 0;
+                if (customWatts <= 0) {
+                    alert('Please enter your total panel wattage for the custom option.');
+                    return;
+                }
+                panelkW     = customWatts / 1000;
+                // Estimate cost: ~₱15,000 per 100W (standard residential rate)
+                packageCost = Math.ceil(customWatts / 100) * 15000;
+            } else {
+                const parts = packageVal.split(',');
+                packageCost = parseFloat(parts[0]);
+                panelkW     = parseFloat(parts[2]);
+            }
 
             // Daily generation (kWh) = panel kW × peak sun hours × 0.80 system efficiency
             const dailyGen       = panelkW * sunHours * 0.80;
