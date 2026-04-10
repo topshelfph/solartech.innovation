@@ -379,77 +379,6 @@ a.btn,
         margin-bottom: 35px;
     }
 
-    .components-display {
-        grid-template-columns: 1fr;
-    }
-
-    .energy-flow {
-        flex-direction: column;
-    }
-
-    .flow-line {
-        width: 4px;
-        height: 40px;
-    }
-
-    .flow-line::after {
-        right: 50%;
-        top: auto;
-        bottom: -8px;
-        transform: translateX(50%);
-        border: 6px solid transparent;
-        border-top-color: var(--accent-color);
-        border-left-color: transparent;
-    }
-
-    /* Projects */
-    .featured-project {
-        grid-template-columns: 1fr;
-    }
-
-    .project-details {
-        padding: 30px;
-    }
-
-    .project-specs {
-        grid-template-columns: 1fr;
-    }
-
-    /* Testimonials */
-    .testimonials-slider {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    .chat-screenshots-grid {
-        grid-template-columns: 1fr;
-        max-width: 380px;
-        margin: 0 auto;
-    }
-
-    .chat-body {
-        min-height: 320px;
-    }
-
-    /* Contact */
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ==========================================
-   MOBILE LARGE (768px and below)
-   ========================================== */
-@media (max-width: 768px) {
-    section {
-        padding: 60px 0;
-    }
-
-    .section-header {
-        margin-bottom: 35px;
-    }
-
     .section-header h2 {
         font-size: 1.85rem;
         line-height: 1.25;
@@ -3347,10 +3276,133 @@ video {
         font-size: 1.3rem;
     }
 
+    /* ── Savings table → card layout on mobile ── */
+    .savings-table-wrap {
+        overflow-x: visible;
+        box-shadow: none;
+    }
+
+    .savings-table,
+    .savings-table thead,
+    .savings-table tbody,
+    .savings-table tr,
     .savings-table th,
     .savings-table td {
-        padding: 10px 12px;
-        font-size: 0.85rem;
+        display: block;
+    }
+
+    .savings-table thead {
+        display: none;
+    }
+
+    .savings-table tr {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: 18px 16px;
+        margin-bottom: 16px;
+    }
+
+    .savings-table tr.highlight-row {
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .savings-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--light-gray);
+        font-size: 0.88rem;
+    }
+
+    .savings-table td:last-child {
+        border-bottom: none;
+    }
+
+    .savings-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-color);
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+
+    .savings-table .highlight-row td {
+        background: transparent;
+    }
+
+    .savings-table tr:nth-child(even) td {
+        background: transparent;
+    }
+
+    /* ── Appliance table → card layout on mobile ── */
+    .appliance-table-wrap {
+        overflow-x: visible;
+        box-shadow: none;
+    }
+
+    .appliance-table,
+    .appliance-table thead,
+    .appliance-table tbody,
+    .appliance-table tr,
+    .appliance-table th,
+    .appliance-table td {
+        display: block;
+    }
+
+    .appliance-table thead {
+        display: none;
+    }
+
+    .appliance-table tr {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+        margin-bottom: 12px;
+    }
+
+    .appliance-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 1px solid var(--light-gray);
+        font-size: 0.88rem;
+    }
+
+    .appliance-table td:first-child {
+        font-weight: 600;
+        justify-content: flex-start;
+        border-bottom: 1px solid var(--primary-color);
+        padding-bottom: 8px;
+        margin-bottom: 4px;
+        color: var(--text-color);
+    }
+
+    .appliance-table td:first-child::before {
+        display: none;
+    }
+
+    .appliance-table td:last-child {
+        border-bottom: none;
+    }
+
+    .appliance-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-color);
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+
+    .appliance-table tr:nth-child(even) td {
+        background: transparent;
+    }
+
+    .appliance-note {
+        border-top: none;
     }
 
     .roi-result-grid {
@@ -3376,7 +3428,7 @@ video {
     }
 
     .savings-table-wrap {
-        border-radius: var(--radius);
+        border-radius: 0;
     }
 
     .year-bar-row .year-amount {
