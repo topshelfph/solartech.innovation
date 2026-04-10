@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initGaugeAnimation();
     initButtonActions();
     initMobileOptimizations();
+    initProductFilter();
     initSolarConfigurator();
 });
 
@@ -791,6 +792,64 @@ function initMobileOptimizations() {
             });
         }
     }
+}
+
+/* ==========================================
+   PRODUCT PAGE FILTER
+   ========================================== */
+function initProductFilter() {
+    const filterBtns = document.querySelectorAll('.product-filter-tabs .filter-btn');
+    if (!filterBtns.length) return;
+
+    // All filterable sections and cards
+    const allCategoryBlocks = document.querySelectorAll('.product-category-block');
+    const accSection = document.querySelector('.accessories-section');
+    const agriSection = document.querySelector('.agri-pump-section');
+
+    filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // Update active state
+            filterBtns.forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+
+            var filter = this.getAttribute('data-filter');
+
+            if (filter === 'all') {
+                // Show everything
+                allCategoryBlocks.forEach(function(block) { block.style.display = ''; });
+                if (accSection) accSection.style.display = '';
+                if (agriSection) agriSection.style.display = '';
+            } else if (filter === 'accessories') {
+                // Hide product category blocks and agri section; show accessories
+                allCategoryBlocks.forEach(function(block) { block.style.display = 'none'; });
+                if (agriSection) agriSection.style.display = 'none';
+                if (accSection) {
+                    accSection.style.display = '';
+                    setTimeout(function() {
+                        accSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            } else if (filter === 'agricultural') {
+                // Hide regular category blocks and accessories; show agri section
+                allCategoryBlocks.forEach(function(block) { block.style.display = 'none'; });
+                if (accSection) accSection.style.display = 'none';
+                if (agriSection) {
+                    agriSection.style.display = '';
+                    setTimeout(function() {
+                        agriSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            } else {
+                // Show only the matching product-category-block; hide agri + accessories
+                if (agriSection) agriSection.style.display = 'none';
+                if (accSection) accSection.style.display = 'none';
+                allCategoryBlocks.forEach(function(block) {
+                    var hasMatch = block.querySelector('.product-showcase-card[data-category="' + filter + '"]');
+                    block.style.display = hasMatch ? '' : 'none';
+                });
+            }
+        });
+    });
 }
 
 /* ==========================================

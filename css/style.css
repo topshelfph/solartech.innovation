@@ -1507,6 +1507,7 @@ input, textarea, select {
 .badge-commercial { background: var(--secondary-color); }
 .badge-premium { background: #8b5cf6; }
 .badge-budget { background: #06b6d4; }
+.badge-agricultural { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
 .product-overlay {
     position: absolute;
@@ -1654,7 +1655,8 @@ input, textarea, select {
 }
 
 .product-icon-inverter,
-.product-icon-battery {
+.product-icon-battery,
+.product-icon-agri {
     margin-bottom: 0;
 }
 
@@ -5904,5 +5906,218 @@ select:focus {
         flex-direction: row;
         width: 100%;
         justify-content: flex-end;
+    }
+}
+
+/* ============================================================
+   AGRICULTURAL SOLAR PUMPS — PRODUCTS PAGE
+   ============================================================ */
+
+/* Section wrapper */
+.agri-pump-section {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+/* Category title bar accent for agri */
+.agri-title-bar {
+    border-left: 4px solid #27ae60;
+}
+.agri-title-bar h3 i {
+    color: #27ae60;
+}
+
+/* Icon box colour for agri pump cards */
+.product-icon-agri {
+    background: linear-gradient(135deg, #0d6b3a 0%, #1a9e5c 50%, #27ae60 100%);
+}
+
+/* ---- Intro Banner ---- */
+.agri-intro-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(39,174,96,0.08), rgba(46,204,113,0.05));
+    border: 1px solid rgba(39,174,96,0.2);
+    border-radius: var(--radius-xl);
+    padding: 36px;
+    margin-bottom: 48px;
+}
+
+.agri-intro-text h3 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+.agri-intro-text h3 i {
+    color: #27ae60;
+    margin-right: 8px;
+}
+.agri-intro-text p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+.agri-benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.agri-benefits-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+.agri-benefits-list li i {
+    color: #27ae60;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.agri-benefits-list li strong {
+    color: var(--text-primary);
+}
+
+/* Flow Diagram */
+.agri-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.agri-diagram-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+.agri-diagram-node span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    max-width: 80px;
+    line-height: 1.3;
+}
+.agri-node-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.agri-node-icon i {
+    font-size: 1.4rem;
+    color: #fff;
+}
+.agri-flow-arrow {
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+}
+
+/* ---- Pump Spec Chips ---- */
+.agri-pump-specs-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0;
+}
+.pump-spec-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(39,174,96,0.12);
+    border: 1px solid rgba(39,174,96,0.25);
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: #27ae60;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.pump-spec-chip i {
+    font-size: 0.7rem;
+}
+
+/* ---- Agricultural CTA Bar ---- */
+.agri-cta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: linear-gradient(135deg, #0d6b3a, #27ae60);
+    border-radius: var(--radius-xl);
+    padding: 32px 36px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+}
+.agri-cta-text h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+.agri-cta-text h3 i {
+    margin-right: 8px;
+    opacity: 0.9;
+}
+.agri-cta-text p {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.9rem;
+    margin: 0;
+}
+.agri-cta-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+.agri-cta-actions .btn-outline {
+    border-color: rgba(255,255,255,0.7);
+    color: #fff;
+}
+.agri-cta-actions .btn-outline:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #fff;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .agri-intro-banner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .agri-intro-visual {
+        display: none;
+    }
+}
+@media (max-width: 600px) {
+    .agri-cta-bar {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+    }
+    .agri-cta-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    .agri-intro-banner {
+        padding: 20px;
+    }
+    .agri-pump-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 }
