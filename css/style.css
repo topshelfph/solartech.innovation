@@ -3810,7 +3810,7 @@ input, textarea, select {
    ========================================== */
 .page-banner {
     position: relative;
-    height: 400px;
+    min-height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;

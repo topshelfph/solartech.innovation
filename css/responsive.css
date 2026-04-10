@@ -466,10 +466,13 @@ a.btn,
     .logo img {
         height: 45px;
         width: 45px;
+        min-width: 45px;
         border-radius: 50%;
         border: 2px solid var(--primary-color);
         box-shadow: 0 3px 15px rgba(255, 140, 0, 0.35);
         object-fit: cover;
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
     }
 
     .logo span {
@@ -529,7 +532,7 @@ a.btn,
         min-width: 0;
     }
 
-    .stat:nth-last-child(-n+2) {
+    .stat:nth-last-child(-n+3) {
         border-bottom: none;
     }
 
@@ -848,10 +851,13 @@ a.btn,
     .logo img {
         height: 42px;
         width: 42px;
+        min-width: 42px;
         border-radius: 50%;
         border: 2px solid var(--primary-color);
         box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
         object-fit: cover;
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
     }
 
     .logo span {
@@ -3035,5 +3041,237 @@ video {
 
     .breadcrumb {
         font-size: 0.75rem;
+    }
+}
+
+/* ====================================================
+   COMPREHENSIVE MOBILE FIXES
+   Hero, Stats, Banners, Contact Grid, Configurator
+   ==================================================== */
+
+/* Page Banner: tablet override (override min-height only, height:auto from base) */
+@media (max-width: 768px) {
+    .page-banner {
+        min-height: 240px;
+    }
+
+    .banner-content h1 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ── Hero: 480px and smaller ─────────────────────── */
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 72px 0 60px;
+    }
+
+    .hero-badge {
+        font-size: 0.7rem;
+        padding: 7px 12px;
+        margin-bottom: 14px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.45rem;
+        line-height: 1.2;
+        margin-bottom: 14px;
+    }
+
+    .hero-content p {
+        font-size: 0.85rem;
+        line-height: 1.55;
+        margin-bottom: 14px;
+    }
+
+    .hero-buttons {
+        margin-bottom: 14px;
+    }
+
+    .hero-buttons .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+
+    .hero-stats {
+        padding: 10px 8px;
+    }
+
+    .stat {
+        padding: 6px 4px;
+    }
+
+    .stat-number {
+        font-size: 1.35rem;
+    }
+
+    .stat-suffix {
+        font-size: 0.85rem;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+    }
+}
+
+/* ── Hero: 360px and smaller ─────────────────────── */
+@media (max-width: 360px) {
+    .hero-content {
+        padding: 68px 0 55px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.3rem;
+    }
+
+    /* Hide paragraph on very small phones to prevent overflow */
+    .hero-content > p {
+        display: none;
+    }
+
+    .hero-buttons .btn {
+        padding: 11px 16px;
+        font-size: 0.85rem;
+    }
+
+    .stat-number {
+        font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.6rem;
+    }
+}
+
+/* ── Contact Cards Grid ──────────────────────────── */
+@media (max-width: 768px) {
+    .contact-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .contact-info-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+}
+
+/* ── Configurator mobile improvements ────────────── */
+@media (max-width: 480px) {
+    .solar-configurator {
+        padding: 60px 0;
+    }
+
+    .config-block {
+        padding: 16px;
+    }
+
+    .config-block-title {
+        font-size: 0.88rem;
+    }
+
+    .config-block-title small.hints {
+        display: block;
+        margin-left: 0;
+        margin-top: 4px;
+        width: 100%;
+    }
+
+    .type-btn {
+        padding: 10px 6px;
+    }
+
+    .type-btn small {
+        font-size: 0.6rem;
+    }
+
+    .sector-btn {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+    }
+
+    .appliance-item {
+        padding: 7px 8px;
+        gap: 7px;
+    }
+
+    .appliance-name {
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .qty-btn {
+        width: 20px;
+        height: 20px;
+    }
+
+    .qty-field,
+    .hrs-field {
+        width: 26px;
+        height: 20px;
+    }
+
+    .result-card {
+        padding: 16px;
+    }
+
+    .spec-value.accent {
+        font-size: 0.9rem;
+    }
+
+    .price-value {
+        font-size: 1rem;
+    }
+
+    .live-diagram {
+        min-height: 120px;
+    }
+}
+
+/* ── Slider controls clearance ───────────────────── */
+@media (max-width: 480px) {
+    .slider-controls {
+        bottom: 30px;
+    }
+
+    .slider-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+}
+
+/* ── Package benefits even wrapping ─────────────── */
+@media (max-width: 480px) {
+    .benefit-item {
+        flex: 1 1 calc(50% - 10px);
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+/* ── Locations grid - single column on tablet ────── */
+@media (max-width: 992px) {
+    .locations-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+}
+
+/* ── Section tag overflow protection ─────────────── */
+@media (max-width: 480px) {
+    .section-tag {
+        white-space: normal;
+        word-break: break-word;
     }
 }
