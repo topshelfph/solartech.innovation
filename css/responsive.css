@@ -14,7 +14,7 @@
 html {
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
-    text-size-adjust: 100%; /* stylelint-disable-line */
+    text-size-adjust: 100%;
 }
 
 /* Smooth scrolling for mobile */
