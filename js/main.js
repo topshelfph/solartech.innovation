@@ -923,15 +923,15 @@ function initSolarConfigurator() {
     };
 
     const PACKAGES = [
-        { watts: 60,    price: 10000,  label: 'Starter Package',    panels: '1× 100W panel',      inverter: '300W Pure Sine Inverter',   battery: '50Ah 12V AGM'     },
-        { watts: 120,   price: 20000,  label: 'Family Package',     panels: '1× 200W panel',      inverter: '500W Pure Sine Inverter',   battery: '100Ah 12V AGM'    },
-        { watts: 240,   price: 40000,  label: 'Premium Package',    panels: '2× 150W panels',     inverter: '1000W Pure Sine Inverter',  battery: '100Ah 24V AGM'    },
-        { watts: 500,   price: 80000,  label: 'Ultimate Package',   panels: '2× 300W panels',     inverter: '1500W Pure Sine Inverter',  battery: '200Ah 24V AGM'    },
-        { watts: 1000,  price: 150000, label: 'Commercial 1kW',     panels: '4× 250W panels',     inverter: '2000W Hybrid Inverter',     battery: '200Ah 24V Lithium' },
-        { watts: 2000,  price: 260000, label: 'Commercial 2kW',     panels: '8× 250W panels',     inverter: '3000W Hybrid Inverter',     battery: '400Ah 48V Lithium' },
-        { watts: 3000,  price: 370000, label: 'Commercial 3kW',     panels: '12× 250W panels',    inverter: '5000W Hybrid Inverter',     battery: '500Ah 48V Lithium' },
-        { watts: 5000,  price: 560000, label: 'Industrial 5kW',     panels: '20× 250W panels',    inverter: '8000W Hybrid Inverter',     battery: '800Ah 48V Lithium' },
-        { watts: 10000, price: 960000, label: 'Industrial 10kW',    panels: '40× 250W panels',    inverter: '15kW Hybrid Inverter',      battery: '1500Ah 48V Lithium'},
+        { watts: 60,    panelKW: 0.10, price: 10000,  label: 'Starter Package',    panels: '1× 100W panel',      inverter: '300W Pure Sine Inverter',   battery: '50Ah 12V AGM',     controller: '10A PWM',  bom: '1× 100W Panel · 300W Inverter · 50Ah 12V AGM · 10A PWM Controller · Wiring & Mounting'  },
+        { watts: 120,   panelKW: 0.20, price: 20000,  label: 'Family Package',     panels: '1× 200W panel',      inverter: '500W Pure Sine Inverter',   battery: '100Ah 12V AGM',    controller: '20A MPPT', bom: '1× 200W Panel · 500W Inverter · 100Ah 12V AGM · 20A MPPT Controller · Wiring & Mounting' },
+        { watts: 240,   panelKW: 0.30, price: 40000,  label: 'Premium Package',    panels: '2× 150W panels',     inverter: '1000W Pure Sine Inverter',  battery: '100Ah 24V AGM',    controller: '30A MPPT', bom: '2× 150W Panels · 1kW Inverter · 100Ah 24V AGM · 30A MPPT Controller · Wiring & Mounting' },
+        { watts: 500,   panelKW: 0.60, price: 80000,  label: 'Ultimate Package',   panels: '2× 300W panels',     inverter: '1500W Pure Sine Inverter',  battery: '200Ah 24V AGM',    controller: '60A MPPT', bom: '2× 300W Panels · 1.5kW Inverter · 200Ah 24V AGM · 60A MPPT Controller · Wiring & Mounting' },
+        { watts: 1000,  panelKW: 1.00, price: 150000, label: 'Commercial 1kW',     panels: '4× 250W panels',     inverter: '2000W Hybrid Inverter',     battery: '200Ah 24V Lithium', controller: '60A MPPT', bom: '4× 250W Panels · 2kW Hybrid Inverter · 200Ah Lithium · 60A MPPT · Wiring & Mounting' },
+        { watts: 2000,  panelKW: 2.00, price: 260000, label: 'Commercial 2kW',     panels: '8× 250W panels',     inverter: '3000W Hybrid Inverter',     battery: '400Ah 48V Lithium', controller: '80A MPPT', bom: '8× 250W Panels · 3kW Hybrid Inverter · 400Ah Lithium · 80A MPPT · Wiring & Mounting' },
+        { watts: 3000,  panelKW: 3.00, price: 370000, label: 'Commercial 3kW',     panels: '12× 250W panels',    inverter: '5000W Hybrid Inverter',     battery: '500Ah 48V Lithium', controller: '100A MPPT', bom: '12× 250W Panels · 5kW Hybrid Inverter · 500Ah Lithium · 100A MPPT · Wiring & Mounting' },
+        { watts: 5000,  panelKW: 5.00, price: 560000, label: 'Industrial 5kW',     panels: '20× 250W panels',    inverter: '8000W Hybrid Inverter',     battery: '800Ah 48V Lithium', controller: '150A MPPT', bom: '20× 250W Panels · 8kW Hybrid Inverter · 800Ah Lithium · 150A MPPT · Wiring & Mounting' },
+        { watts: 10000, panelKW: 10.0, price: 960000, label: 'Industrial 10kW',    panels: '40× 250W panels',    inverter: '15kW Hybrid Inverter',      battery: '1500Ah 48V Lithium', controller: '200A MPPT', bom: '40× 250W Panels · 15kW Hybrid Inverter · 1500Ah Lithium · 200A MPPT · Wiring & Mounting' },
     ];
 
     let activeType   = 'hybrid';
@@ -1059,6 +1059,12 @@ function initSolarConfigurator() {
         document.getElementById('priceEstimate').textContent = totalW > 0
             ? '₱' + pkg.price.toLocaleString() + '+'
             : '₱0';
+
+        // BOM string (if element exists)
+        var bomEl = document.getElementById('recBOM');
+        if (bomEl) bomEl.textContent = totalW > 0 ? pkg.bom : '—';
+        var ctrlEl = document.getElementById('recController');
+        if (ctrlEl) ctrlEl.textContent = totalW > 0 ? pkg.controller : '—';
 
         // Load summary list
         const selEl = document.getElementById('selectedAppliances');
@@ -1274,21 +1280,25 @@ function initROICalculator() {
 
     /* ── Package info displayed when user selects a package ── */
     const PKG_INFO = {
-        '10000,0,0.09': {
+        '10000,0,0.10': {
             name: 'Starter Package',
-            powers: ['5 pcs LED bulbs (5W each)', '1 electric fan (50–60W)', 'Unlimited phone charging']
+            powers: ['5 pcs LED bulbs (5W each)', '1 electric fan (50–60W)', 'Unlimited phone charging'],
+            bom: '1× 100W Panel · 300W Inverter · 50Ah 12V AGM · 10A PWM Controller · Wiring & Mounting'
         },
-        '20000,0,0.18': {
+        '20000,0,0.20': {
             name: 'Family Package',
-            powers: ['5 pcs LED bulbs', '2 electric fans', '1 TV (with fan off)', 'Unlimited phone charging']
+            powers: ['5 pcs LED bulbs', '2 electric fans', '1 TV (with fan off)', 'Unlimited phone charging'],
+            bom: '1× 200W Panel · 500W Inverter · 100Ah 12V AGM · 20A MPPT Controller · Wiring & Mounting'
         },
-        '40000,0,0.36': {
+        '40000,0,0.30': {
             name: 'Premium Package',
-            powers: ['5 pcs LED bulbs', '2 electric fans', '1 Television', '1 Refrigerator', 'Unlimited phone charging']
+            powers: ['5 pcs LED bulbs', '2 electric fans', '1 Television', '1 Refrigerator', 'Unlimited phone charging'],
+            bom: '2× 150W Panels · 1kW Inverter · 100Ah 24V AGM · 30A MPPT Controller · Wiring & Mounting'
         },
-        '80000,0,0.70': {
+        '80000,0,0.60': {
             name: 'Ultimate Package',
-            powers: ['5+ LED bulbs', '3 electric fans', '1 Television', '1 Refrigerator', '1 HP Aircon or Washing Machine', 'Unlimited phone charging']
+            powers: ['5+ LED bulbs', '3 electric fans', '1 Television', '1 Refrigerator', '1 HP Aircon or Washing Machine', 'Unlimited phone charging'],
+            bom: '2× 300W Panels · 1.5kW Inverter · 200Ah 24V AGM · 60A MPPT Controller · Wiring & Mounting'
         }
     };
 
