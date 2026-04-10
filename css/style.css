@@ -717,7 +717,7 @@ input, textarea, select {
 
 .slider-controls {
     position: absolute;
-    bottom: 50px;
+    bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -765,7 +765,7 @@ input, textarea, select {
 
 .scroll-indicator {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -832,7 +832,8 @@ input, textarea, select {
     background: var(--white);
     position: relative;
     z-index: 5;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid var(--primary-color);
 }
 
 .stats-grid {
@@ -845,6 +846,25 @@ input, textarea, select {
     text-align: center;
     border-right: 1px solid var(--light-gray);
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-bar .stat::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 40px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+}
+
+.stats-bar .stat:hover::before {
+    transform: translateX(-50%) scaleX(1);
 }
 
 .stats-bar .stat:last-child {
@@ -852,7 +872,15 @@ input, textarea, select {
 }
 
 .stats-bar .stat:hover {
-    background: var(--off-white);
+    background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+}
+
+.stats-bar .stat-value {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 2px;
+    margin-bottom: 6px;
 }
 
 .stats-bar .stat-number {
@@ -860,22 +888,52 @@ input, textarea, select {
     font-weight: 800;
     color: var(--primary-color);
     line-height: 1;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stats-bar .stat-suffix {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stats-bar .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--text-light);
     font-weight: 500;
-    margin-top: 8px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* ==========================================
+.stat-icon-sm {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, rgba(255,149,0,0.12), rgba(255,107,0,0.08));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.stats-bar .stat:hover .stat-icon-sm {
+    background: var(--gradient-primary);
+    color: var(--white);
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* ===========================================
    SECTION HEADERS
    ========================================== */
 .section-header {
@@ -4228,11 +4286,18 @@ input, textarea, select {
     box-shadow: 0 4px 15px rgba(0, 153, 255, 0.45);
     z-index: 990;
     transition: var(--transition);
+    animation: messengerPulse 3s ease-in-out infinite;
+}
+
+@keyframes messengerPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(0, 153, 255, 0.45); }
+    50% { box-shadow: 0 4px 30px rgba(0, 153, 255, 0.75), 0 0 0 8px rgba(0, 153, 255, 0.12); }
 }
 
 .whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 153, 255, 0.6);
+    transform: scale(1.12) rotate(-5deg);
+    box-shadow: 0 8px 25px rgba(0, 153, 255, 0.7);
+    animation: none;
 }
 
 /* ==========================================
@@ -4735,6 +4800,35 @@ input, textarea, select {
 }
 
 /* ==========================================
+   SHOWROOM UTILITY CLASSES
+   ========================================== */
+.table-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+.appliance-note {
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--off-white);
+    border-top: 1px solid var(--light-gray);
+}
+
+.roi-hidden {
+    display: none;
+}
+
+.topshelf-benefits-card .btn-primary {
+    width: 100%;
+    text-align: center;
+    margin-top: 25px;
+    display: block;
+}
+
+/* ==========================================
    ANIMATIONS
    ========================================== */
 @keyframes fadeInUp {
@@ -5087,6 +5181,7 @@ select:focus {
     background: transparent;
     outline: none;
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .qty-field::-webkit-inner-spin-button,

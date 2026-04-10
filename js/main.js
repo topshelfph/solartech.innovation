@@ -1276,8 +1276,8 @@ function initROICalculator() {
         }
         barsContainer.innerHTML = barsHTML;
 
-        document.getElementById('roi-empty-state').style.display  = 'none';
-        document.getElementById('roi-result-content').style.display = 'block';
+        document.getElementById('roi-empty-state').classList.add('roi-hidden');
+        document.getElementById('roi-result-content').classList.remove('roi-hidden');
     });
 }
 
