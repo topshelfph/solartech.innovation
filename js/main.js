@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
    ========================================== */
 function initPreloader() {
     const preloader = document.getElementById('preloader');
+    if (!preloader) return;
     
     window.addEventListener('load', function() {
         setTimeout(function() {
@@ -43,6 +44,7 @@ function initNavigation() {
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-links a');
+    if (!header || !menuToggle || !navMenu) return;
     
     // Create overlay element
     const overlay = document.createElement('div');
@@ -115,6 +117,7 @@ function initHeroSlider() {
     const dotsContainer = document.querySelector('.slider-dots');
     const prevBtn = document.querySelector('.slider-btn.prev');
     const nextBtn = document.querySelector('.slider-btn.next');
+    if (!slides.length || !dotsContainer || !prevBtn || !nextBtn) return;
     let currentSlide = 0;
     let slideInterval;
     
@@ -451,6 +454,7 @@ function showNotification(message, type) {
    ========================================== */
 function initBackToTop() {
     const backToTop = document.getElementById('backToTop');
+    if (!backToTop) return;
     
     window.addEventListener('scroll', () => {
         if (window.scrollY > 500) {
