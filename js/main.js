@@ -1211,4 +1211,77 @@ function initSolarConfigurator() {
     renderAppliances();
 }
 
+/* ==========================================
+   ROI CALCULATOR
+   ========================================== */
+function initROICalculator() {
+    const btn = document.getElementById('calc-run-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', function() {
+        const monthlyBill = parseFloat(document.getElementById('calc-monthly-bill').value) || 0;
+        const packageVal  = document.getElementById('calc-package').value;
+        const rate        = parseFloat(document.getElementById('calc-rate').value) || 12.15;
+        const sunHours    = parseFloat(document.getElementById('calc-sunhours').value) || 5;
+
+        if (!packageVal || monthlyBill <= 0) {
+            alert('Please enter your monthly bill and select a package.');
+            return;
+        }
+
+        const [costStr, , panelkWStr] = packageVal.split(',');
+        const packageCost = parseFloat(costStr);
+        const panelkW     = parseFloat(panelkWStr);
+
+        // Daily generation (kWh) = Panel kW × sun hours
+        const dailyGen    = panelkW * sunHours;
+        // Monthly generation (kWh)
+        const monthlyGen  = dailyGen * 30;
+        // Monthly savings in PHP
+        const monthlySavings = monthlyGen * rate;
+        // Clamp: can't save more than the bill
+        const actualMonthlySavings = Math.min(monthlySavings, monthlyBill);
+        const annualSavings = actualMonthlySavings * 12;
+        const billReduction = ((actualMonthlySavings / monthlyBill) * 100).toFixed(1);
+        const savings25yr   = annualSavings * 25;
+        const paybackYears  = packageCost / annualSavings;
+
+        // Update display
+        document.getElementById('res-monthly').textContent  = '₱' + actualMonthlySavings.toLocaleString('en-PH', {maximumFractionDigits: 0});
+        document.getElementById('res-annual').textContent   = '₱' + annualSavings.toLocaleString('en-PH', {maximumFractionDigits: 0});
+        document.getElementById('res-reduction').textContent = billReduction + '%';
+        document.getElementById('res-25yr').textContent    = '₱' + savings25yr.toLocaleString('en-PH', {maximumFractionDigits: 0});
+
+        const pbText = paybackYears <= 0.5 ? 'Under 6 months'
+                     : paybackYears < 1    ? Math.round(paybackYears * 12) + ' months'
+                     : paybackYears.toFixed(1) + ' years';
+        document.getElementById('res-payback').textContent = pbText;
+
+        // Year-by-year bars (5 years)
+        const barsContainer = document.getElementById('roi-year-bars');
+        const maxSavings    = annualSavings * 5;
+        let barsHTML = '<h4>Cumulative Savings Progress</h4>';
+        for (let y = 1; y <= 5; y++) {
+            const cumSavings = annualSavings * y;
+            const pct = Math.min((cumSavings / packageCost) * 100, 100);
+            const recovered = pct >= 100;
+            barsHTML += `
+                <div class="year-bar-row">
+                    <span class="year-label">Yr ${y}</span>
+                    <div class="year-bar-track">
+                        <div class="year-bar-fill" style="width:${Math.min(pct, 100)}%"></div>
+                    </div>
+                    <span class="year-amount">${recovered ? '✅ ' : ''}₱${cumSavings.toLocaleString('en-PH', {maximumFractionDigits: 0})}</span>
+                </div>`;
+        }
+        barsContainer.innerHTML = barsHTML;
+
+        document.getElementById('roi-empty-state').style.display  = 'none';
+        document.getElementById('roi-result-content').style.display = 'block';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initROICalculator);
+
 console.log('Topshelf Solar Tech & Innovations - Website Loaded Successfully');
+

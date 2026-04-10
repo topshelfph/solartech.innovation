@@ -3275,3 +3275,124 @@ video {
         word-break: break-word;
     }
 }
+
+/* ==========================================
+   STATS BAR RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-bar .stat {
+        padding: 28px 15px;
+        border-right: 1px solid var(--light-gray);
+        border-bottom: 1px solid var(--light-gray);
+    }
+
+    .stats-bar .stat:nth-child(even) {
+        border-right: none;
+    }
+
+    .stats-bar .stat:nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+
+    .stats-bar .stat-number {
+        font-size: 2.2rem;
+    }
+
+    .stats-bar .stat-suffix {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-bar .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stats-bar .stat {
+        padding: 20px 12px;
+    }
+}
+
+/* ==========================================
+   SHOWROOM ECONOMICS RESPONSIVE
+   ========================================== */
+@media (max-width: 992px) {
+    .bakit-pillars {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 500px;
+        margin: 20px auto 0;
+    }
+
+    .appliance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .roi-calc-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .bakit-hero-content h2 {
+        font-size: 1.65rem;
+    }
+
+    .pillar-highlight {
+        font-size: 1.3rem;
+    }
+
+    .savings-table th,
+    .savings-table td {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .roi-result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .roi-calc-results {
+        padding: 25px 20px;
+    }
+
+    .roi-calc-inputs {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .roi-result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .roi-result-item.full-width {
+        grid-column: 1;
+    }
+
+    .savings-table-wrap {
+        border-radius: var(--radius);
+    }
+
+    .year-bar-row .year-amount {
+        font-size: 0.76rem;
+        width: 68px;
+    }
+}
+
+/* ==========================================
+   MESSENGER FLOAT RESPONSIVE
+   ========================================== */
+@media (max-width: 576px) {
+    .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        right: 20px;
+    }
+}
