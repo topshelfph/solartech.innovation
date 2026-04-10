@@ -158,16 +158,30 @@ a.btn,
         padding: 10px;
     }
 
+    .menu-toggle span {
+        width: 22px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 3px;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    #header.scrolled .menu-toggle span {
+        background: var(--dark-color);
+    }
+
     .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
+        transform: rotate(45deg) translate(0, 9px);
     }
 
     .menu-toggle.active span:nth-child(2) {
         opacity: 0;
+        transform: scaleX(0);
     }
 
     .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
+        transform: rotate(-45deg) translate(0, -9px);
     }
 
     .call-btn span {
@@ -473,7 +487,7 @@ a.btn,
     }
 
     .hero-content {
-        padding: 100px 0 60px;
+        padding: 88px 0 40px;
     }
 
     .hero-content h1 {
@@ -482,13 +496,15 @@ a.btn,
     }
 
     .hero-content p {
-        font-size: 1rem;
+        font-size: 0.98rem;
         line-height: 1.6;
+        margin-bottom: 20px;
     }
 
     .hero-buttons {
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
+        margin-bottom: 24px;
     }
 
     .hero-buttons .btn {
@@ -500,19 +516,17 @@ a.btn,
     .hero-stats {
         flex-wrap: wrap;
         gap: 0;
-        padding: 16px;
+        padding: 12px 10px;
         width: 100%;
         border-radius: var(--radius-lg);
+        background: rgba(0, 0, 0, 0.45);
     }
 
     .stat {
         flex: 1 1 calc(50% - 1px);
-        padding: 12px 8px;
+        padding: 10px 6px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .stat:nth-child(-n+2) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        min-width: 0;
     }
 
     .stat:nth-last-child(-n+2) {
@@ -524,15 +538,15 @@ a.btn,
     }
 
     .stat-number {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
     }
 
     .stat-suffix {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .stat-label {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         line-height: 1.3;
     }
 
@@ -856,7 +870,7 @@ a.btn,
 
     /* Hero */
     .hero-content {
-        padding: 90px 0 50px;
+        padding: 80px 0 35px;
     }
 
     .hero-content h1 {
@@ -870,12 +884,17 @@ a.btn,
     }
 
     .hero-content p {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        margin-bottom: 16px;
     }
 
     .hero-buttons .btn {
         padding: 14px 24px;
         font-size: 0.95rem;
+    }
+
+    .hero-buttons {
+        margin-bottom: 18px;
     }
 
     .hero-stats {

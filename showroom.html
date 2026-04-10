@@ -224,103 +224,107 @@
         </div>
     </section>
 
-    <!-- Power Generation Display -->
-    <section class="power-generation-section">
+    <!-- Solar System Configurator -->
+    <section class="solar-configurator">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Live Data</span>
-                <h2>Power Generation <span class="highlight">Monitor</span></h2>
-                <p>Real-time solar energy production statistics</p>
+                <span class="section-tag">System Builder</span>
+                <h2>Design Your <span class="highlight">Solar System</span></h2>
+                <p>Select your appliances to get real-time specifications, a visual wiring diagram, and accurate pricing for your setup</p>
             </div>
-            <div class="showroom-grid">
-                <div class="showroom-card">
-                    <h3><i class="fas fa-tachometer-alt"></i> Power Generation Display</h3>
-                    <div class="power-display">
-                        <div class="power-gauge">
-                            <div class="gauge-circle">
-                                <svg viewBox="0 0 100 100">
-                                    <circle class="gauge-bg" cx="50" cy="50" r="45"></circle>
-                                    <circle class="gauge-fill" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="70"></circle>
-                                </svg>
-                                <div class="gauge-value">
-                                    <span class="value">75</span>
-                                    <span class="unit">%</span>
-                                </div>
-                            </div>
-                            <p>Current Efficiency</p>
-                        </div>
-                        <div class="power-stats">
-                            <div class="power-stat">
+            <div class="configurator-layout">
+                <!-- Left: Controls Panel -->
+                <div class="config-controls">
+                    <!-- Step 1: System Type -->
+                    <div class="config-block">
+                        <h3 class="config-block-title"><span class="step-num">1</span> System Type</h3>
+                        <div class="type-grid">
+                            <button class="type-btn active" data-type="hybrid">
                                 <i class="fas fa-bolt"></i>
-                                <span class="stat-value">5.2</span>
-                                <span class="stat-unit">kWh</span>
-                                <span class="stat-label">Today's Generation</span>
-                            </div>
-                            <div class="power-stat">
+                                <strong>Hybrid</strong>
+                                <small>Solar + Battery + Grid</small>
+                            </button>
+                            <button class="type-btn" data-type="offgrid">
                                 <i class="fas fa-sun"></i>
-                                <span class="stat-value">156</span>
-                                <span class="stat-unit">kWh</span>
-                                <span class="stat-label">Monthly Average</span>
-                            </div>
-                            <div class="power-stat">
-                                <i class="fas fa-leaf"></i>
-                                <span class="stat-value">2.1</span>
-                                <span class="stat-unit">tons</span>
-                                <span class="stat-label">CO₂ Saved/Year</span>
-                            </div>
+                                <strong>Off-Grid</strong>
+                                <small>Solar + Battery Only</small>
+                            </button>
+                            <button class="type-btn" data-type="gridtied">
+                                <i class="fas fa-plug"></i>
+                                <strong>Grid-Tied</strong>
+                                <small>Solar + Net Metering</small>
+                            </button>
                         </div>
+                    </div>
+                    <!-- Step 2: Installation Sector -->
+                    <div class="config-block">
+                        <h3 class="config-block-title"><span class="step-num">2</span> Installation Type</h3>
+                        <div class="sector-tabs">
+                            <button class="sector-btn active" data-sector="residential"><i class="fas fa-home"></i> Residential</button>
+                            <button class="sector-btn" data-sector="commercial"><i class="fas fa-store"></i> Commercial</button>
+                            <button class="sector-btn" data-sector="industrial"><i class="fas fa-industry"></i> Industrial</button>
+                        </div>
+                    </div>
+                    <!-- Step 3: Appliances -->
+                    <div class="config-block">
+                        <h3 class="config-block-title">
+                            <span class="step-num">3</span> Select Appliances
+                            <small class="hints">Qty = number of units &nbsp;|&nbsp; Hrs = hours used per day</small>
+                        </h3>
+                        <div class="appliances-list" id="appliancesGrid"></div>
                     </div>
                 </div>
-
-                <div class="showroom-card">
-                    <h3><i class="fas fa-cogs"></i> System Components</h3>
-                    <div class="components-display enhanced">
-                        <div class="component">
-                            <div class="component-icon">
-                                <svg viewBox="0 0 80 80">
-                                    <rect x="5" y="15" width="70" height="50" rx="3" fill="#1a5276" stroke="#2980b9" stroke-width="2"/>
-                                    <line x1="5" y1="32" x2="75" y2="32" stroke="#2980b9" stroke-width="1"/>
-                                    <line x1="5" y1="48" x2="75" y2="48" stroke="#2980b9" stroke-width="1"/>
-                                    <line x1="28" y1="15" x2="28" y2="65" stroke="#2980b9" stroke-width="1"/>
-                                    <line x1="52" y1="15" x2="52" y2="65" stroke="#2980b9" stroke-width="1"/>
-                                </svg>
+                <!-- Right: Results Panel -->
+                <div class="config-results">
+                    <!-- Live Diagram -->
+                    <div class="result-card diagram-card">
+                        <h3 class="result-title"><i class="fas fa-project-diagram"></i> System Wiring Diagram</h3>
+                        <div id="liveSystemDiagram" class="live-diagram"></div>
+                    </div>
+                    <!-- System Specs -->
+                    <div class="result-card specs-card">
+                        <h3 class="result-title"><i class="fas fa-microchip"></i> System Specifications</h3>
+                        <div class="spec-rows">
+                            <div class="spec-row">
+                                <span class="spec-label">Total Load</span>
+                                <span class="spec-value accent" id="totalWatts">0 W</span>
                             </div>
-                            <div class="component-info">
-                                <h4>Solar Panel</h4>
-                                <p>Converts sunlight to DC power</p>
+                            <div class="spec-row">
+                                <span class="spec-label">Daily Energy</span>
+                                <span class="spec-value" id="dailyEnergy">0 kWh/day</span>
                             </div>
-                        </div>
-                        <div class="component">
-                            <div class="component-icon">
-                                <svg viewBox="0 0 80 80">
-                                    <rect x="10" y="10" width="60" height="60" rx="5" fill="#8e44ad" stroke="#9b59b6" stroke-width="2"/>
-                                    <text x="40" y="30" text-anchor="middle" fill="white" font-size="12" font-weight="bold">DC</text>
-                                    <path d="M20 40 L60 40" stroke="white" stroke-width="2"/>
-                                    <polygon points="52,36 62,40 52,44" fill="white"/>
-                                    <text x="40" y="58" text-anchor="middle" fill="white" font-size="12" font-weight="bold">AC</text>
-                                </svg>
+                            <div class="spec-row">
+                                <span class="spec-label">Solar Panels</span>
+                                <span class="spec-value" id="recPanels">—</span>
                             </div>
-                            <div class="component-info">
-                                <h4>Inverter</h4>
-                                <p>DC to AC conversion</p>
+                            <div class="spec-row">
+                                <span class="spec-label">Inverter Size</span>
+                                <span class="spec-value" id="recInverter">—</span>
                             </div>
-                        </div>
-                        <div class="component">
-                            <div class="component-icon">
-                                <svg viewBox="0 0 80 80">
-                                    <rect x="10" y="20" width="60" height="40" rx="5" fill="#27ae60" stroke="#2ecc71" stroke-width="2"/>
-                                    <rect x="65" y="30" width="8" height="20" rx="2" fill="#2ecc71"/>
-                                    <rect x="18" y="30" width="15" height="20" fill="#fff" opacity="0.3"/>
-                                    <line x1="40" y1="28" x2="40" y2="52" stroke="#2ecc71" stroke-width="1"/>
-                                    <text x="55" y="45" text-anchor="middle" fill="white" font-size="14" font-weight="bold">+</text>
-                                </svg>
+                            <div class="spec-row">
+                                <span class="spec-label">Battery Bank</span>
+                                <span class="spec-value" id="recBattery">—</span>
                             </div>
-                            <div class="component-info">
-                                <h4>Battery</h4>
-                                <p>Energy storage system</p>
+                            <div class="spec-row highlight-row">
+                                <span class="spec-label">Recommended</span>
+                                <span class="spec-value system-label" id="recLabel">—</span>
+                            </div>
+                            <div class="spec-row price-row">
+                                <span class="spec-label">Estimated Price</span>
+                                <span class="spec-value price-value" id="priceEstimate">₱0</span>
                             </div>
                         </div>
                     </div>
+                    <!-- Load Summary -->
+                    <div class="result-card">
+                        <h3 class="result-title"><i class="fas fa-list"></i> Load Summary</h3>
+                        <div id="selectedAppliances" class="selected-list">
+                            <div class="no-selection">Select appliances above to calculate your load</div>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary btn-block">
+                        <i class="fas fa-paper-plane"></i> Get a Free Quote for This Setup
+                    </a>
                 </div>
             </div>
         </div>
@@ -537,70 +541,6 @@
                     </div>
                     <h4>Low Maintenance</h4>
                     <p>Solar systems require minimal maintenance and last 25+ years.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Package Power Capabilities -->
-    <section class="power-capabilities">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Power Guide</span>
-                <h2>What Each Package <span class="highlight">Can Power</span></h2>
-                <p>Visual guide to help you choose the right package for your needs</p>
-            </div>
-
-            <div class="capability-cards">
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <h4>60W System</h4>
-                        <span class="price">₱10,000</span>
-                    </div>
-                    <div class="capability-items">
-                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5x LED Bulbs</div>
-                        <div class="cap-item"><i class="fas fa-fan"></i> 1x Fan</div>
-                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
-                    </div>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <h4>120W System</h4>
-                        <span class="price">₱20,000</span>
-                    </div>
-                    <div class="capability-items">
-                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5x LED Bulbs</div>
-                        <div class="cap-item"><i class="fas fa-fan"></i> 2x Fans</div>
-                        <div class="cap-item"><i class="fas fa-tv"></i> 1x TV*</div>
-                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
-                    </div>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-header">
-                        <h4>240W System</h4>
-                        <span class="price">₱40,000</span>
-                    </div>
-                    <div class="capability-items">
-                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5x LED Bulbs</div>
-                        <div class="cap-item"><i class="fas fa-fan"></i> 2x Fans</div>
-                        <div class="cap-item"><i class="fas fa-tv"></i> 1x TV</div>
-                        <div class="cap-item"><i class="fas fa-snowflake"></i> 1x Refrigerator</div>
-                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
-                    </div>
-                </div>
-                <div class="capability-card featured">
-                    <div class="capability-header">
-                        <h4>500W System</h4>
-                        <span class="price">₱80,000</span>
-                    </div>
-                    <div class="capability-items">
-                        <div class="cap-item"><i class="fas fa-lightbulb"></i> 5+ LED Bulbs</div>
-                        <div class="cap-item"><i class="fas fa-fan"></i> 3x Fans</div>
-                        <div class="cap-item"><i class="fas fa-tv"></i> 1x TV</div>
-                        <div class="cap-item"><i class="fas fa-snowflake"></i> 1x Refrigerator</div>
-                        <div class="cap-item"><i class="fas fa-wind"></i> 1x Aircon/Washer</div>
-                        <div class="cap-item"><i class="fas fa-mobile-alt"></i> Phone Charging</div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initGaugeAnimation();
     initButtonActions();
     initMobileOptimizations();
+    initSolarConfigurator();
 });
 
 /* ==========================================
@@ -809,5 +810,405 @@ touchActiveStyle.textContent = `
     }
 `;
 document.head.appendChild(touchActiveStyle);
+
+/* ==========================================
+   SOLAR SYSTEM CONFIGURATOR
+   ========================================== */
+function initSolarConfigurator() {
+    if (!document.getElementById('appliancesGrid')) return;
+
+    const APPLIANCES = {
+        residential: [
+            { id: 'r_led',     name: 'LED Bulb',           watts: 9,    icon: 'fa-lightbulb',     defQty: 5, defHrs: 6  },
+            { id: 'r_cfan',    name: 'Ceiling Fan',         watts: 70,   icon: 'fa-fan',            defQty: 1, defHrs: 8  },
+            { id: 'r_sfan',    name: 'Stand Fan',           watts: 40,   icon: 'fa-fan',            defQty: 0, defHrs: 8  },
+            { id: 'r_tv32',    name: '32" LED TV',          watts: 40,   icon: 'fa-tv',             defQty: 1, defHrs: 5  },
+            { id: 'r_tv43',    name: '43" LED TV',          watts: 80,   icon: 'fa-tv',             defQty: 0, defHrs: 5  },
+            { id: 'r_laptop',  name: 'Laptop',              watts: 65,   icon: 'fa-laptop',         defQty: 0, defHrs: 4  },
+            { id: 'r_phone',   name: 'Phone Charger',       watts: 10,   icon: 'fa-mobile-alt',     defQty: 2, defHrs: 3  },
+            { id: 'r_ref',     name: 'Refrigerator',        watts: 150,  icon: 'fa-snowflake',      defQty: 0, defHrs: 24 },
+            { id: 'r_washer',  name: 'Washing Machine',     watts: 500,  icon: 'fa-tshirt',         defQty: 0, defHrs: 2  },
+            { id: 'r_rice',    name: 'Rice Cooker',         watts: 600,  icon: 'fa-utensils',       defQty: 0, defHrs: 1  },
+            { id: 'r_micro',   name: 'Microwave Oven',      watts: 800,  icon: 'fa-fire-alt',       defQty: 0, defHrs: 1  },
+            { id: 'r_ac1',     name: 'Air Con 1HP',         watts: 750,  icon: 'fa-wind',           defQty: 0, defHrs: 8  },
+            { id: 'r_ac2',     name: 'Air Con 2HP',         watts: 1500, icon: 'fa-wind',           defQty: 0, defHrs: 8  },
+            { id: 'r_pump',    name: 'Water Pump 0.5HP',    watts: 370,  icon: 'fa-tint',           defQty: 0, defHrs: 2  },
+            { id: 'r_iron',    name: 'Electric Iron',       watts: 1000, icon: 'fa-fire-alt',       defQty: 0, defHrs: 1  },
+        ],
+        commercial: [
+            { id: 'c_tube',    name: 'LED Tube 24W',        watts: 24,   icon: 'fa-lightbulb',      defQty: 6, defHrs: 10 },
+            { id: 'c_panel',   name: 'LED Panel 18W',       watts: 18,   icon: 'fa-th-large',       defQty: 4, defHrs: 10 },
+            { id: 'c_ac',      name: 'Split AC 1.5HP',      watts: 1100, icon: 'fa-wind',           defQty: 0, defHrs: 8  },
+            { id: 'c_pc',      name: 'Desktop Computer',    watts: 200,  icon: 'fa-desktop',        defQty: 0, defHrs: 8  },
+            { id: 'c_printer', name: 'Printer / Copier',    watts: 300,  icon: 'fa-print',          defQty: 0, defHrs: 2  },
+            { id: 'c_cctv',    name: 'CCTV System',         watts: 30,   icon: 'fa-video',          defQty: 0, defHrs: 24 },
+            { id: 'c_wifi',    name: 'WiFi Router',         watts: 15,   icon: 'fa-wifi',           defQty: 1, defHrs: 24 },
+            { id: 'c_pos',     name: 'POS Terminal',        watts: 35,   icon: 'fa-cash-register',  defQty: 0, defHrs: 10 },
+            { id: 'c_dfridge', name: 'Display Refrigerator',watts: 400,  icon: 'fa-snowflake',      defQty: 0, defHrs: 24 },
+            { id: 'c_exhaust', name: 'Exhaust Fan',         watts: 50,   icon: 'fa-fan',            defQty: 0, defHrs: 8  },
+            { id: 'c_micro',   name: 'Microwave Oven',      watts: 800,  icon: 'fa-fire-alt',       defQty: 0, defHrs: 1  },
+            { id: 'c_kettle',  name: 'Electric Kettle',     watts: 1500, icon: 'fa-mug-hot',        defQty: 0, defHrs: 1  },
+        ],
+        industrial: [
+            { id: 'i_higbay',  name: 'High Bay LED 150W',   watts: 150,  icon: 'fa-lightbulb',      defQty: 5, defHrs: 10 },
+            { id: 'i_ifan',    name: 'Industrial Fan',       watts: 200,  icon: 'fa-fan',            defQty: 0, defHrs: 8  },
+            { id: 'i_motor1',  name: 'Motor 1HP',            watts: 750,  icon: 'fa-cog',            defQty: 0, defHrs: 8  },
+            { id: 'i_motor3',  name: 'Motor 3HP',            watts: 2200, icon: 'fa-cog',            defQty: 0, defHrs: 8  },
+            { id: 'i_ac5',     name: 'Industrial AC 5HP',    watts: 3700, icon: 'fa-wind',           defQty: 0, defHrs: 8  },
+            { id: 'i_welder',  name: 'Welding Machine',      watts: 2000, icon: 'fa-fire-alt',       defQty: 0, defHrs: 4  },
+            { id: 'i_comp',    name: 'Air Compressor 2HP',   watts: 1500, icon: 'fa-tachometer-alt', defQty: 0, defHrs: 4  },
+            { id: 'i_pump',    name: 'Water Pump 1.5HP',     watts: 1100, icon: 'fa-tint',           defQty: 0, defHrs: 4  },
+            { id: 'i_cctv',    name: 'CCTV / Security',      watts: 50,   icon: 'fa-video',          defQty: 0, defHrs: 24 },
+            { id: 'i_sec',     name: 'Security Lighting',    watts: 100,  icon: 'fa-shield-alt',     defQty: 0, defHrs: 12 },
+        ]
+    };
+
+    const PACKAGES = [
+        { watts: 60,    price: 10000,  panels: '1× 60W panel',     inverter: '300W inverter',   battery: '50Ah 12V'   },
+        { watts: 120,   price: 20000,  panels: '1× 120W panel',    inverter: '300W inverter',   battery: '100Ah 12V'  },
+        { watts: 240,   price: 40000,  panels: '2× 120W panels',   inverter: '500W inverter',   battery: '200Ah 12V'  },
+        { watts: 380,   price: 60000,  panels: '2× 190W panels',   inverter: '1000W inverter',  battery: '200Ah 12V'  },
+        { watts: 500,   price: 80000,  panels: '2× 250W panels',   inverter: '1500W inverter',  battery: '100Ah 24V'  },
+        { watts: 1000,  price: 120000, panels: '4× 250W panels',   inverter: '2000W inverter',  battery: '200Ah 24V'  },
+        { watts: 2000,  price: 200000, panels: '8× 250W panels',   inverter: '3000W inverter',  battery: '200Ah 48V'  },
+        { watts: 3000,  price: 300000, panels: '12× 250W panels',  inverter: '5000W inverter',  battery: '400Ah 48V'  },
+        { watts: 5000,  price: 450000, panels: '20× 250W panels',  inverter: '8000W inverter',  battery: '600Ah 48V'  },
+        { watts: 10000, price: 850000, panels: '40× 250W panels',  inverter: '15kW inverter',   battery: '1200Ah 48V' },
+    ];
+
+    let activeType   = 'hybrid';
+    let activeSector = 'residential';
+
+    // ── Render appliance cards ──────────────────────────────────────────────
+    function renderAppliances() {
+        const grid = document.getElementById('appliancesGrid');
+        const list = APPLIANCES[activeSector];
+
+        grid.innerHTML = list.map(a => `
+            <div class="appliance-item${a.defQty > 0 ? ' active' : ''}" data-id="${a.id}">
+                <label class="app-checkbox">
+                    <input type="checkbox" data-id="${a.id}" ${a.defQty > 0 ? 'checked' : ''}>
+                </label>
+                <div class="appliance-icon"><i class="fas ${a.icon}"></i></div>
+                <div class="appliance-info">
+                    <div class="appliance-name">${a.name}</div>
+                    <div class="appliance-watts">${a.watts}W each</div>
+                </div>
+                <div class="appliance-controls">
+                    <div class="ctrl-row">
+                        <span class="ctrl-lbl">Qty</span>
+                        <div class="qty-input">
+                            <button class="qty-btn" onclick="cfgAdj(this,-1,'qty')">−</button>
+                            <input type="number" class="qty-field" value="${a.defQty}" min="0" max="50">
+                            <button class="qty-btn" onclick="cfgAdj(this,1,'qty')">+</button>
+                        </div>
+                    </div>
+                    <div class="ctrl-row">
+                        <span class="ctrl-lbl">Hrs</span>
+                        <div class="qty-input">
+                            <button class="qty-btn" onclick="cfgAdj(this,-1,'hrs')">−</button>
+                            <input type="number" class="hrs-field" value="${a.defHrs}" min="1" max="24">
+                            <button class="qty-btn" onclick="cfgAdj(this,1,'hrs')">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        grid.querySelectorAll('input[type="checkbox"]').forEach(chk => {
+            chk.addEventListener('change', function() {
+                const item = this.closest('.appliance-item');
+                const qtyField = item.querySelector('.qty-field');
+                if (this.checked) {
+                    item.classList.add('active');
+                    if (parseInt(qtyField.value) === 0) qtyField.value = 1;
+                } else {
+                    item.classList.remove('active');
+                    qtyField.value = 0;
+                }
+                updateConfig();
+            });
+        });
+
+        grid.querySelectorAll('.qty-field, .hrs-field').forEach(inp => {
+            inp.addEventListener('input', updateConfig);
+        });
+
+        updateConfig();
+    }
+
+    // Global helper for +/- buttons (called via onclick attribute)
+    window.cfgAdj = function(btn, delta, type) {
+        const row   = btn.closest('.ctrl-row');
+        const field = row.querySelector('.' + (type === 'qty' ? 'qty-field' : 'hrs-field'));
+        const min   = parseInt(field.min) || 0;
+        const max   = parseInt(field.max) || 50;
+        const val   = Math.min(max, Math.max(min, (parseInt(field.value) || 0) + delta));
+        field.value = val;
+        if (type === 'qty') {
+            const item = btn.closest('.appliance-item');
+            const chk  = item ? item.querySelector('input[type="checkbox"]') : null;
+            if (item && chk) {
+                if (val > 0) { item.classList.add('active');    chk.checked = true;  }
+                else         { item.classList.remove('active'); chk.checked = false; }
+            }
+        }
+        updateConfig();
+    };
+
+    // ── Recalculate & update display ────────────────────────────────────────
+    function updateConfig() {
+        const list = APPLIANCES[activeSector];
+        let totalW = 0, dailyWh = 0;
+        const selected = [];
+
+        list.forEach(a => {
+            const item = document.querySelector(`.appliance-item[data-id="${a.id}"]`);
+            if (!item) return;
+            const qty = Math.max(0, parseInt(item.querySelector('.qty-field').value) || 0);
+            const hrs = Math.max(1, parseInt(item.querySelector('.hrs-field').value) || 1);
+            if (qty > 0) {
+                const w = a.watts * qty;
+                totalW   += w;
+                dailyWh  += w * hrs;
+                selected.push({ ...a, qty, hrs, totalW: w });
+            }
+        });
+
+        // Solar sizing: daily Wh / (5 peak-sun-hours × 0.75 efficiency)
+        const panelReq = totalW > 0 ? Math.ceil((dailyWh / 5) / 0.75) : 0;
+
+        // Find matching package
+        let pkg = PACKAGES[PACKAGES.length - 1];
+        for (const p of PACKAGES) {
+            if (p.watts >= panelReq) { pkg = p; break; }
+        }
+
+        // Battery: 1.5-day autonomy, 50% DoD, 48V bank
+        const battAh = (activeType !== 'gridtied' && totalW > 0)
+            ? Math.ceil((dailyWh * 1.5) / (48 * 0.5))
+            : 0;
+
+        // ── Update UI ─────────────────────────────────────────────────────
+        document.getElementById('totalWatts').textContent   = totalW.toLocaleString() + ' W';
+        document.getElementById('dailyEnergy').textContent  = totalW > 0 ? (dailyWh / 1000).toFixed(2) + ' kWh/day' : '0 kWh/day';
+        document.getElementById('recPanels').textContent    = totalW > 0 ? pkg.panels    : '—';
+        document.getElementById('recInverter').textContent  = totalW > 0 ? pkg.inverter  : '—';
+        document.getElementById('recBattery').textContent   = totalW > 0
+            ? (activeType === 'gridtied' ? 'None (Grid-Tied)' : battAh + ' Ah @ 48V')
+            : '—';
+        document.getElementById('recLabel').textContent     = totalW > 0
+            ? (pkg.watts >= 1000 ? (pkg.watts / 1000) + 'kW System' : pkg.watts + 'W System')
+            : '—';
+        document.getElementById('priceEstimate').textContent = totalW > 0
+            ? '₱' + pkg.price.toLocaleString() + '+'
+            : '₱0';
+
+        // Load summary list
+        const selEl = document.getElementById('selectedAppliances');
+        if (selected.length === 0) {
+            selEl.innerHTML = '<div class="no-selection">Select appliances above to calculate your load</div>';
+        } else {
+            selEl.innerHTML = selected.map(s => `
+                <div class="sel-appliance">
+                    <i class="fas ${s.icon}"></i>
+                    <span class="sel-name">${s.name}</span>
+                    <span class="sel-detail">${s.qty}× ${s.hrs}h</span>
+                    <span class="sel-watts">${s.totalW}W</span>
+                </div>
+            `).join('');
+        }
+
+        renderDiagram(activeType);
+    }
+
+    // ── SVG Wiring Diagrams ─────────────────────────────────────────────────
+    function renderDiagram(type) {
+        const el = document.getElementById('liveSystemDiagram');
+        if (!el) return;
+
+        const SVG = {
+            offgrid: `<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+  <defs>
+    <marker id="ao" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#f7931e"/></marker>
+    <marker id="ag" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#27ae60"/></marker>
+    <marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#e74c3c"/></marker>
+  </defs>
+  <!-- Sun -->
+  <circle cx="40" cy="55" r="24" fill="#FFD700" opacity="0.9"/>
+  <circle cx="40" cy="55" r="16" fill="#FF8C00"/>
+  <text x="40" y="60" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="sans-serif">☀</text>
+  <text x="40" y="93" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Sunlight</text>
+  <!-- → Panels -->
+  <line x1="64" y1="55" x2="93" y2="55" stroke="#f7931e" stroke-width="2" marker-end="url(#ao)"/>
+  <!-- PV Array -->
+  <rect x="95" y="32" width="60" height="46" rx="3" fill="#1a5276" stroke="#2980b9" stroke-width="2"/>
+  <line x1="95" y1="47" x2="155" y2="47" stroke="#2980b9" stroke-width="1"/>
+  <line x1="95" y1="62" x2="155" y2="62" stroke="#2980b9" stroke-width="1"/>
+  <line x1="115" y1="32" x2="115" y2="78" stroke="#2980b9" stroke-width="1"/>
+  <line x1="135" y1="32" x2="135" y2="78" stroke="#2980b9" stroke-width="1"/>
+  <text x="125" y="96" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">PV Array</text>
+  <!-- → MPPT -->
+  <line x1="155" y1="55" x2="178" y2="55" stroke="#f7931e" stroke-width="2" marker-end="url(#ao)"/>
+  <!-- MPPT Controller -->
+  <rect x="180" y="34" width="50" height="42" rx="4" fill="#8e44ad" stroke="#9b59b6" stroke-width="2"/>
+  <text x="205" y="51" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">MPPT</text>
+  <text x="205" y="65" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">Controller</text>
+  <text x="205" y="96" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Charge Ctrl</text>
+  <!-- → Battery -->
+  <line x1="230" y1="55" x2="254" y2="55" stroke="#f7931e" stroke-width="2" marker-end="url(#ao)"/>
+  <!-- Battery -->
+  <rect x="256" y="34" width="52" height="42" rx="4" fill="#27ae60" stroke="#2ecc71" stroke-width="2"/>
+  <rect x="305" y="44" width="8" height="22" rx="2" fill="#2ecc71"/>
+  <text x="280" y="51" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">BATT</text>
+  <text x="280" y="65" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">48V Bank</text>
+  <text x="280" y="96" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Battery Bank</text>
+  <!-- ↓ to Inverter -->
+  <line x1="282" y1="76" x2="282" y2="116" stroke="#27ae60" stroke-width="2" marker-end="url(#ag)"/>
+  <!-- Inverter -->
+  <rect x="258" y="118" width="50" height="40" rx="4" fill="#c0392b" stroke="#e74c3c" stroke-width="2"/>
+  <text x="283" y="134" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">INVERTER</text>
+  <text x="283" y="147" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">DC → AC</text>
+  <!-- → Load -->
+  <line x1="258" y1="138" x2="217" y2="138" stroke="#e74c3c" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- House -->
+  <polygon points="170,110 147,128 154,128 154,163 188,163 188,128 193,128" fill="#FF8C00" stroke="#e67e22" stroke-width="2"/>
+  <rect x="158" y="140" width="13" height="23" fill="#8b4513"/>
+  <text x="170" y="180" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Your Load</text>
+  <text x="200" y="196" text-anchor="middle" fill="#aaa" font-size="8" font-family="sans-serif">⚡ Off-Grid: Solar Panels → MPPT → Battery → Inverter → Load</text>
+</svg>`,
+
+            hybrid: `<svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+  <defs>
+    <marker id="ho" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#f7931e"/></marker>
+    <marker id="hg" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#27ae60"/></marker>
+    <marker id="hr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#e74c3c"/></marker>
+    <marker id="hm" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#9b59b6"/></marker>
+  </defs>
+  <!-- Sun -->
+  <circle cx="36" cy="52" r="22" fill="#FFD700" opacity="0.9"/>
+  <circle cx="36" cy="52" r="15" fill="#FF8C00"/>
+  <text x="36" y="57" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">☀</text>
+  <text x="36" y="89" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Sunlight</text>
+  <!-- → PV -->
+  <line x1="58" y1="52" x2="85" y2="52" stroke="#f7931e" stroke-width="2" marker-end="url(#ho)"/>
+  <!-- PV Array -->
+  <rect x="87" y="29" width="58" height="46" rx="3" fill="#1a5276" stroke="#2980b9" stroke-width="2"/>
+  <line x1="87" y1="44" x2="145" y2="44" stroke="#2980b9" stroke-width="1"/>
+  <line x1="87" y1="59" x2="145" y2="59" stroke="#2980b9" stroke-width="1"/>
+  <line x1="107" y1="29" x2="107" y2="75" stroke="#2980b9" stroke-width="1"/>
+  <line x1="126" y1="29" x2="126" y2="75" stroke="#2980b9" stroke-width="1"/>
+  <text x="116" y="93" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">PV Panels</text>
+  <!-- → Hybrid Inv -->
+  <line x1="145" y1="52" x2="167" y2="52" stroke="#f7931e" stroke-width="2" marker-end="url(#ho)"/>
+  <!-- Hybrid Inverter -->
+  <rect x="169" y="24" width="64" height="56" rx="5" fill="#8e44ad" stroke="#9b59b6" stroke-width="2"/>
+  <text x="201" y="44" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">HYBRID</text>
+  <text x="201" y="56" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">INVERTER</text>
+  <text x="201" y="68" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">DC → AC</text>
+  <text x="201" y="93" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Hybrid Inverter</text>
+  <!-- ↓ to Battery -->
+  <line x1="201" y1="80" x2="201" y2="116" stroke="#27ae60" stroke-width="2" marker-end="url(#hg)"/>
+  <!-- Battery -->
+  <rect x="174" y="118" width="56" height="40" rx="4" fill="#27ae60" stroke="#2ecc71" stroke-width="2"/>
+  <rect x="227" y="128" width="8" height="20" rx="2" fill="#2ecc71"/>
+  <text x="199" y="135" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">BATTERY</text>
+  <text x="199" y="148" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">48V Bank</text>
+  <text x="199" y="175" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Battery Bank</text>
+  <!-- → Grid (dashed, bidirectional) -->
+  <line x1="233" y1="52" x2="295" y2="52" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#hr)"/>
+  <!-- Utility Grid -->
+  <rect x="297" y="28" width="58" height="48" rx="4" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="326" y="48" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="bold" font-family="sans-serif">UTILITY</text>
+  <text x="326" y="61" text-anchor="middle" fill="#e74c3c" font-size="8" font-family="sans-serif">GRID</text>
+  <text x="326" y="92" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Grid Backup</text>
+  <!-- Grid → House -->
+  <line x1="326" y1="76" x2="326" y2="127" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#hr)"/>
+  <!-- Inv → House -->
+  <line x1="233" y1="138" x2="292" y2="138" stroke="#9b59b6" stroke-width="2" marker-end="url(#hm)"/>
+  <!-- House -->
+  <polygon points="326,108 303,128 311,128 311,165 342,165 342,128 350,128" fill="#FF8C00" stroke="#e67e22" stroke-width="2"/>
+  <rect x="315" y="140" width="13" height="25" fill="#8b4513"/>
+  <text x="326" y="182" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Your Load</text>
+  <text x="220" y="200" text-anchor="middle" fill="#aaa" font-size="8" font-family="sans-serif">⚡ Hybrid: PV → Hybrid Inverter ↔ Battery + Grid Backup → Load</text>
+</svg>`,
+
+            gridtied: `<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+  <defs>
+    <marker id="go" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#f7931e"/></marker>
+    <marker id="gr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#e74c3c"/></marker>
+  </defs>
+  <!-- Sun -->
+  <circle cx="38" cy="52" r="22" fill="#FFD700" opacity="0.9"/>
+  <circle cx="38" cy="52" r="15" fill="#FF8C00"/>
+  <text x="38" y="57" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">☀</text>
+  <text x="38" y="90" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Sunlight</text>
+  <!-- → PV -->
+  <line x1="60" y1="52" x2="87" y2="52" stroke="#f7931e" stroke-width="2" marker-end="url(#go)"/>
+  <!-- PV Array -->
+  <rect x="89" y="29" width="58" height="46" rx="3" fill="#1a5276" stroke="#2980b9" stroke-width="2"/>
+  <line x1="89" y1="44" x2="147" y2="44" stroke="#2980b9" stroke-width="1"/>
+  <line x1="89" y1="59" x2="147" y2="59" stroke="#2980b9" stroke-width="1"/>
+  <line x1="108" y1="29" x2="108" y2="75" stroke="#2980b9" stroke-width="1"/>
+  <line x1="128" y1="29" x2="128" y2="75" stroke="#2980b9" stroke-width="1"/>
+  <text x="118" y="93" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">PV Panels</text>
+  <!-- → Grid-Tie Inv -->
+  <line x1="147" y1="52" x2="168" y2="52" stroke="#f7931e" stroke-width="2" marker-end="url(#go)"/>
+  <!-- Grid-Tie Inverter -->
+  <rect x="170" y="28" width="60" height="48" rx="4" fill="#c0392b" stroke="#e74c3c" stroke-width="2"/>
+  <text x="200" y="48" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">GRID-TIE</text>
+  <text x="200" y="61" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">INVERTER</text>
+  <text x="200" y="93" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Grid-Tie Inverter</text>
+  <!-- → Net Meter -->
+  <line x1="230" y1="52" x2="257" y2="52" stroke="#e74c3c" stroke-width="2" marker-end="url(#gr)"/>
+  <!-- Net Meter -->
+  <rect x="259" y="28" width="54" height="48" rx="4" fill="none" stroke="#e74c3c" stroke-width="2"/>
+  <text x="286" y="48" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="bold" font-family="sans-serif">NET</text>
+  <text x="286" y="61" text-anchor="middle" fill="#e74c3c" font-size="8" font-family="sans-serif">METER</text>
+  <text x="286" y="93" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Net Metering</text>
+  <!-- → Utility -->
+  <line x1="313" y1="52" x2="348" y2="52" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#gr)"/>
+  <!-- Utility Grid -->
+  <rect x="350" y="34" width="44" height="36" rx="4" fill="none" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="372" y="54" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="bold" font-family="sans-serif">GRID</text>
+  <!-- ↓ Inv to House -->
+  <line x1="200" y1="76" x2="200" y2="118" stroke="#f7931e" stroke-width="2" marker-end="url(#go)"/>
+  <!-- ↓ Meter to House -->
+  <line x1="286" y1="76" x2="286" y2="118" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#gr)"/>
+  <!-- Horizontal join line -->
+  <line x1="200" y1="138" x2="266" y2="138" stroke="#f7931e" stroke-width="2"/>
+  <line x1="286" y1="138" x2="266" y2="138" stroke="#e74c3c" stroke-width="2"/>
+  <!-- House -->
+  <polygon points="248,104 225,124 233,124 233,158 265,158 265,124 272,124" fill="#FF8C00" stroke="#e67e22" stroke-width="2"/>
+  <rect x="237" y="135" width="12" height="23" fill="#8b4513"/>
+  <text x="248" y="172" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">Your Load</text>
+  <text x="196" y="185" text-anchor="middle" fill="#aaa" font-size="8" font-family="sans-serif">⚡ Grid-Tied: PV → Grid-Tie Inverter → Net Meter ↔ Utility Grid + Load</text>
+</svg>`
+        };
+
+        el.innerHTML = SVG[type] || SVG['hybrid'];
+    }
+
+    // ── Event listeners ─────────────────────────────────────────────────────
+    document.querySelectorAll('.type-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            activeType = this.dataset.type;
+            updateConfig();
+        });
+    });
+
+    document.querySelectorAll('.sector-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            activeSector = this.dataset.sector;
+            renderAppliances();
+        });
+    });
+
+    renderAppliances();
+}
 
 console.log('Topshelf Solar Tech & Innovations - Website Loaded Successfully');
