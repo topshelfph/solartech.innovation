@@ -7,66 +7,68 @@
    CSS VARIABLES
    ========================================== */
 :root {
-    /* Primary Colors - Solar Orange */
-    --primary-color: #ff8c00;
-    --primary-dark: #e67e00;
+    /* Primary Colors - Solar Orange (Enhanced) */
+    --primary-color: #ff9500;
+    --primary-dark: #e68600;
     --primary-light: #ffb347;
-    --primary-rgb: 255, 140, 0;
+    --primary-rgb: 255, 149, 0;
     
-    /* Secondary Colors - Deep Blue */
-    --secondary-color: #1e3a5f;
-    --secondary-dark: #0f1f33;
+    /* Secondary Colors - Deep Blue (Deeper) */
+    --secondary-color: #1a365d;
+    --secondary-dark: #0d1e3a;
     --secondary-light: #2c5282;
     
-    /* Accent Colors */
+    /* Accent Colors - Fresh Green */
     --accent-color: #10b981;
     --accent-light: #34d399;
     --accent-dark: #059669;
     
-    /* Dark Colors */
-    --dark-color: #0f172a;
-    --dark-light: #1e293b;
-    --dark-medium: #334155;
+    /* Dark Colors - More Contrast */
+    --dark-color: #0c1524;
+    --dark-light: #1a2744;
+    --dark-medium: #2d3b52;
     
     /* Text Colors */
-    --text-color: #1e293b;
-    --text-light: #475569;
-    --text-muted: #64748b;
-    --text-dark: #0f172a;
+    --text-color: #1a2744;
+    --text-light: #4a5568;
+    --text-muted: #718096;
+    --text-dark: #0c1524;
     
     /* Light Colors */
     --white: #ffffff;
-    --off-white: #f8fafc;
+    --off-white: #f7fafc;
     --light-gray: #e2e8f0;
-    --border-color: #cbd5e1;
+    --border-color: #cbd5e0;
     
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-    --shadow-md: 0 6px 12px -2px rgba(0,0,0,0.1), 0 3px 6px -2px rgba(0,0,0,0.05);
-    --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-    --shadow-xl: 0 20px 40px -5px rgba(0,0,0,0.15), 0 8px 10px -5px rgba(0,0,0,0.04);
-    --shadow-orange: 0 10px 30px -5px rgba(255, 140, 0, 0.4);
+    /* Enhanced Shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow: 0 4px 12px -2px rgba(0,0,0,0.12), 0 2px 6px -1px rgba(0,0,0,0.08);
+    --shadow-md: 0 8px 20px -4px rgba(0,0,0,0.12), 0 4px 8px -2px rgba(0,0,0,0.06);
+    --shadow-lg: 0 15px 35px -5px rgba(0,0,0,0.15), 0 6px 12px -3px rgba(0,0,0,0.08);
+    --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.18), 0 10px 20px -5px rgba(0,0,0,0.06);
+    --shadow-orange: 0 10px 30px -5px rgba(255, 149, 0, 0.45);
+    --shadow-inner: inset 0 2px 4px rgba(0,0,0,0.06);
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #ff8c00 0%, #e67e00 100%);
-    --gradient-secondary: linear-gradient(135deg, #1e3a5f 0%, #0f1f33 100%);
-    --gradient-solar: linear-gradient(135deg, #ff8c00, #ffb347, #ffd700);
-    --gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 58, 95, 0.85) 100%);
+    /* Enhanced Gradients */
+    --gradient-primary: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%);
+    --gradient-secondary: linear-gradient(135deg, #1a365d 0%, #0d1e3a 100%);
+    --gradient-solar: linear-gradient(135deg, #ff9500, #ffb347, #ffd93d);
+    --gradient-dark: linear-gradient(180deg, #0c1524 0%, #1a2744 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(12, 21, 36, 0.93) 0%, rgba(26, 54, 93, 0.88) 100%);
+    --gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
     
     /* Border Radius */
     --radius-sm: 6px;
-    --radius: 8px;
-    --radius-lg: 12px;
+    --radius: 10px;
+    --radius-lg: 14px;
     --radius-xl: 20px;
-    --radius-2xl: 24px;
+    --radius-2xl: 28px;
     --radius-full: 50%;
     
     /* Transitions */
-    --transition: all 0.3s ease;
-    --transition-fast: all 0.15s ease;
-    --transition-slow: all 0.5s ease;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Font */
     --font-primary: 'Poppins', sans-serif;
@@ -272,20 +274,29 @@ input, textarea, select {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .logo img {
-    height: 50px;
-    width: 50px;
+    height: 52px;
+    width: 52px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--primary-color);
-    box-shadow: 0 2px 8px rgba(247, 147, 30, 0.3);
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.5),
+                inset 0 0 15px rgba(255, 255, 255, 0.15);
 }
 
 .logo-round {
     border-radius: 50% !important;
+    aspect-ratio: 1/1;
 }
 
 .logo span {
@@ -293,6 +304,7 @@ input, textarea, select {
     font-weight: 700;
     color: var(--white);
     transition: var(--transition);
+    letter-spacing: 0.3px;
 }
 
 #header.scrolled .logo span {
@@ -436,8 +448,8 @@ input, textarea, select {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 14px 28px;
+    gap: 10px;
+    padding: 15px 30px;
     font-size: 1rem;
     font-weight: 600;
     border-radius: var(--radius);
@@ -445,18 +457,41 @@ input, textarea, select {
     cursor: pointer;
     border: 2px solid transparent;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
     background: var(--gradient-primary);
     color: var(--white);
     border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #e68600 0%, #cc6d00 100%);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-orange);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 20px rgba(255, 149, 0, 0.35);
 }
 
 .btn-outline {
@@ -468,29 +503,46 @@ input, textarea, select {
 .btn-outline:hover {
     background: var(--primary-color);
     color: var(--white);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-orange);
 }
 
 .btn-light {
     background: var(--white);
     color: var(--primary-color);
     border-color: var(--white);
+    box-shadow: var(--shadow);
 }
 
 .btn-light:hover {
     background: var(--off-white);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
 }
 
 .btn-outline-light {
     background: transparent;
     color: var(--white);
-    border-color: var(--white);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-outline-light:hover {
     background: var(--white);
     color: var(--primary-color);
+    border-color: var(--white);
+    transform: translateY(-3px);
+}
+
+.btn-accent {
+    background: var(--gradient-accent);
+    color: var(--white);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-accent:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
 .btn-block {
@@ -1128,11 +1180,28 @@ input, textarea, select {
     box-shadow: var(--shadow);
     transition: var(--transition);
     border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: var(--transition);
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-xl);
+}
+
+.product-card:hover::before {
+    opacity: 1;
 }
 
 .product-image {
@@ -1643,9 +1712,25 @@ input, textarea, select {
     position: relative;
 }
 
+.package-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    transition: height 0.3s ease;
+}
+
 .package-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-xl);
+}
+
+.package-card:hover::after {
+    height: 100%;
 }
 
 .package-card.featured {
@@ -3210,16 +3295,18 @@ input, textarea, select {
     background: var(--white);
     border-radius: var(--radius-2xl);
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     transition: var(--transition);
+    border: 3px solid rgba(255, 255, 255, 0.1);
 }
 
 .chat-screenshot:hover .chat-phone-frame {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
 .chat-header {
-    background: var(--accent-color);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
     padding: 15px 20px;
     display: flex;
     align-items: center;
@@ -3237,9 +3324,9 @@ input, textarea, select {
 }
 
 .chat-avatar {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.2);
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -3247,6 +3334,7 @@ input, textarea, select {
     color: var(--white);
     font-weight: 700;
     font-size: 0.9rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .chat-contact-info {
@@ -3262,7 +3350,7 @@ input, textarea, select {
 
 .chat-status {
     display: block;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 0.75rem;
 }
 
@@ -3273,32 +3361,37 @@ input, textarea, select {
 
 .chat-header-right i {
     color: var(--white);
+    opacity: 0.9;
 }
 
 .chat-body {
     padding: 20px;
-    background: #e5ddd5;
+    background: linear-gradient(180deg, #e8e0d5 0%, #e5ddd5 100%);
     min-height: 350px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-date {
     text-align: center;
-    background: rgba(225, 215, 199, 0.8);
+    background: rgba(225, 215, 199, 0.9);
     color: var(--text-muted);
-    padding: 5px 12px;
-    border-radius: 8px;
+    padding: 6px 14px;
+    border-radius: 10px;
     font-size: 0.75rem;
     display: inline-block;
     margin: 0 auto 15px;
     width: fit-content;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .chat-bubble {
     max-width: 85%;
-    padding: 10px 15px;
-    border-radius: 10px;
+    padding: 12px 16px;
+    border-radius: 12px;
     margin-bottom: 8px;
     position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .chat-bubble.received {
@@ -3836,8 +3929,19 @@ input, textarea, select {
    FOOTER
    ========================================== */
 .footer {
-    background: var(--dark-color);
+    background: linear-gradient(180deg, var(--dark-color) 0%, #050a14 100%);
     color: var(--white);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
 }
 
 .footer-top {
@@ -3858,12 +3962,12 @@ input, textarea, select {
 }
 
 .footer-logo img {
-    height: 50px;
-    width: 50px;
+    height: 55px;
+    width: 55px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--primary-color);
-    box-shadow: 0 2px 8px rgba(247, 147, 30, 0.3);
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
 }
 
 .footer-logo span {
@@ -3883,20 +3987,23 @@ input, textarea, select {
 }
 
 .social-links a {
-    width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
     transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .social-links a:hover {
     background: var(--primary-color);
-    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 149, 0, 0.4);
 }
 
 .footer-links h4,
@@ -3905,6 +4012,7 @@ input, textarea, select {
     margin-bottom: 25px;
     position: relative;
     padding-bottom: 12px;
+    color: var(--white);
 }
 
 .footer-links h4::after,
@@ -3915,7 +4023,7 @@ input, textarea, select {
     left: 0;
     width: 40px;
     height: 3px;
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     border-radius: 3px;
 }
 
@@ -3928,11 +4036,26 @@ input, textarea, select {
 .footer-links a {
     color: rgba(255, 255, 255, 0.7);
     transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-links a::before {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
 }
 
 .footer-links a:hover {
     color: var(--primary-color);
     padding-left: 8px;
+}
+
+.footer-links a:hover::before {
+    width: 15px;
 }
 
 .footer-contact ul {
@@ -3951,10 +4074,12 @@ input, textarea, select {
 .footer-contact li i {
     color: var(--primary-color);
     margin-top: 4px;
+    font-size: 1.1rem;
 }
 
 .footer-contact a {
     color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
 }
 
 .footer-contact a:hover {
@@ -3962,9 +4087,10 @@ input, textarea, select {
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 25px 0;
     text-align: center;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .footer-bottom p {
@@ -3985,8 +4111,8 @@ input, textarea, select {
     position: fixed;
     bottom: 100px;
     right: 30px;
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     background: var(--gradient-primary);
     color: var(--white);
     border-radius: 50%;
@@ -3994,11 +4120,13 @@ input, textarea, select {
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    box-shadow: var(--shadow-orange);
+    box-shadow: 0 4px 20px rgba(255, 149, 0, 0.4);
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
     z-index: 990;
+    border: none;
+    cursor: pointer;
 }
 
 .back-to-top.visible {
@@ -4007,7 +4135,12 @@ input, textarea, select {
 }
 
 .back-to-top:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 30px rgba(255, 149, 0, 0.5);
+}
+
+.back-to-top:active {
+    transform: translateY(-3px) scale(1.05);
 }
 
 .whatsapp-float {

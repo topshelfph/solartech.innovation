@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initBackToTop();
     initGaugeAnimation();
+    initButtonActions();
+    initMobileOptimizations();
 });
 
 /* ==========================================
@@ -629,5 +631,183 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+/* ==========================================
+   BUTTON ACTIONS
+   ========================================== */
+function initButtonActions() {
+    // Handle all call buttons
+    const callButtons = document.querySelectorAll('a[href^="tel:"]');
+    callButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            // Track call button clicks (analytics placeholder)
+            console.log('Call button clicked:', this.href);
+        });
+    });
+    
+    // Handle SMS buttons
+    const smsButtons = document.querySelectorAll('a[href^="sms:"]');
+    smsButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            // Ensure proper SMS formatting
+            console.log('SMS button clicked:', this.href);
+        });
+    });
+    
+    // Handle WhatsApp button
+    const whatsappBtn = document.querySelector('.whatsapp-float');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', function(e) {
+            console.log('WhatsApp button clicked');
+        });
+    }
+    
+    // Add ripple effect to all buttons
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Create ripple element
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-effect');
+            
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.4);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s ease-out;
+                pointer-events: none;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+    
+    // Add ripple animation style
+    if (!document.querySelector('#ripple-style')) {
+        const style = document.createElement('style');
+        style.id = 'ripple-style';
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Handle "Get Quote" buttons
+    document.querySelectorAll('.btn-outline').forEach(btn => {
+        if (btn.textContent.includes('Get Quote') || btn.textContent.includes('Quote')) {
+            btn.addEventListener('click', function(e) {
+                if (!this.href || this.href === '#') {
+                    e.preventDefault();
+                    window.location.href = 'contact.html';
+                }
+            });
+        }
+    });
+}
+
+/* ==========================================
+   MOBILE OPTIMIZATIONS
+   ========================================== */
+function initMobileOptimizations() {
+    // Detect mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        document.body.classList.add('is-mobile');
+        
+        // Optimize touch interactions
+        document.querySelectorAll('.product-card, .package-card, .project-card').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.classList.add('touch-active');
+            }, { passive: true });
+            
+            card.addEventListener('touchend', function() {
+                setTimeout(() => this.classList.remove('touch-active'), 150);
+            }, { passive: true });
+        });
+        
+        // Fix iOS input zoom
+        const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea, select');
+        inputs.forEach(input => {
+            input.style.fontSize = '16px';
+        });
+    }
+    
+    // Handle viewport height on mobile browsers
+    function setViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setViewportHeight();
+    window.addEventListener('resize', throttle(setViewportHeight, 100));
+    
+    // Smooth scroll for anchor links on mobile
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                const headerHeight = document.getElementById('header').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Optimize images loading on mobile
+    if ('connection' in navigator) {
+        if (navigator.connection.saveData || navigator.connection.effectiveType === '2g') {
+            document.querySelectorAll('img').forEach(img => {
+                if (img.dataset.lowsrc) {
+                    img.src = img.dataset.lowsrc;
+                }
+            });
+        }
+    }
+}
+
+/* ==========================================
+   TOUCH ACTIVE STYLES
+   ========================================== */
+const touchActiveStyle = document.createElement('style');
+touchActiveStyle.textContent = `
+    .touch-active {
+        transform: scale(0.98) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+    }
+    
+    .is-mobile .product-card:hover,
+    .is-mobile .package-card:hover,
+    .is-mobile .project-card:hover {
+        transform: none;
+    }
+`;
+document.head.appendChild(touchActiveStyle);
 
 console.log('Topshelf Solar Tech & Innovations - Website Loaded Successfully');
