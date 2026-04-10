@@ -6146,6 +6146,10 @@ select:focus {
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+.agri-icon-sun        { background: linear-gradient(135deg, #FFD700, #FF8C00); }
+.agri-icon-controller { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+.agri-icon-pump       { background: linear-gradient(135deg, #2980b9, #3498db); }
+.agri-icon-farm       { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 .agri-node-icon i {
     font-size: 1.4rem;
     color: #fff;

@@ -1,4 +1,5 @@
 {
     "css.lint.unknownVendorSpecificProperties": "ignore",
-    "css.lint.vendorPrefix": "ignore"
+    "css.lint.vendorPrefix": "ignore",
+    "css.lint.compatibleVendorPrefixes": "ignore"
 }
