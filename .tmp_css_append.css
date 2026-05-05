@@ -1,0 +1,17 @@
+
+/* ============ INLINE-STYLE EXTRACTS (cache v=20260426c) ============ */
+/* Quotation Builder component-table column widths */
+.qb-table th.qb-col-comp{width:24%}
+.qb-table th.qb-col-qty{width:60px}
+.qb-table th.qb-col-price{width:120px}
+.qb-table th.qb-col-sub{width:120px}
+.qb-table th.qb-col-del{width:36px}
+/* Appliance-Based table: totals label */
+.ap-table th.ap-totals-label{text-align:right}
+/* Appliance-Based bill-mode row */
+.qb-bill-row{margin-top:6px;background:rgba(14,165,233,.08);border-color:rgba(14,165,233,.4)}
+.qb-bill-field{display:flex;flex-direction:column;gap:3px;flex:1 1 200px}
+.qb-bill-label{font-size:.78rem;color:var(--muted)}
+.qb-bill-input{margin-top:3px;padding:6px 10px;background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:6px;font-family:inherit;font-size:.9rem;width:100%;box-sizing:border-box}
+/* Hidden iframe used by printQuote() to avoid the about:blank popup print footer */
+.print-frame{position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden}

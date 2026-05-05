@@ -1,0 +1,21 @@
+Options -Indexes
+
+# Enable rewrite engine for clean URLs
+RewriteEngine On
+
+# Redirect www to non-www (optional, remove if you prefer www)
+# RewriteCond %{HTTP_HOST} ^www\.topshelfsolartech\.com [NC]
+# RewriteRule ^ https://topshelfsolartech.com%{REQUEST_URI} [L,R=301]
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Serve clean URLs: /about -> /about.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# Custom error pages (optional)
+ErrorDocument 404 /404.html

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <base href="/">
+    <title>Admin Console — Topshelf Solar Tech</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css?v=20260427h">
+</head>
+<body class="admin-body">
+
+    <!-- ============ LOGIN GATE ============ -->
+    <div id="loginGate" class="login-gate">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="topshelf.png" alt="Topshelf Logo">
+                <h2>Admin Console</h2>
+                <p>Restricted access — authorized personnel only</p>
+            </div>
+            <form id="loginForm" autocomplete="off">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="loginUser" placeholder="admin" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <div class="input-eye-wrap">
+                        <input type="password" id="loginPass" placeholder="••••••••" required>
+                        <button type="button" id="togglePass" class="eye-btn" title="Show / hide password">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="loginError" class="login-error"></div>
+                <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                <p class="login-hint">Default: <code>admin</code> / <code>solar2026</code> — change in Settings after first login.</p>
+                <p class="login-reset"><a href="#" id="resetCreds"><i class="fas fa-rotate-left"></i> Forgot password? Reset to defaults</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ ADMIN APP ============ -->
+    <div id="adminApp" class="admin-app" hidden>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="topshelf.png" alt="Logo">
+                <div>
+                    <h3>Topshelf</h3>
+                    <span>Admin Panel</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-view="dashboard"><i class="fas fa-gauge-high"></i> Dashboard</a>
+                <a href="#" class="nav-item" data-view="monitoring"><i class="fas fa-satellite-dish"></i> Live Monitoring</a>
+                <a href="#" class="nav-item" data-view="clients"><i class="fas fa-users"></i> Clients</a>
+                <a href="#" class="nav-item" data-view="quotation"><i class="fas fa-file-invoice-dollar"></i> Quotation System</a>
+                <a href="#" class="nav-item" data-view="sprinkler"><i class="fas fa-shower"></i> Sprinkler Automation</a>
+                <a href="#" class="nav-item" data-view="alerts"><i class="fas fa-bell"></i> Alerts <span id="alertBadge" class="badge">0</span></a>
+                <a href="#" class="nav-item" data-view="settings"><i class="fas fa-gear"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn-ghost"><i class="fas fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Area -->
+        <main class="main-area">
+            <header class="top-bar">
+                <button id="menuToggle" class="icon-btn" title="Menu"><i class="fas fa-bars"></i></button>
+                <div class="top-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="globalSearch" placeholder="Search clients, quotes, devices...">
+                </div>
+                <div class="top-actions">
+                    <span class="status-pill"><span class="dot live"></span> Live</span>
+                    <span id="liveClock"></span>
+                    <div class="user-chip"><i class="fas fa-user-shield"></i> <span id="currentUser">admin</span></div>
+                </div>
+            </header>
+
+            <!-- ============ DASHBOARD VIEW ============ -->
+            <section class="view active" data-view="dashboard">
+                <div class="view-header">
+                    <h1><i class="fas fa-gauge-high"></i> Dashboard</h1>
+                    <p>Real-time overview of installations, generation and system health.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card grad-1">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div><span>Active Clients</span><strong id="statClients">0</strong></div>
+                    </div>
+                    <div class="stat-card grad-2">
+                        <div class="stat-icon"><i class="fas fa-solar-panel"></i></div>
+                        <div><span>Solar Panels Online</span><strong id="statPanels">0</strong></div>
+                    </div>
+                    <div class="stat-card grad-3">
+                        <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                        <div><span>Generation Today</span><strong id="statGen">0 kWh</strong></div>
+                    </div>
+                    <div class="stat-card grad-4">
+                        <div class="stat-icon"><i class="fas fa-triangle-exclamation"></i></div>
+                        <div><span>Faults Detected</span><strong id="statFaults">0</strong></div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-chart-area"></i> Power Generation (Last 24h)</h3></div>
+                        <canvas id="genChart" height="200"></canvas>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-heart-pulse"></i> System Health</h3></div>
+                        <div id="healthList" class="health-list"></div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3><i class="fas fa-clock-rotate-left"></i> Recent Activity</h3>
+                    </div>
+                    <ul id="activityFeed" class="activity-feed"></ul>
+                </div>
+            </section>
+
+            <!-- ============ MONITORING VIEW ============ -->
+            <section class="view" data-view="monitoring">
+                <div class="view-header">
+                    <h1><i class="fas fa-satellite-dish"></i> Live Equipment Monitoring</h1>
+                    <p>Each installed device transmits status via its embedded chip. Green = operational, Red = fault.</p>
+                </div>
+
+                <div class="filter-bar">
+                    <select id="monClientFilter"><option value="">All Clients</option></select>
+                    <select id="monTypeFilter">
+                        <option value="">All Equipment</option>
+                        <option value="panel">Solar Panels</option>
+                        <option value="inverter">Inverters</option>
+                        <option value="controller">Charge Controllers</option>
+                        <option value="battery">Batteries</option>
+                        <option value="sprinkler">Sprinklers</option>
+                    </select>
+                    <button class="btn-primary" id="refreshDevices"><i class="fas fa-rotate"></i> Refresh</button>
+                </div>
+
+                <div id="deviceGrid" class="device-grid"></div>
+            </section>
+
+            <!-- ============ CLIENTS VIEW ============ -->
+            <section class="view" data-view="clients">
+                <div class="view-header">
+                    <h1><i class="fas fa-users"></i> Clients</h1>
+                    <p>Each client gets a unique monitoring ID linked to their installed devices.</p>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="btn-primary" id="addClientBtn"><i class="fas fa-plus"></i> Add Client</button>
+                    <input type="text" id="clientSearch" placeholder="Search by name or ID...">
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Client ID</th><th>Name</th><th>Location</th><th>Devices</th>
+                                <th>Status</th><th>Installed</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============ QUOTATION VIEW ============ -->
+            <section class="view" data-view="quotation">
+                <div class="view-header">
+                    <h1><i class="fas fa-file-invoice-dollar"></i> Quotation System</h1>
+                    <p>Create manual quotes or auto-generate from appliance wattage requirements.</p>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" data-tab="autoQuote">Quotation Builder</button>
+                    <button class="tab" data-tab="applianceQuote">Appliance-Based Quote</button>
+                    <button class="tab" data-tab="manualPricedQuote">Manual Quotation</button>
+                    <button class="tab" data-tab="manualQuote">Simple Line Items</button>
+                    <button class="tab" data-tab="quoteHistory">History</button>
+                </div>
+
+                <!-- QUOTATION BUILDER (manual entry — based on Quotation.docx) -->
+                <div class="tab-pane active" data-pane="autoQuote">
+                    <div class="grid-2">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3><i class="fas fa-bolt"></i> Energy Profile &amp; System Sizing</h3>
+                                <select id="qbPreset" class="qb-preset" title="Load a preset based on Prices.pdf">
+                                    <option value="">— Load preset —</option>
+                                </select>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-gauge"></i> Energy Profile</h4>
+                                <div class="qb-grid-2">
+                                    <label>Consumer Type
+                                        <select id="qbConsumerType">
+                                            <option value="residential">Residential (24-hr backup)</option>
+                                            <option value="business">Small Business (day-only)</option>
+                                            <option value="commercial">Commercial / Industrial</option>
+                                        </select></label>
+                                    <label>Monthly Bill (₱) <span class="qb-hint">optional</span>
+                                        <input type="number" id="qbMonthlyBill" min="0" step="1" placeholder="e.g. 9,000"></label>
+                                    <label>Monthly Consumption (kWh) <span class="qb-hint">or daily below</span>
+                                        <input type="number" id="qbMonthlyKwh" min="0" step="0.1" placeholder="e.g. 730"></label>
+                                    <label>Daily Consumption (kWh)
+                                        <input type="number" id="qbDailyKwh" min="0" step="0.01" placeholder="e.g. 24.33"></label>
+                                    <label>System Size (kW)
+                                        <input type="number" id="qbSystemKw" min="0" step="0.1" placeholder="auto"></label>
+                                    <label>Peak Load (W)
+                                        <input type="number" id="qbPeakW" min="0" placeholder="auto"></label>
+                                    <label>Sun Hours (PH avg)
+                                        <input type="number" id="qbSunHours" min="1" step="0.1" value="4.5"></label>
+                                    <label>System Efficiency (0–1)
+                                        <input type="number" id="qbSysEff" min="0.5" max="1" step="0.01" value="0.80"></label>
+                                    <label>Preferred Panel Wattage <span class="qb-hint">forces panel size</span>
+                                        <select id="qbPanelW">
+                                            <option value="auto">Auto (recommended)</option>
+                                            <option value="60">60 W</option>
+                                            <option value="120">120 W</option>
+                                            <option value="240">240 W</option>
+                                            <option value="500">500 W</option>
+                                            <option value="620">620 W</option>
+                                            <option value="1000">1000 W</option>
+                                        </select></label>
+                                </div>
+                                <div class="qb-autosize-row">
+                                    <button class="btn-primary btn-sm" id="qbAutoSizeBtn"><i class="fas fa-wand-magic-sparkles"></i> Auto-Size System</button>
+                                    <small class="muted">Computes wattage, panels, inverter &amp; battery from your consumption — no appliance list needed.</small>
+                                </div>
+                                <div id="qbSizingNote" class="qb-sizing-note"></div>
+                            </div>
+
+                            <div class="qb-section">
+                                <div class="qb-sec-head">
+                                    <h4><i class="fas fa-solar-panel"></i> Components</h4>
+                                    <button class="btn-ghost btn-sm" id="qbAddRowBtn"><i class="fas fa-plus"></i> Add Row</button>
+                                </div>
+                                <div class="qb-table-wrap">
+                                <table class="data-table compact qb-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="qb-col-comp">Component</th>
+                                            <th>Technical Detail</th>
+                                            <th class="qb-col-qty">Qty</th>
+                                            <th class="qb-col-price">Unit Price (₱)</th>
+                                            <th class="qb-col-sub">Subtotal</th>
+                                            <th class="qb-col-del"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="qbRows"></tbody>
+                                </table>
+                                </div>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-file-signature"></i> Net Metering (Optional)</h4>
+                                <label class="qb-toggle">
+                                    <input type="checkbox" id="qbNetMeter">
+                                    <span>Include Net Metering &amp; Permitting (₱75,000)</span>
+                                </label>
+                                <div class="qb-netmeter-detail muted" id="qbNetMeterDetail">
+                                    LGU Permits ₱6,500 · DIS/DAS Fees ₱5,000 · Bi-directional Meter ₱3,500 ·
+                                    ERC Application ₱2,500 · Documentation ₱7,500 · Electrical Engineer Cert. ₱50,000
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fas fa-receipt"></i> Quotation Summary</h3></div>
+                            <div id="qbSummary" class="qb-summary"></div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-chart-line"></i> ROI (CAGELCO II)</h4>
+                                <div class="qb-grid-2">
+                                    <label>Electric Rate (₱/kWh)
+                                        <input type="number" id="qbRate" min="0" step="0.01" value="12.27"></label>
+                                    <label>Annual Generation Days
+                                        <input type="number" id="qbDays" min="1" value="365"></label>
+                                </div>
+                                <div id="qbRoi" class="qb-roi"></div>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-clipboard-list"></i> Project Details &amp; Terms</h4>
+                                <div class="qb-grid-2">
+                                    <label>Quote No. <input type="text" id="qbQuoteNo" placeholder="auto"></label>
+                                    <label>Validity (days) <input type="number" id="qbValidity" value="30" min="1"></label>
+                                    <label class="qb-fullrow">Project Title <input type="text" id="qbProjectTitle" placeholder="e.g. Residential Hybrid Solar System — 5kW"></label>
+                                </div>
+                                <label class="qb-fullrow">Scope of Work
+                                    <textarea id="qbScope" rows="3" placeholder="Supply, delivery, installation and commissioning of a complete grid-tied hybrid solar PV system including engineering design, electrical wiring, and site testing."></textarea>
+                                </label>
+                                <div class="qb-grid-2">
+                                    <label class="qb-fullrow">Inclusions
+                                        <textarea id="qbInclusions" rows="3" placeholder="• Site survey & engineering design&#10;• All listed equipment & components&#10;• Mechanical & electrical installation&#10;• System commissioning & turnover&#10;• 1-year free maintenance check-up"></textarea>
+                                    </label>
+                                    <label class="qb-fullrow">Exclusions
+                                        <textarea id="qbExclusions" rows="3" placeholder="• Civil/structural reinforcement (if needed)&#10;• Re-roofing or roof modifications&#10;• Long-distance cable runs (>15m from inverter)&#10;• Net-metering fees (unless separately quoted)"></textarea>
+                                    </label>
+                                </div>
+                                <label class="qb-fullrow">Payment Terms
+                                    <textarea id="qbPayment" rows="2" placeholder="50% Down Payment upon contract signing • 40% upon delivery of equipment • 10% upon system commissioning & turnover"></textarea>
+                                </label>
+                                <label class="qb-fullrow">Warranty
+                                    <textarea id="qbWarranty" rows="2" placeholder="• Solar Panels: 25-year linear power output, 12-year product&#10;• Hybrid Inverter: 10 years&#10;• Battery: 5 years (or 6,000 cycles)&#10;• Workmanship & Installation: 2 years"></textarea>
+                                </label>
+                                <label class="qb-fullrow">Notes / Remarks
+                                    <textarea id="qbNotes" rows="2" placeholder="Optional remarks visible on the printed quotation."></textarea>
+                                </label>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-user"></i> Client Details</h4>
+                                <div class="form-row">
+                                    <input type="text" id="autoClientName" placeholder="Client name">
+                                    <input type="text" id="autoClientLoc" placeholder="Location">
+                                </div>
+                                <div class="form-row">
+                                    <button class="btn-primary" id="generateQuoteBtn"><i class="fas fa-file-invoice"></i> Save Quotation</button>
+                                    <button class="btn-ghost" id="printQuoteBtn"><i class="fas fa-print"></i> Print / PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- APPLIANCE-BASED QUOTE — pricing built from total appliance wattage -->
+                <div class="tab-pane" data-pane="applianceQuote">
+                    <div class="grid-2">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3><i class="fas fa-plug"></i> Appliance / Equipment List</h3>
+                                <select id="apPreset" class="qb-preset" title="Quick-load typical loads">
+                                    <option value="">— Quick load preset —</option>
+                                    <optgroup label="Residential">
+                                        <option value="basic">Basic Home (lights, fans, TV, fridge)</option>
+                                        <option value="family">Family Home (+ AC, washing machine)</option>
+                                    </optgroup>
+                                    <optgroup label="Small Business">
+                                        <option value="office">Small Office (computers, printer, AC)</option>
+                                        <option value="store">Retail Store (lights, AC, refrigeration)</option>
+                                    </optgroup>
+                                    <optgroup label="Commercial / Industrial">
+                                        <option value="printing">Publishing / Printing Press (offset, plotters, CTP, compressor)</option>
+                                        <option value="dealership">Car / Truck Dealership (showroom, lifts, body shop, ~₱100k/mo)</option>
+                                        <option value="hardware">Hardware Store (warehouse lights, paint mixer, forklift charger)</option>
+                                        <option value="resort">Resort (guest rooms, kitchen, pool, laundry)</option>
+                                        <option value="hotel">Hotel (rooms, central AC, kitchen, elevators)</option>
+                                    </optgroup>
+                                    <optgroup label="Government Office">
+                                        <option value="barangay">Barangay Hall (offices, session hall, streetlights)</option>
+                                        <option value="municipal">Municipal Hall (depts., session hall, server, elevator)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div class="qb-section">
+                                <div class="qb-sec-head">
+                                    <h4><i class="fas fa-list"></i> Appliances</h4>
+                                    <div class="qb-sec-actions">
+                                        <button class="btn-ghost btn-sm" id="apAddRowBtn"><i class="fas fa-plus"></i> Add Appliance</button>
+                                        <button class="btn-ghost btn-sm" id="apClearBtn"><i class="fas fa-eraser"></i> Clear</button>
+                                    </div>
+                                </div>
+                                <div class="qb-table-wrap">
+                                <table class="data-table compact qb-table ap-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Appliance / Equipment</th>
+                                            <th class="num-col">Watts</th>
+                                            <th class="num-col">Qty</th>
+                                            <th class="num-col">Hrs/day</th>
+                                            <th class="num-col">Daily kWh</th>
+                                            <th class="num-col">Peak W</th>
+                                            <th class="del-col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="apRows"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class="ap-totals-label">Totals</th>
+                                            <th id="apTotalKwh" class="num-col">0.00 kWh</th>
+                                            <th id="apTotalPeak" class="num-col">0 W</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                </div>
+                                <p class="muted ap-hint">
+                                    <i class="fas fa-circle-info"></i>
+                                    <strong>Daily kWh</strong> = Watts × Qty × Hrs ÷ 1000 &nbsp;·&nbsp;
+                                    <strong>Peak W</strong> = Watts × Qty (assumes simultaneous use)
+                                </p>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-sliders"></i> Sizing Parameters</h4>
+                                <div class="qb-grid-2">
+                                    <label>Consumer Type
+                                        <select id="apConsumerType">
+                                            <option value="residential">Residential (24-hr backup)</option>
+                                            <option value="business">Small Business (day-only)</option>
+                                            <option value="commercial">Commercial / Industrial</option>
+                                        </select></label>
+                                    <label>Sun Hours (PH avg)
+                                        <input type="number" id="apSunHours" min="1" step="0.1" value="4.5"></label>
+                                    <label>System Efficiency (0–1)
+                                        <input type="number" id="apSysEff" min="0.5" max="1" step="0.01" value="0.80"></label>
+                                    <label>Diversity Factor (0–1) <span class="qb-hint">% of peaks coinciding</span>
+                                        <input type="number" id="apDiversity" min="0.3" max="1" step="0.05" value="0.70"></label>
+                                    <label>Preferred Panel Wattage <span class="qb-hint">forces panel size</span>
+                                        <select id="apPanelW">
+                                            <option value="auto">Auto (recommended)</option>
+                                            <option value="60">60 W</option>
+                                            <option value="120">120 W</option>
+                                            <option value="240">240 W</option>
+                                            <option value="500">500 W</option>
+                                            <option value="620">620 W</option>
+                                            <option value="1000">1000 W</option>
+                                        </select></label>
+                                </div>
+                                <div class="qb-autosize-row">
+                                    <button class="btn-primary btn-sm" id="apBuildQuoteBtn">
+                                        <i class="fas fa-wand-magic-sparkles"></i> Build Quote from Wattage
+                                    </button>
+                                    <small class="muted">Sizes the system from total appliance wattage and daily kWh — then prices each component.</small>
+                                </div>
+                                <div class="qb-autosize-row qb-bill-row">
+                                    <div class="qb-bill-field">
+                                        <label class="qb-bill-label">Monthly Bill (₱) <span class="qb-hint">no appliance list needed</span>
+                                            <input type="number" id="apMonthlyBill" min="0" step="1" placeholder="e.g. 9,000" class="qb-bill-input">
+                                        </label>
+                                    </div>
+                                    <div class="qb-bill-field">
+                                        <label class="qb-bill-label">— or — Monthly kWh
+                                            <input type="number" id="apMonthlyKwh" min="0" step="0.1" placeholder="e.g. 730" class="qb-bill-input">
+                                        </label>
+                                    </div>
+                                    <button class="btn-primary btn-sm" id="apBuildFromBillBtn" type="button">
+                                        <i class="fas fa-receipt"></i> Build from Monthly Bill
+                                    </button>
+                                    <button class="btn-secondary btn-sm" id="apFitHoursBtn" type="button" title="Scale every appliance's Hrs/day so the total daily kWh matches the monthly bill or kWh entered above.">
+                                        <i class="fas fa-clock-rotate-left"></i> Auto-fit Hours from Bill
+                                    </button>
+                                </div>
+                                <div id="apSizingNote" class="qb-sizing-note"></div>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-file-signature"></i> Net Metering (Optional)</h4>
+                                <label class="qb-toggle">
+                                    <input type="checkbox" id="apNetMeter">
+                                    <span>Include Net Metering &amp; Permitting (₱75,000)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head"><h3><i class="fas fa-receipt"></i> Computed Quotation</h3></div>
+                            <div id="apSummary" class="qb-summary"></div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-chart-line"></i> ROI (CAGELCO II)</h4>
+                                <div class="qb-grid-2">
+                                    <label>Electric Rate (₱/kWh)
+                                        <input type="number" id="apRate" min="0" step="0.01" value="12.27"></label>
+                                    <label>Annual Generation Days
+                                        <input type="number" id="apDays" min="1" value="365"></label>
+                                </div>
+                                <div id="apRoi" class="qb-roi"></div>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-clipboard-list"></i> Project Details &amp; Terms</h4>
+                                <div class="qb-grid-2">
+                                    <label>Quote No. <input type="text" id="apQuoteNo" placeholder="auto"></label>
+                                    <label>Validity (days) <input type="number" id="apValidity" value="30" min="1"></label>
+                                    <label class="qb-fullrow">Project Title <input type="text" id="apProjectTitle" placeholder="e.g. Appliance-Based Solar System"></label>
+                                </div>
+                                <label class="qb-fullrow">Notes / Remarks
+                                    <textarea id="apNotes" rows="2" placeholder="Optional remarks visible on the printed quotation."></textarea>
+                                </label>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-user"></i> Client Details</h4>
+                                <div class="form-row">
+                                    <input type="text" id="apClientName" placeholder="Client name">
+                                    <input type="text" id="apClientLoc" placeholder="Location">
+                                </div>
+                                <div class="form-row">
+                                    <button class="btn-primary" id="apSaveQuoteBtn"><i class="fas fa-file-invoice"></i> Save Quotation</button>
+                                    <button class="btn-ghost" id="apPrintQuoteBtn"><i class="fas fa-print"></i> Print / PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MANUAL PRICED QUOTE — appliance wattage auto, all amounts manual -->
+                <div class="tab-pane" data-pane="manualPricedQuote">
+                    <div class="grid-2">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3><i class="fas fa-plug"></i> Appliance / Equipment List</h3>
+                                <select id="mqPreset" class="qb-preset" title="Quick-load typical loads">
+                                    <option value="">— Quick load preset —</option>
+                                    <option value="basic">Basic Home (lights, fans, TV, fridge)</option>
+                                    <option value="family">Family Home (+ AC, washing machine)</option>
+                                    <option value="office">Small Office (computers, printer, AC)</option>
+                                    <option value="store">Retail Store (lights, AC, refrigeration)</option>
+                                </select>
+                            </div>
+
+                            <div class="qb-section">
+                                <div class="qb-sec-head">
+                                    <h4><i class="fas fa-list"></i> Appliances</h4>
+                                    <div class="qb-sec-actions">
+                                        <button class="btn-ghost btn-sm" id="mqAddRowBtn"><i class="fas fa-plus"></i> Add Appliance</button>
+                                        <button class="btn-ghost btn-sm" id="mqClearBtn"><i class="fas fa-eraser"></i> Clear</button>
+                                    </div>
+                                </div>
+                                <div class="qb-table-wrap">
+                                <table class="data-table compact qb-table ap-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Appliance / Equipment</th>
+                                            <th class="num-col">Watts</th>
+                                            <th class="num-col">Qty</th>
+                                            <th class="num-col">Hrs/day</th>
+                                            <th class="num-col">Daily kWh</th>
+                                            <th class="num-col">Peak W</th>
+                                            <th class="del-col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mqRows"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class="ap-totals-label">Totals</th>
+                                            <th id="mqTotalKwh" class="num-col">0.00 kWh</th>
+                                            <th id="mqTotalPeak" class="num-col">0 W</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                </div>
+                                <p class="muted ap-hint">
+                                    <i class="fas fa-circle-info"></i>
+                                    Total Connected Wattage is computed automatically — use it as your sizing reference.
+                                    All quotation amounts on the right are entered <strong>manually</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h3><i class="fas fa-receipt"></i> Computed Quotation <small class="note-muted">(manual amounts)</small></h3>
+                                <div class="qb-sec-actions">
+                                    <button class="btn-ghost btn-sm" id="mqSeedBtn" title="Pre-fill standard component lines"><i class="fas fa-list-check"></i> Seed Standard Lines</button>
+                                    <button class="btn-ghost btn-sm" id="mqAddQuoteRowBtn"><i class="fas fa-plus"></i> Add Line</button>
+                                    <button class="btn-ghost btn-sm" id="mqClearQuoteBtn"><i class="fas fa-eraser"></i> Clear</button>
+                                </div>
+                            </div>
+
+                            <div class="qb-section">
+                                <div class="qb-table-wrap">
+                                <table class="data-table compact qb-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th class="num-col">Qty</th>
+                                            <th class="num-col">Unit Price (₱)</th>
+                                            <th class="num-col mq-cost-col" data-print-hide="1" title="Internal unit cost — not printed">Unit Cost (₱)</th>
+                                            <th class="num-col">Subtotal</th>
+                                            <th class="del-col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mqQuoteRows"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class="qb-foot-label">Components Subtotal</th>
+                                            <th id="mqComponentsTotal" class="num-col">₱0.00</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4" class="qb-foot-label">GRAND TOTAL</th>
+                                            <th id="mqGrandTotal" class="num-col qb-grand-total">₱0.00</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr class="mq-np-row" data-print-hide="1">
+                                            <th colspan="4" class="qb-foot-label mq-cost-blue"><i class="fas fa-coins"></i> Total Component Cost <small>(internal — not printed)</small></th>
+                                            <th id="mqCostTotal" class="num-col mq-cost-blue">₱0.00</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr class="mq-np-row" data-print-hide="1">
+                                            <th colspan="4" class="qb-foot-label mq-cost-green"><i class="fas fa-coins"></i> Net Proceed <small>(internal — not printed)</small></th>
+                                            <th id="mqNetProceed" class="num-col mq-cost-green mq-bold">₱0.00</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                </div>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-file-signature"></i> Net Metering (Optional)</h4>
+                                <label class="qb-toggle">
+                                    <input type="checkbox" id="mqNetMeter">
+                                    <span>Include Net Metering &amp; Permitting (₱75,000)</span>
+                                </label>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-clipboard-list"></i> Project Details &amp; Terms</h4>
+                                <div class="qb-grid-2">
+                                    <label>Quote No. <input type="text" id="mqQuoteNo" placeholder="auto"></label>
+                                    <label>Validity (days) <input type="number" id="mqValidity" value="30" min="1"></label>
+                                    <label class="qb-fullrow">Project Title <input type="text" id="mqProjectTitle" placeholder="e.g. Custom Solar System"></label>
+                                </div>
+                                <label class="qb-fullrow">Notes / Remarks
+                                    <textarea id="mqNotes" rows="2" placeholder="Optional remarks visible on the printed quotation."></textarea>
+                                </label>
+                            </div>
+
+                            <div class="qb-section">
+                                <h4><i class="fas fa-user"></i> Client Details</h4>
+                                <div class="form-row">
+                                    <input type="text" id="mqClientName" placeholder="Client name">
+                                    <input type="text" id="mqClientLoc" placeholder="Location">
+                                </div>
+                                <div class="form-row">
+                                    <button class="btn-primary" id="mqSaveQuoteBtn"><i class="fas fa-file-invoice"></i> Save Quotation</button>
+                                    <button class="btn-ghost" id="mqPrintQuoteBtn"><i class="fas fa-print"></i> Print / PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MANUAL QUOTE -->
+                <div class="tab-pane" data-pane="manualQuote">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-pen-to-square"></i> Manual Quotation Builder</h3></div>
+                        <div class="form-row">
+                            <input type="text" id="mClient" placeholder="Client name">
+                            <input type="text" id="mLocation" placeholder="Location">
+                            <input type="date" id="mDate">
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="mItem" placeholder="Item / description">
+                            <input type="number" id="mQty" placeholder="Qty" min="1" value="1">
+                            <input type="number" id="mPrice" placeholder="Unit price (₱)" min="0" step="0.01">
+                            <input type="number" id="mCost" placeholder="Unit cost (₱, internal)" min="0" step="0.01" title="Internal unit cost — not printed">
+                            <button class="btn-primary" id="addManualItem"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                        <table class="data-table compact">
+                            <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th class="mq-cost-col" data-print-hide="1">Unit Cost <small>(internal)</small></th><th>Subtotal</th><th></th></tr></thead>
+                            <tbody id="manualItems"></tbody>
+                            <tfoot>
+                                <tr><th colspan="4">Total</th><th id="manualTotal">₱0.00</th><th></th></tr>
+                                <tr class="mq-np-row" data-print-hide="1"><th colspan="4" class="mq-cost-blue"><i class="fas fa-coins"></i> Total Component Cost <small>(internal — not printed)</small></th><th id="manualCostTotal" class="mq-cost-blue">₱0.00</th><th></th></tr>
+                                <tr class="mq-np-row" data-print-hide="1"><th colspan="4" class="mq-cost-green"><i class="fas fa-coins"></i> Net Proceed <small>(internal — not printed)</small></th><th id="manualNetProceed" class="mq-cost-green mq-bold">₱0.00</th><th></th></tr>
+                            </tfoot>
+                        </table>
+                        <div class="form-row">
+                            <button class="btn-primary" id="saveManualQuote"><i class="fas fa-save"></i> Save Quotation</button>
+                            <button class="btn-ghost" id="printManualQuote"><i class="fas fa-print"></i> Print</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HISTORY -->
+                <div class="tab-pane" data-pane="quoteHistory">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-clock-rotate-left"></i> Quotation History</h3></div>
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead><tr><th>Quote #</th><th>Client</th><th>Date</th><th>Type</th><th>Total</th><th>Actions</th></tr></thead>
+                                <tbody id="quoteHistoryTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ SPRINKLER VIEW ============ -->
+            <section class="view" data-view="sprinkler">
+                <div class="view-header">
+                    <h1><i class="fas fa-shower"></i> Sprinkler Cleaning Automation</h1>
+                    <p>Automated cleaning triggers — set schedules or trigger manually per client installation.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-sliders"></i> Global Triggers</h3></div>
+                        <div class="trigger-row">
+                            <label class="switch"><input type="checkbox" id="trigDust" checked><span></span></label>
+                            <div><strong>Dust Level Trigger</strong><small>Activates when soiling > <input type="number" id="dustThresh" value="40" min="1" max="100" class="inline-num">%</small></div>
+                        </div>
+                        <div class="trigger-row">
+                            <label class="switch"><input type="checkbox" id="trigTemp" checked><span></span></label>
+                            <div><strong>Temperature Trigger</strong><small>Activates when panel temp > <input type="number" id="tempThresh" value="55" min="30" max="90" class="inline-num">°C</small></div>
+                        </div>
+                        <div class="trigger-row">
+                            <label class="switch"><input type="checkbox" id="trigSchedule" checked><span></span></label>
+                            <div><strong>Scheduled Cleaning</strong><small>Daily at <input type="time" id="schedTime" value="05:30" class="inline-num"></small></div>
+                        </div>
+                        <div class="trigger-row">
+                            <label class="switch"><input type="checkbox" id="trigEfficiency"><span></span></label>
+                            <div><strong>Efficiency Drop Trigger</strong><small>When output drops > 15% vs baseline</small></div>
+                        </div>
+                        <div class="trigger-row">
+                            <label class="switch"><input type="checkbox" id="trigRainSkip" checked><span></span></label>
+                            <div><strong>Skip on Rain</strong><small>Cancel cleaning if rain detected</small></div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-droplet"></i> Sprinkler Network</h3></div>
+                        <div id="sprinklerList" class="sprinkler-list"></div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head"><h3><i class="fas fa-list-check"></i> Cleaning Log</h3></div>
+                    <ul id="cleaningLog" class="activity-feed"></ul>
+                </div>
+            </section>
+
+            <!-- ============ ALERTS VIEW ============ -->
+            <section class="view" data-view="alerts">
+                <div class="view-header">
+                    <h1><i class="fas fa-bell"></i> System Alerts</h1>
+                    <p>Equipment faults, low output warnings and security notices.</p>
+                </div>
+                <div class="panel">
+                    <ul id="alertList" class="activity-feed"></ul>
+                </div>
+            </section>
+
+            <!-- ============ SETTINGS VIEW ============ -->
+            <section class="view" data-view="settings">
+                <div class="view-header">
+                    <h1><i class="fas fa-gear"></i> Settings</h1>
+                    <p>Admin credentials, pricing, and system configuration.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-user-lock"></i> Change Credentials</h3></div>
+                        <div class="form-group"><label>New Username</label><input type="text" id="setUser"></div>
+                        <div class="form-group"><label>New Password</label><input type="password" id="setPass"></div>
+                        <button class="btn-primary" id="saveCreds"><i class="fas fa-save"></i> Save</button>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><h3><i class="fas fa-peso-sign"></i> Pricing Configuration</h3></div>
+                        <div class="form-group"><label>Cost per Watt of Panel (₱)</label><input type="number" id="priceWatt" value="45"></div>
+                        <div class="form-group"><label>Cost per kWh Battery (₱)</label><input type="number" id="priceBattery" value="18000"></div>
+                        <div class="form-group"><label>Inverter cost per kW (₱)</label><input type="number" id="priceInverter" value="8500"></div>
+                        <div class="form-group"><label>Installation labor (₱)</label><input type="number" id="priceLabor" value="15000"></div>
+                        <button class="btn-primary" id="savePricing"><i class="fas fa-save"></i> Save Pricing</button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head"><h3><i class="fas fa-database"></i> Data Management</h3></div>
+                    <div class="form-row">
+                        <button class="btn-ghost" id="exportData"><i class="fas fa-download"></i> Export All Data (JSON)</button>
+                        <button class="btn-ghost" id="seedData"><i class="fas fa-flask"></i> Load Demo Data</button>
+                        <button class="btn-danger" id="resetData"><i class="fas fa-trash"></i> Reset All Data</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ============ MODAL ============ -->
+    <div id="modalOverlay" class="modal-overlay" hidden>
+        <div class="modal" id="modalBox">
+            <div class="modal-head"><h3 id="modalTitle">Modal</h3><button class="icon-btn" id="modalClose">&times;</button></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ============ INLINE AUTH — cannot be browser-cached, always fresh ============ -->
+    <script>
+    (function () {
+        var STORE = 'topshelf_admin_v1';
+        var DEFAULT_USER = 'admin';
+        var DEFAULT_PASS = 'solar2026';
+
+        function getStoredCreds() {
+            try {
+                var s = JSON.parse(localStorage.getItem(STORE) || '{}');
+                return {
+                    user: (s.creds && s.creds.user) ? s.creds.user : DEFAULT_USER,
+                    pass: (s.creds && s.creds.pass) ? s.creds.pass : DEFAULT_PASS
+                };
+            } catch (e) {
+                return { user: DEFAULT_USER, pass: DEFAULT_PASS };
+            }
+        }
+
+        function revealApp() {
+            var gate = document.getElementById('loginGate');
+            var app  = document.getElementById('adminApp');
+            if (gate) { gate.hidden = true;  gate.style.display = 'none'; }
+            if (app)  { app.hidden  = false; app.style.display  = 'grid'; }
+        }
+        function hideApp() {
+            var gate = document.getElementById('loginGate');
+            var app  = document.getElementById('adminApp');
+            if (gate) { gate.hidden = false; gate.style.display = 'flex'; }
+            if (app)  { app.hidden  = true;  app.style.display  = 'none'; }
+        }
+        // Ensure correct initial state regardless of CSS
+        if (sessionStorage.getItem('admin_auth') !== '1') hideApp();
+
+        // Already authenticated — show app immediately (admin.js will call boot)
+        if (sessionStorage.getItem('admin_auth') === '1') {
+            revealApp();
+        }
+
+        // Form submit — runs even if admin.js fails to load
+        var form = document.getElementById('loginForm');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var u = (document.getElementById('loginUser').value || '').trim();
+                var p =  document.getElementById('loginPass').value || '';
+                var creds = getStoredCreds();
+                var ok = (u === creds.user && p === creds.pass) ||
+                         (u === DEFAULT_USER && p === DEFAULT_PASS);
+                if (ok) {
+                    sessionStorage.setItem('admin_auth', '1');
+                    revealApp();
+                    // Kick admin.js boot if it loaded successfully
+                    if (typeof window.__adminBoot === 'function') window.__adminBoot();
+                } else {
+                    var err = document.getElementById('loginError');
+                    if (err) err.textContent = 'Invalid credentials. Default: admin / solar2026';
+                    var card = document.querySelector('.login-card');
+                    if (card) { card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake'); }
+                }
+            });
+        }
+
+        // Eye toggle
+        var eyeBtn = document.getElementById('togglePass');
+        if (eyeBtn) {
+            eyeBtn.addEventListener('click', function () {
+                var inp  = document.getElementById('loginPass');
+                var icon = document.getElementById('eyeIcon');
+                if (!inp) return;
+                if (inp.type === 'password') {
+                    inp.type = 'text';
+                    if (icon) icon.className = 'fas fa-eye-slash';
+                } else {
+                    inp.type = 'password';
+                    if (icon) icon.className = 'fas fa-eye';
+                }
+            });
+        }
+
+        // Reset to defaults
+        var resetBtn = document.getElementById('resetCreds');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (confirm('Reset admin credentials to defaults?\n  Username: admin\n  Password: solar2026')) {
+                    localStorage.removeItem(STORE);
+                    sessionStorage.removeItem('admin_auth');
+                    location.reload();
+                }
+            });
+        }
+
+        // Clear input error on type
+        ['loginUser', 'loginPass'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.addEventListener('input', function () {
+                var err = document.getElementById('loginError');
+                if (err) err.textContent = '';
+            });
+        });
+    })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="js/admin.js?v=20260427h"></script>
+</body>
+</html>
